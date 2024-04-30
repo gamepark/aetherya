@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { AetheryaRules } from './AetheryaRules'
+export { AetheryaOptionsSpec } from './AetheryaOptions'
+export { AetheryaSetup } from './AetheryaSetup'

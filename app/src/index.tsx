@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { GameTemplateOptionsSpec } from '@gamepark/game-template/GameTemplateOptions'
-import { GameTemplateRules } from '@gamepark/game-template/GameTemplateRules'
-import { GameTemplateSetup } from '@gamepark/game-template/GameTemplateSetup'
+import { AetheryaOptionsSpec } from '@gamepark/aetherya/AetheryaOptions'
+import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
+import { AetheryaSetup } from '@gamepark/aetherya/AetheryaSetup'
 import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -14,7 +14,7 @@ setupTranslation(translations, { debug: false })
 
 ReactDOM.render(
   <StrictMode>
-    <GameProvider game="game-template" Rules={GameTemplateRules} optionsSpec={GameTemplateOptionsSpec} GameSetup={GameTemplateSetup}
+    <GameProvider game="aetherya" Rules={AetheryaRules} optionsSpec={AetheryaOptionsSpec} GameSetup={AetheryaSetup}
                   material={Material} locators={Locators} animations={new MaterialGameAnimations()}>
       <App/>
     </GameProvider>

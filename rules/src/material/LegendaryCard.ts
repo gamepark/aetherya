@@ -10,7 +10,7 @@ export enum LegendaryCard {
   TwoVsOne_GoblinElf = 9,
   TwoVsOne_GoblinDwarf = 10,
   TwoVsOne_ElfDwarf = 11,
-  ThreeLinkedFarms = 12,
+  ThreeLinkedPlains = 12,
   ThreeLinkedSwamps = 13,
   ThreeLinkedMountains = 14,
   ThreeLinkedForests = 15

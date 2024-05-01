@@ -1,6 +1,8 @@
 {
   "en": {
     "translation": {
+      "Name": "Aetherya",
+      "draw.legendary": "<0>Draw</0> legendary or pick from discard",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Validate",

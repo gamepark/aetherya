@@ -7,7 +7,11 @@ import {
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
-import { PlayerTurn } from './rules/PlayerTurn'
+import { ChooseLegendaryCardRule } from './rules/ChooseLegendaryCardRule'
+import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
+import { PrepareGameRule } from './rules/PrepareGameRule'
+import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
+import { ScoreRule } from './rules/ScoreRule'
 import { RuleId } from './rules/RuleId'
 // import { PlayerId } from './PlayerId'
 
@@ -34,7 +38,11 @@ export const alwaysHide: HidingStrategy = () => {
  */
 export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
   rules = {
-    [RuleId.PlayerTurn]: PlayerTurn
+    [RuleId.PrepareGame]: PrepareGameRule,
+    [RuleId.ChooseBoardLocation]: ChooseBoardLocationRule,
+    [RuleId.ChooseLegendaryCard]: ChooseLegendaryCardRule,
+    [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
+    [RuleId.Score]: ScoreRule
   }
 
   locationsStrategies = {

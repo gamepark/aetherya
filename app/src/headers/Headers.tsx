@@ -5,10 +5,16 @@ import { ChooseLegendaryCardHeader } from './ChooseLegendaryCardHeader'
 import { ChooseBoardLocationHeader } from './ChooseBoardLocationHeader'
 import { RevealAllBoardCardsHeader } from './RevealAllBoardCardsHeader'
 import { ScoreHeader } from './ScoreHeader'
+import { ErrorHeader } from './ErrorHeader'
+import { OkHeader } from './OkHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.ChooseLegendaryCard]: ChooseLegendaryCardHeader,
   [RuleId.ChooseBoardLocation]: ChooseBoardLocationHeader,
   [RuleId.RevealAllBoardCards]: RevealAllBoardCardsHeader,
-  [RuleId.Score]: ScoreHeader
+  [RuleId.Score]: ScoreHeader,
+
+  // For debugging only
+  [RuleId.Ok]: OkHeader,
+  [RuleId.Error]: ErrorHeader
 }

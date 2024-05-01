@@ -12,6 +12,8 @@ import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
 import { ScoreRule } from './rules/ScoreRule'
+import { OkRule } from './rules/OkRule'
+import { ErrorRule } from './rules/ErrorRule'
 import { RuleId } from './rules/RuleId'
 // import { PlayerId } from './PlayerId'
 
@@ -32,6 +34,10 @@ export const alwaysHide: HidingStrategy = () => {
   return ['id']
 }
 
+export const alwaysShow: HidingStrategy = () => {
+  return []
+}
+
 /**
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
@@ -42,7 +48,11 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.ChooseBoardLocation]: ChooseBoardLocationRule,
     [RuleId.ChooseLegendaryCard]: ChooseLegendaryCardRule,
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
-    [RuleId.Score]: ScoreRule
+    [RuleId.Score]: ScoreRule,
+
+    // For debugging only
+    [RuleId.Ok]: OkRule,
+    [RuleId.Error]: ErrorRule
   }
 
   locationsStrategies = {
@@ -55,6 +65,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
   hidingStrategies = {
     [MaterialType.KingdomCard]: {
       [LocationType.KingdomDeck]: alwaysHide,
+      [LocationType.KingdomDiscard]: alwaysShow,
       [LocationType.PlayerBoard]: hideIfZPositive
 
 //      [LocationType.KingdomDiscard]: never,

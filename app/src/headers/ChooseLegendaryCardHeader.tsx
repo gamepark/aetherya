@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
-import { PlayMoveButton, useLegalMove, usePlayerId, /* usePlayerName, */ useRules } from '@gamepark/react-game'
+// import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
+// import { PlayMoveButton, useLegalMove, usePlayerId, /* usePlayerName, */ useRules } from '@gamepark/react-game'
 // import { isStartRule } from '@gamepark/rules-api'
-import { isCustomMoveType } from '@gamepark/rules-api'
-import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
+//import { isCustomMoveType } from '@gamepark/rules-api'
+//import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
 
 export const ChooseLegendaryCardHeader = () => {
+  return <>Piochez une carte légende ou Prenez celle de la défausse</>
+/*
   const rules = useRules<AetheryaRules>()!
   const playerId = usePlayerId()
 //  const draw = useLegalMove(isStartRule)
@@ -17,4 +19,5 @@ export const ChooseLegendaryCardHeader = () => {
   } else {
     return <>Piochez une carte légende ou Prenez celle de la défausse</>
   }
+*/
 }

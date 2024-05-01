@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { GridLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { PlayerBoardDescription } from './description/PlayerBoardDescription'
 import { kingdomCardDescription, spaceBetweenKingdomCards } from '../material/KingdomCardDescription'
 
-export class PlayerBoardLocator extends ItemLocator {
+export class PlayerBoardLocator extends GridLocator {
+  itemsPerLine = 4
+  itemsGap = { x: kingdomCardDescription.width + spaceBetweenKingdomCards }
+  linesGap = { y: kingdomCardDescription.height + spaceBetweenKingdomCards }
+
   locationDescription = new PlayerBoardDescription()
 
   getPosition(item: MaterialItem, context: ItemContext) {
-    const { x, y, z } = this.locationDescription.getCoordinates(item.location, context)
-    const posX = item.location.x!
-    const posY = item.location.y!
     return {
-      x: x + (kingdomCardDescription.width+spaceBetweenKingdomCards)*(posX-2.5),
-      y: y + (kingdomCardDescription.height+spaceBetweenKingdomCards)*(posY-2.5),
-      z
+      ...this.locationDescription.getCoordinates(item.location, context),
+      z:0.05
     }
   }
 }

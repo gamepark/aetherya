@@ -6,21 +6,21 @@ import { Location } from '@gamepark/rules-api'
 import { kingdomCardDescription } from '../../material/KingdomCardDescription'
 
 export class EventAreaDescription extends LocationDescription {
-  height = kingdomCardDescription.height + 0.8
-  width = kingdomCardDescription.width + 0.8
+  height = kingdomCardDescription.height
+  width = kingdomCardDescription.width
   borderRadius = kingdomCardDescription.borderRadius
 
   alwaysVisible = true
   extraCss = css`border: 0.05em solid white`
 
-  location = { type: LocationType.KingdomDeck }
+  location = { type: LocationType.EventArea }
   getCoordinates(_location: Location, _context: LocationContext) {
     return {
-      x: this.deckCoordinates.x - 0.4,
-      y: this.deckCoordinates.y - 0.4,
+      x: this.deckCoordinates.x,
+      y: this.deckCoordinates.y,
       z: 10
     }
   }
 
-  deckCoordinates = { x: -30, y: -20, z: 0}
+  deckCoordinates = { x: 0, y: -10, z: 0}
 }

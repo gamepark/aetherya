@@ -9,14 +9,23 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { PlayerTurn } from './rules/PlayerTurn'
 import { RuleId } from './rules/RuleId'
-import { PlayerId } from './PlayerId'
+// import { PlayerId } from './PlayerId'
 
 export const hideCardWhenNotRotated: HidingStrategy = (
-  item: MaterialItem, player?: PlayerId
+  item: MaterialItem
 ) => {
-  if (item.location.rotation) return []
-  // return item.location.player === player ? [] : ['id']
-  return item.location.player === player ? ['id'] : ['id']
+  return item.location.rotation ? ['id'] : []
+}
+
+export const hideIfZPositive: HidingStrategy = (
+  item: MaterialItem
+) => {
+  if (item.location.z === undefined) return ['id']
+  return item.location.z > 0 ? [] : ['id']
+}
+
+export const alwaysHide: HidingStrategy = () => {
+  return ['id']
 }
 
 /**
@@ -37,8 +46,16 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
 
   hidingStrategies = {
     [MaterialType.KingdomCard]: {
-      [LocationType.KingdomDeck]: hideCardWhenNotRotated,
-      [LocationType.KingdomDiscard]: hideCardWhenNotRotated
+      [LocationType.KingdomDeck]: alwaysHide,
+      [LocationType.PlayerBoard]: hideIfZPositive
+
+//      [LocationType.KingdomDiscard]: never,
+//      [LocationType.LegendaryLine]: never,
+//      [LocationType.PlayerLegendaryLine]: never,
+//      [LocationType.PlayerHand]: never
+    },
+    [MaterialType.LegendaryCard]: {
+      [LocationType.LegendaryDeck]: alwaysHide
     }
   }
 

@@ -1,13 +1,17 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { LocationContext, LocationDescription } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { legendaryCardDescription } from '../../material/LegendaryCardDescription'
 
 export class PlayerLegendaryLineDescription extends LocationDescription {
-  height = legendaryCardDescription.height + 0.8
-  width = legendaryCardDescription.width + 0.8
+  height = legendaryCardDescription.height + 2*11
+  width = legendaryCardDescription.width + 0.5*11
   borderRadius = legendaryCardDescription.borderRadius
+
+  alwaysVisible = true
+  extraCss = css`border: 0.05em solid white`
 
   location = { type: LocationType.PlayerLegendaryLine }
   getCoordinates(_location: Location, _context: LocationContext) {
@@ -18,5 +22,5 @@ export class PlayerLegendaryLineDescription extends LocationDescription {
     }
   }
 
-  deckCoordinates = { x: -10, y: 4, z: 0}
+  deckCoordinates = { x: -30, y: 30, z: 0}
 }

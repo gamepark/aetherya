@@ -44,3 +44,4 @@ export class LegendaryCardDescription extends CardDescription {
 }
 
 export const legendaryCardDescription = new LegendaryCardDescription()
+export const spaceBetweenLegendaryCards = 1

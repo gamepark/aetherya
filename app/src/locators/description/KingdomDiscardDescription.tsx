@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { LocationContext, LocationDescription } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
@@ -9,6 +10,9 @@ export class KingdomDiscardDescription extends LocationDescription {
   width = kingdomCardDescription.width + 0.8
   borderRadius = kingdomCardDescription.borderRadius
 
+  alwaysVisible = true
+  extraCss = css`border: 0.05em solid white`
+
   location = { type: LocationType.KingdomDiscard }
   getCoordinates(_location: Location, _context: LocationContext) {
     return {
@@ -18,5 +22,5 @@ export class KingdomDiscardDescription extends LocationDescription {
     }
   }
 
-  discardCoordinates = { x: -10, y: 4, z: 0}
+  discardCoordinates = { x: 5, y: 0, z: 0}
 }

@@ -18,5 +18,5 @@ export class LegendaryDeckDescription extends LocationDescription {
     }
   }
 
-  deckCoordinates = { x: -10, y: 4, z: 0}
+  deckCoordinates = { x: 27, y: 0, z: 0}
 }

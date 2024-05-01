@@ -9,7 +9,7 @@ type GameDisplayProps = {
 
 export const GameDisplay: FC<GameDisplayProps> = () => {
   return <>
-    <GameTable xMin={-50} xMax={50} yMin={-30} yMax={30}
+    <GameTable xMin={-50} xMax={50} yMin={-60} yMax={60}
                margin={{ top: 7, left: 0, right: 30, bottom: 0 }}>
       <GameTableNavigation/>
       <PlayerPanels/>

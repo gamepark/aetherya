@@ -34,3 +34,4 @@ export class KingdomCardDescription extends CardDescription {
 }
 
 export const kingdomCardDescription = new KingdomCardDescription()
+export const spaceBetweenKingdomCards = 1

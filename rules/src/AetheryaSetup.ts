@@ -61,7 +61,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
       // z = 0 for hidden cards
       for (let i=2; i<=3; i++){
         for (let j=2; j<=3; j++){
-          deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:j, z:1 }, 1)
+          deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:j, z:1, rotation:true }, 1)
         }
       }
 

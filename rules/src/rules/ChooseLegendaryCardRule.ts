@@ -16,16 +16,13 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const deckCards = this.kingdomDeckCards()
-//    const deckCardActions = deckCards.length==0 ? [] : deckCards.index(deckCards.getIndexes()[deckCards.length-1]).selectItems()
     const deckCardActions = deckCards.length==0 ? [] : deckCards.maxBy(item => item.location.x!).selectItems()
     const discardCards = this.discardDeckCards()
-//    const discardCardActions = discardCards.length==0 ? [] : discardCards.index(discardCards.getIndexes()[discardCards.length-1]).selectItems()
     const discardCardActions = discardCards.length==0 ? [] : discardCards.maxBy(item => item.location.x!).selectItems()
-//    const discardCardActions = discardCards.length==0 ? [] : discardCards.selectItems()
 
-    console.log("deck")
+    console.log("deck cards")
     console.log(deckCards)
-    console.log("discard")
+    console.log("discard cards")
     console.log(discardCards)
     console.log("deck indexes")
     console.log(deckCards.getIndexes())
@@ -48,8 +45,8 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
-    console.log('foo 1')
     if (isSelectItem(move)) {
+      console.log('Choose lengardy card - Select move')
       const itemLocation = this.material(MaterialType.KingdomCard)
         .index(move.itemIndex)
         .getItem()!
@@ -62,27 +59,22 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
         moves=this.drawLegendaryCard()
       } else {
         // Get card from discard
+        moves=this.discardDeck().deal({ type: LocationType.EventArea }, 1)
+/*
         const discardCards = this.discardDeckCards()
-        moves=discardCards.index(discardCards.getIndexes()[discardCards.length-1]).moveItems({ type: LocationType.EventArea })
+        moves=discardCards.maxBy(item => item.location.x!).moveItems({ type: LocationType.EventArea, rotation:true })
+*/
       }
       moves.push(this.rules().startPlayerTurn(RuleId.ChooseBoardLocation, this.getActivePlayer()))
 
       return moves
     }
+    console.log('Choose lengardy card - Not a select move')
     return []
   }
 
   drawLegendaryCard(){
-    const moves: MaterialMove[] = []
-    const deck = this.kingdomDeck()
-
-    if (deck.length <= 0){
-      const deck2 = this.discardDeck()
-      moves.push(...deck2.deal({ type: LocationType.EventArea }, 1))
-    } else {
-      moves.push(...deck.deal({ type: LocationType.EventArea }, 1))
-    }
-    return moves
+    return this.kingdomDeck().deal({ type: LocationType.EventArea }, 1)
   }
 
   kingdomDeckCards() {

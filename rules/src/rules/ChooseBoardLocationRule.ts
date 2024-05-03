@@ -21,25 +21,18 @@ export class ChooseBoardLocationRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isSelectItem(move) && move.itemType === MaterialType.KingdomCard) {
-/*
-      const boardCard = this.cardFromPlayerBoard
-      return [
-        boardCard.moveItem({ type: LocationType.KingdomDiscard, z:1 }),
-        this.rules().startPlayerTurn(RuleId.SwapBoardCardAndDiscard, this.player)
-      ]
-*/
       const eventCard = this.cardFromEventArea
       const boardCard = this.cardFromPlayerBoard
       const boardCardLocation = boardCard.getItem()!.location
-      if (this.material(MaterialType.KingdomCard).location(LocationType.EventArea).length < 1)
-        return [ this.rules().startRule(RuleId.Error) ]
-      if (boardCardLocation === undefined)
-        return [ this.rules().startRule(RuleId.Error) ]
-      boardCardLocation.z=1
+      const newBoardCardLocation = { type:LocationType.PlayerBoard, player:boardCardLocation.player, x:boardCardLocation.x, y:boardCardLocation.y, rotation:true }
+
+      // Unselect all cards
+      this.material(MaterialType.KingdomCard).selected(true).getItems().forEach((item) => delete item.selected)
+
       return [
-        boardCard.moveItem({ type: LocationType.EventArea }),
-        eventCard.moveItem(boardCardLocation),
-        this.rules().startPlayerTurn(RuleId.SwapBoardCardAndDiscard, this.player)
+        boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation:true }),
+        eventCard.moveItem(newBoardCardLocation),
+        this.rules().startPlayerTurn(RuleId.ChooseLegendaryCard, this.nextPlayer)
       ]
     }
     return []

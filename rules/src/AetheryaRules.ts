@@ -13,7 +13,6 @@ import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
 import { ScoreRule } from './rules/ScoreRule'
-import { SwapBoardCardAndDiscardRule } from './rules/SwapBoardCardAndDiscardRule'
 import { ShuffleKingdomDeckRule } from './rules/ShuffleKingdomDeckRule'
 import { OkRule } from './rules/OkRule'
 import { ErrorRule } from './rules/ErrorRule'
@@ -23,7 +22,7 @@ import { RuleId } from './rules/RuleId'
 export const hideCardWhenNotRotated: HidingStrategy = (
   item: MaterialItem
 ) => {
-  return item.location.rotation ? ['id'] : []
+  return item.location.rotation ? [] : ['id']
 }
 
 export const alwaysHide: HidingStrategy = () => {
@@ -60,7 +59,6 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.ChooseLegendaryCard]: ChooseLegendaryCardRule,
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
-    [RuleId.SwapBoardCardAndDiscard]: SwapBoardCardAndDiscardRule,
     [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
 
     // For debugging only
@@ -81,7 +79,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [MaterialType.KingdomCard]: {
       [LocationType.KingdomDeck]: alwaysHide,
       [LocationType.KingdomDiscard]: alwaysShow,
-      [LocationType.PlayerBoard]: showIfZPositive
+      [LocationType.PlayerBoard]: hideCardWhenNotRotated
 
 //      [LocationType.KingdomDiscard]: never,
 //      [LocationType.LegendaryLine]: never,

@@ -78,7 +78,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   }
 
   start() {
-//    this.startPlayerTurn(RuleId.PrepareGame, this.game.players[0])
-    this.startPlayerTurn(RuleId.ChooseLegendaryCard, this.game.players[0])
+    this.startSimultaneousRule(RuleId.PrepareGame)
+//    this.startPlayerTurn(RuleId.ChooseLegendaryCard, this.game.players[0])
   }
 }

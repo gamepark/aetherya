@@ -1,7 +1,6 @@
 import {
   HiddenMaterialRules,
   HidingStrategy,
-//  LocationStrategy,
   MaterialItem,
   PositiveSequenceStrategy
 } from '@gamepark/rules-api'
@@ -17,7 +16,8 @@ import { ShuffleKingdomDeckRule } from './rules/ShuffleKingdomDeckRule'
 import { OkRule } from './rules/OkRule'
 import { ErrorRule } from './rules/ErrorRule'
 import { RuleId } from './rules/RuleId'
-// import { PlayerId } from './PlayerId'
+import { PlayerId } from './PlayerId'
+import { Score } from './logic/Score'
 
 export const hideCardWhenNotRotated: HidingStrategy = (
   item: MaterialItem
@@ -31,21 +31,6 @@ export const alwaysHide: HidingStrategy = () => {
 
 export const alwaysShow: HidingStrategy = () => {
   return []
-}
-
-export const showIfZPositive: HidingStrategy = (
-  item: MaterialItem
-) => {
-  if (item.location.z === undefined) return ['id']
-  return item.location.z > 0 ? [] : ['id']
-}
-
-export const showIfZPositiveOrRotated: HidingStrategy = (
-  item: MaterialItem
-) => {
-  if (item.location.rotation) return []
-  if (item.location.z === undefined) return ['id']
-  return item.location.z > 0 ? [] : ['id']
 }
 
 /**
@@ -70,8 +55,6 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [MaterialType.KingdomCard]: {
       [LocationType.KingdomDeck]: new PositiveSequenceStrategy(),
       [LocationType.KingdomDiscard]: new PositiveSequenceStrategy()
-//      [LocationType.KingdomDeck]: LocationStrategy,
-//      [LocationType.KingdomDiscard]: LocationStrategy
     }
   }
 
@@ -80,15 +63,21 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
       [LocationType.KingdomDeck]: alwaysHide,
       [LocationType.KingdomDiscard]: alwaysShow,
       [LocationType.PlayerBoard]: hideCardWhenNotRotated
-
-//      [LocationType.KingdomDiscard]: never,
-//      [LocationType.LegendaryLine]: never,
-//      [LocationType.PlayerLegendaryLine]: never,
-//      [LocationType.PlayerHand]: never
     },
     [MaterialType.LegendaryCard]: {
       [LocationType.LegendaryDeck]: alwaysHide
     }
+  }
+
+  getScore(player: PlayerId) {
+    let score=new Score()
+    return score.playerScore(player, this.game, this.playerBoard(player))
+  }
+
+  playerBoard(player:number){
+    return this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(player)
   }
 
   itemsCanMerge() {

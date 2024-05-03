@@ -40,8 +40,6 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isSelectItem(move)) {
-      console.log("move")
-      console.log(move)
       const itemLocation = this.material(MaterialType.KingdomCard)
         .index(move.itemIndex)
         .getItem()!

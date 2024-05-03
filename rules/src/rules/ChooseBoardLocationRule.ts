@@ -6,13 +6,12 @@ import { RuleId } from './RuleId'
 
 export class ChooseBoardLocationRule extends PlayerTurnRule {
   getPlayerMoves() {
-    console.log(this.material(MaterialType.KingdomCard).location(LocationType.EventArea))
     let eventCardId = this.cardsFromEventArea.getItems()[0].id
     return this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerBoard)
       .player(this.player)
       .filter(item =>
-        item.id===undefined || !item.location.rotation || 
+        item.id===undefined || !item.location.rotation ||
         (item.id != KingdomCard.Portal && item.id != KingdomCard.Dragon && item.id != eventCardId )
       )
       .selectItems()

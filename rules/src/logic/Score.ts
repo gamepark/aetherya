@@ -195,6 +195,8 @@ export class Score {
     console.log('Legendary: '+legendaryPoints)
     console.log('Conflicts: '+(-conflictPoints))
     console.log('TOTAL: '+total)
+
+    return total
   }
 
   getDirectlyAdjacentCards(i:number, j:number) : GridCoordSet {

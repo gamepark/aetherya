@@ -4,8 +4,6 @@ import { PlayerLegendaryLineDescription } from './description/PlayerLegendaryLin
 
 export class PlayerLegendaryLineLocator extends DeckLocator {
   locationDescription = new PlayerLegendaryLineDescription()
-//  delta = { x: -0.04, y: -0.04 }
-//  coordinates = this.locationDescription.deckCoordinates
 }
 
 export const playerLegendaryLineLocator = new PlayerLegendaryLineLocator()

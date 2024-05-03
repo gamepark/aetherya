@@ -5,11 +5,23 @@ import { RuleId } from './RuleId'
 
 export class ChooseLegendaryCardRule extends PlayerTurnRule {
   onRuleStart() {
-    // If the deck is empty, all cards from the discard are shuffled
-    // If the discard is empty, a card is drawn from the deck
+    // If a board is full of visible cards, then it's the end of the game
+    let nbPlayers=this.game.players.length
+    for (let i=0; i<nbPlayers; i++){
+      let player=this.game.players[i]
+      let nbVisibleCards = this.material(MaterialType.KingdomCard)
+        .location(LocationType.PlayerBoard)
+        .player(player)
+        .filter(item => !!item.location.rotation)
+        .length
+
+      if (nbVisibleCards >= 16)
+        return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
+    }
+
+    // If the deck or the discard is empty, then shuffle and refill
     if (this.kingdomDeckCards().length==0 || this.discardDeckCards().length==0)
       return [ this.rules().startPlayerTurn(RuleId.ShuffleKingdomDeck, this.getActivePlayer()) ]
-//      return [ this.rules().startRule(RuleId.ShuffleKingdomDeck) ]
 
     return []
   }
@@ -20,24 +32,6 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
     const discardCards = this.discardDeckCards()
     const discardCardActions = discardCards.length==0 ? [] : discardCards.maxBy(item => item.location.x!).selectItems()
 
-    console.log("deck cards")
-    console.log(deckCards)
-    console.log("discard cards")
-    console.log(discardCards)
-    console.log("deck indexes")
-    console.log(deckCards.getIndexes())
-    console.log("discard indexes")
-    console.log(discardCards.getIndexes())
-    console.log("deckCardActions")
-    console.log(deckCardActions)
-    console.log("discardCardActions")
-    console.log(discardCardActions)
-
-    console.log("res")
-    console.log([ ...deckCardActions, ...discardCardActions])
-
-    console.log(this)
-
     return [
       ...deckCardActions,
       ...discardCardActions
@@ -46,7 +40,8 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isSelectItem(move)) {
-      console.log('Choose lengardy card - Select move')
+      console.log("move")
+      console.log(move)
       const itemLocation = this.material(MaterialType.KingdomCard)
         .index(move.itemIndex)
         .getItem()!
@@ -60,16 +55,11 @@ export class ChooseLegendaryCardRule extends PlayerTurnRule {
       } else {
         // Get card from discard
         moves=this.discardDeck().deal({ type: LocationType.EventArea }, 1)
-/*
-        const discardCards = this.discardDeckCards()
-        moves=discardCards.maxBy(item => item.location.x!).moveItems({ type: LocationType.EventArea, rotation:true })
-*/
       }
       moves.push(this.rules().startPlayerTurn(RuleId.ChooseBoardLocation, this.getActivePlayer()))
 
       return moves
     }
-    console.log('Choose lengardy card - Not a select move')
     return []
   }
 

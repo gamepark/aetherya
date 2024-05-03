@@ -5,14 +5,7 @@ import { RuleId } from './RuleId'
 
 export class ShuffleKingdomDeckRule extends PlayerTurnRule {
   onRuleStart() {
-//    const discardCards = this.discardDeckCards()
-//      ,
-//      discardCards.moveItems({ type: LocationType.KingdomDeck }),
-//      this.kingdomDeck().deal({ type: LocationType.KingdomDiscard }, 1)
     const discardCards = this.discardDeckCards()
-    console.log('foo')
-    console.log(this)
-    console.log(this.player)
     return [
       discardCards.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
       discardCards.shuffle(),

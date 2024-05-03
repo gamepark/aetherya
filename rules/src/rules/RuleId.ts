@@ -4,8 +4,10 @@ export enum RuleId {
   ChooseBoardLocation = 3,
   RevealAllBoardCards = 4,
   Score = 5,
+  SwapBoardCardAndDiscard = 6,
+  ShuffleKingdomDeck = 7,
 
   // For debugging only
-  Ok = 6,
-  Error = 7
+  Ok = 8,
+  Error = 9
 }

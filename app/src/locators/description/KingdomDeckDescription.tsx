@@ -5,15 +5,15 @@ import { Location } from '@gamepark/rules-api'
 import { kingdomCardDescription } from '../../material/KingdomCardDescription'
 
 export class KingdomDeckDescription extends LocationDescription {
-  height = kingdomCardDescription.height + 0.8
-  width = kingdomCardDescription.width + 0.8
+  height = kingdomCardDescription.height
+  width = kingdomCardDescription.width
   borderRadius = kingdomCardDescription.borderRadius
 
   location = { type: LocationType.KingdomDeck }
   getCoordinates(_location: Location, _context: LocationContext) {
     return {
-      x: this.deckCoordinates.x - 0.4,
-      y: this.deckCoordinates.y - 0.4,
+      x: this.deckCoordinates.x,
+      y: this.deckCoordinates.y,
       z: 10
     }
   }

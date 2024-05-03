@@ -1,7 +1,36 @@
-import { Material, MaterialGame } from '@gamepark/rules-api'
+import { Material /*, MaterialGame */ } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { KingdomCard } from '../material/KingdomCard'
+
+export class PlayerScore {
+  elfPoints:number
+  dwarfPoints:number
+  humanPoints:number
+  goblinPoints:number
+  dragonPoints:number
+  legendaryPoints:number
+  conflictPoints:number
+  total:number
+
+  constructor(
+    elfPoints:number,
+    dwarfPoints:number,
+    humanPoints:number,
+    goblinPoints:number,
+    dragonPoints:number,
+    legendaryPoints:number,
+    conflictPoints:number){
+    this.elfPoints=elfPoints
+    this.dwarfPoints=dwarfPoints
+    this.humanPoints=humanPoints
+    this.goblinPoints=goblinPoints
+    this.dragonPoints=dragonPoints
+    this.legendaryPoints=legendaryPoints
+    this.conflictPoints=conflictPoints
+    this.total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendaryPoints+conflictPoints
+  }
+}
 
 export class GridCoord {
   x:number
@@ -43,8 +72,19 @@ export class GridCoordSet {
 
 export class Score {
   playerScore(player:number,
-    _game:MaterialGame<number, MaterialType, LocationType>,
-    board:Material<number, MaterialType, LocationType>) {
+//    game:MaterialGame<number, MaterialType, LocationType>,
+    allKingdomCards:Material<number, MaterialType, LocationType>) : number {
+    let detailedScore=this.detailedPlayerScore(player, allKingdomCards)
+    return detailedScore.total
+  }
+
+  detailedPlayerScore(player:number,
+//    _game:MaterialGame<number, MaterialType, LocationType>,
+    allKingdomCards:Material<number, MaterialType, LocationType>) : PlayerScore {
+
+    let board=allKingdomCards.location(LocationType.PlayerBoard)
+      .player(player)
+
     console.log('Player '+player)
 /*
     console.log(game)
@@ -196,7 +236,14 @@ export class Score {
     console.log('Conflicts: '+(-conflictPoints))
     console.log('TOTAL: '+total)
 
-    return total
+    return new PlayerScore(
+      elfPoints,
+      dwarfPoints,
+      humanPoints,
+      goblinPoints,
+      dragonPoints,
+      legendaryPoints,
+      -conflictPoints)
   }
 
   getDirectlyAdjacentCards(i:number, j:number) : GridCoordSet {

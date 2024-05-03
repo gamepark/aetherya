@@ -8,8 +8,10 @@ import { legendaryDeckLocator } from './LegendaryDeckLocator'
 import { legendaryLineLocator } from './LegendaryLineLocator'
 import { playerBoardLocator } from './PlayerBoardLocator'
 import { playerLegendaryLineLocator } from './PlayerLegendaryLineLocator'
-import { playerHandLocator } from './PlayerHandLocator'
+//import { playerHandLocator } from './PlayerHandLocator'
 import { eventAreaLocator } from './EventAreaLocator'
+import { scoreSheetLocator } from './ScoreSheetLocator'
+import { scoreSheetBoxLocator } from './ScoreSheetBoxLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.KingdomDeck]: kingdomDeckLocator,
@@ -18,6 +20,8 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.LegendaryLine]: legendaryLineLocator,
   [LocationType.PlayerBoard]: playerBoardLocator,
   [LocationType.PlayerLegendaryLine]: playerLegendaryLineLocator,
-  [LocationType.PlayerHand]: playerHandLocator,
-  [LocationType.EventArea]: eventAreaLocator
+//  [LocationType.PlayerHand]: playerHandLocator,
+  [LocationType.EventArea]: eventAreaLocator,
+  [LocationType.ScoreSheet]: scoreSheetLocator,
+  [LocationType.ScoreSheetBox]: scoreSheetBoxLocator
 }

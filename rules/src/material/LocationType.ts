@@ -5,6 +5,8 @@ export enum LocationType {
   LegendaryLine  = 4,
   PlayerBoard    = 5,
   PlayerLegendaryLine = 6,
-  PlayerHand     = 7,
-  EventArea      = 8
+//  PlayerHand     = 7,
+  EventArea      = 8,
+  ScoreSheet     = 9,
+  ScoreSheetBox  = 10
 }

@@ -1,4 +1,9 @@
 /** @jsxImportSource @emotion/react */
+
+export class PlayerHandLocator {
+}
+
+/*
 // import { LocationType } from '@gamepark/aetherya/material/LocationType'
 // import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { HandLocator, ItemContext } from '@gamepark/react-game'
@@ -16,6 +21,8 @@ export class PlayerHandLocator extends HandLocator {
   getCoordinates(location: Location, context: ItemContext) {
     return { ...this.locationDescription.getCoordinates(location, context), z: 1 }
   }
+*/
+
 /*
   getRadius(item: MaterialItem, { player }: ItemContext): number {
     return item.location.player === player ? 125 : 40
@@ -40,6 +47,8 @@ export class PlayerHandLocator extends HandLocator {
     }
   }
 */
+/*
 }
 
 export const playerHandLocator = new PlayerHandLocator()
+*/

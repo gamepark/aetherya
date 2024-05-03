@@ -1,4 +1,9 @@
 /** @jsxImportSource @emotion/react */
+
+export class PlayerHandDescription {
+}
+
+/*
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
@@ -35,3 +40,4 @@ export class PlayerHandDescription extends LocationDescription {
     return tableDesign.playerHandCoordinates(location, context)
   }
 }
+*/

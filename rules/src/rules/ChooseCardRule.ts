@@ -40,9 +40,6 @@ export class ChooseCardRule extends PlayerTurnRule {
       })
     let availableLegendaryCardsActions = availableLegendaryCards.selectItems()
 
-    console.log("Available legendary cards")
-    console.log(availableLegendaryCards)
-
     // Card from the deck
     const deckCards = this.kingdomDeckCards()
     const deckCardActions = deckCards.maxBy(item => item.location.x!).selectItems()

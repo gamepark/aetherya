@@ -43,7 +43,7 @@ export class ChooseBoardLocationRule extends PlayerTurnRule {
         boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation:true }),
         eventCard.moveItem(newBoardCardLocation),
 
-        this.rules().startPlayerTurn(RuleId.ChooseLegendaryCard, this.nextPlayer)
+        this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
 
         // For score tests only
 //        this.rules().startRule(RuleId.Score)

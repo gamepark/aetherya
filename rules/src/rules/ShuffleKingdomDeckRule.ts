@@ -10,7 +10,7 @@ export class ShuffleKingdomDeckRule extends PlayerTurnRule {
       discardCards.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
       discardCards.shuffle(),
       ...this.kingdomDeck().deal({ type: LocationType.KingdomDiscard }, 1),
-      this.rules().startPlayerTurn(RuleId.ChooseLegendaryCard, this.getActivePlayer())
+      this.rules().startPlayerTurn(RuleId.ChooseCard, this.getActivePlayer())
     ]
   }
 

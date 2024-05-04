@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/aetherya/rules/RuleId'
 import { ComponentType } from 'react'
-import { ChooseLegendaryCardHeader } from './ChooseLegendaryCardHeader'
+import { ChooseCardHeader } from './ChooseCardHeader'
 import { ChooseBoardLocationHeader } from './ChooseBoardLocationHeader'
 import { PrepareGameHeader } from './PrepareGameHeader'
 import { RevealAllBoardCardsHeader } from './RevealAllBoardCardsHeader'
@@ -11,7 +11,7 @@ import { OkHeader } from './OkHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PrepareGame]: PrepareGameHeader,
-  [RuleId.ChooseLegendaryCard]: ChooseLegendaryCardHeader,
+  [RuleId.ChooseCard]: ChooseCardHeader,
   [RuleId.ChooseBoardLocation]: ChooseBoardLocationHeader,
   [RuleId.RevealAllBoardCards]: RevealAllBoardCardsHeader,
   [RuleId.Score]: ScoreHeader,

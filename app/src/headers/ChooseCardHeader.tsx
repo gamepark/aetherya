@@ -5,8 +5,8 @@
 //import { isCustomMoveType } from '@gamepark/rules-api'
 //import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
 
-export const ChooseLegendaryCardHeader = () => {
-  return <>Piochez une carte légende ou Prenez celle de la défausse</>
+export const ChooseCardHeader = () => {
+  return <>Piochez une carte royaume, Prenez celle de la défausse ou Prenez une carte légendes</>
 /*
   const rules = useRules<AetheryaRules>()!
   const playerId = usePlayerId()

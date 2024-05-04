@@ -56,6 +56,6 @@ export class PrepareGameRule extends SimultaneousRule {
   }
 
   getMovesAfterPlayersDone(): MaterialMove<number, number, number>[] {
-    return [ this.rules().startPlayerTurn(RuleId.ChooseLegendaryCard, this.game.players[0]) ]
+    return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.game.players[0]) ]
   }
 }

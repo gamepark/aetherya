@@ -1,7 +1,8 @@
-import { Material /*, MaterialGame */ } from '@gamepark/rules-api'
+import { Material } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { KingdomCard } from '../material/KingdomCard'
+import { LegendaryCard } from '../material/LegendaryCard'
 
 export class PlayerScore {
   elfPoints:number
@@ -29,6 +30,97 @@ export class PlayerScore {
     this.legendaryPoints=legendaryPoints
     this.conflictPoints=conflictPoints
     this.total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendaryPoints+conflictPoints
+  }
+}
+
+export class LegendaryCharacteristics {
+  has2connectedElves:boolean
+  has2connectedDwarfs:boolean
+  has2connectedHumans:boolean
+  has2connectedGoblins:boolean
+
+  has3connectedForests:boolean
+  has3connectedMountains:boolean
+  has3connectedPlains:boolean
+  has3connectedSwamps:boolean
+
+  hasAllTribes:boolean
+
+  hasConnectedHumanDwarf:boolean
+  hasConnectedHumanElf:boolean
+
+  has2vs1_goblinElf:boolean
+  has2vs1_goblinDwarf:boolean
+  has2vs1_goblinHuman:boolean
+  has2vs1_dwarfElf:boolean
+
+  match(type:LegendaryCard) : boolean {
+    if (type==LegendaryCard.LinkedHumanElf)
+      return this.hasConnectedHumanElf
+    if (type==LegendaryCard.LinkedHumanDwarf)
+      return this.hasConnectedHumanDwarf
+    if (type==LegendaryCard.TwoLinkedGoblins)
+      return this.has2connectedGoblins
+    if (type==LegendaryCard.TwoLinkedHumans)
+      return this.has2connectedHumans
+    if (type==LegendaryCard.TwoLinkedElves)
+      return this.has2connectedElves
+    if (type==LegendaryCard.TwoLinkedDwarves)
+      return this.has2connectedDwarfs
+    if (type==LegendaryCard.FourTribes)
+      return this.hasAllTribes
+    if (type==LegendaryCard.TwoVsOne_GoblinHuman)
+      return this.has2vs1_goblinHuman
+    if (type==LegendaryCard.TwoVsOne_GoblinElf)
+      return this.has2vs1_goblinElf
+    if (type==LegendaryCard.TwoVsOne_GoblinDwarf)
+      return this.has2vs1_goblinDwarf
+    if (type==LegendaryCard.TwoVsOne_ElfDwarf)
+      return this.has2vs1_dwarfElf
+    if (type==LegendaryCard.ThreeLinkedPlains)
+      return this.has3connectedPlains
+    if (type==LegendaryCard.ThreeLinkedSwamps)
+      return this.has3connectedSwamps
+    if (type==LegendaryCard.ThreeLinkedMountains)
+      return this.has3connectedMountains
+    if (type==LegendaryCard.ThreeLinkedForests)
+      return this.has3connectedForests
+
+    console.log("*** ERROR - Unsupported legendary card")
+    return false
+  }
+
+  constructor(
+    has2connectedElves:boolean,
+    has2connectedDwarfs:boolean,
+    has2connectedHumans:boolean,
+    has2connectedGoblins:boolean,
+    has3connectedForests:boolean,
+    has3connectedMountains:boolean,
+    has3connectedPlains:boolean,
+    has3connectedSwamps:boolean,
+    hasAllTribes:boolean,
+    hasConnectedHumanDwarf:boolean,
+    hasConnectedHumanElf:boolean,
+    has2vs1_goblinElf:boolean,
+    has2vs1_goblinDwarf:boolean,
+    has2vs1_goblinHuman:boolean,
+    has2vs1_dwarfElf:boolean){
+    this.has2connectedElves=has2connectedElves
+    this.has2connectedDwarfs=has2connectedDwarfs
+    this.has2connectedHumans=has2connectedHumans
+    this.has2connectedGoblins=has2connectedGoblins
+    this.has3connectedForests=has3connectedForests
+    this.has3connectedMountains=has3connectedMountains
+    this.has3connectedPlains=has3connectedPlains
+    this.has3connectedSwamps=has3connectedSwamps
+    this.hasAllTribes=hasAllTribes
+    this.hasConnectedHumanDwarf=hasConnectedHumanDwarf
+    this.hasConnectedHumanElf=hasConnectedHumanElf
+    this.has2vs1_goblinElf=has2vs1_goblinElf
+    this.has2vs1_goblinDwarf=has2vs1_goblinDwarf
+    this.has2vs1_goblinHuman=has2vs1_goblinHuman
+    this.has2vs1_dwarfElf=has2vs1_dwarfElf
   }
 }
 
@@ -72,34 +164,31 @@ export class GridCoordSet {
 
 export class Score {
   playerScore(player:number,
-//    game:MaterialGame<number, MaterialType, LocationType>,
     allKingdomCards:Material<number, MaterialType, LocationType>) : number {
     let detailedScore=this.detailedPlayerScore(player, allKingdomCards)
     return detailedScore.total
   }
 
-  detailedPlayerScore(player:number,
-//    _game:MaterialGame<number, MaterialType, LocationType>,
-    allKingdomCards:Material<number, MaterialType, LocationType>) : PlayerScore {
+  toGrid(player:number,
+    allKingdomCards:Material<number, MaterialType, LocationType>){
 
     let board=allKingdomCards.location(LocationType.PlayerBoard)
       .player(player)
 
-    console.log('Player '+player)
-/*
-    console.log(game)
-    console.log(board)
-    console.log(board.getItems())
-*/
-
-    // Aggregate card ids into a 4x4 array
     let boardCards:number[][]=[[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1]]
     let items=board.getItems()
     for (let i=0; i<items.length; i++){
       let item=items[i]
       boardCards[item.location.y!-1][item.location.x!-1]=item.id
     }
-    console.log(boardCards)
+
+    return boardCards
+  }
+
+  detailedPlayerScore(player:number,
+    allKingdomCards:Material<number, MaterialType, LocationType>) : PlayerScore {
+    // Aggregate card ids into a 4x4 array
+    let boardCards=this.toGrid(player, allKingdomCards)
 
     // Score for each cards
     let elfPoints=0
@@ -225,6 +314,7 @@ export class Score {
     }
     let dragonPoints=nbDomesticatedDragons*dragonValue-(nbDragons-nbDomesticatedDragons)*dragonValue
 
+/*
     let total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendaryPoints-conflictPoints
 
     console.log('Elf: '+elfPoints)
@@ -235,6 +325,10 @@ export class Score {
     console.log('Legendary: '+legendaryPoints)
     console.log('Conflicts: '+(-conflictPoints))
     console.log('TOTAL: '+total)
+*/
+
+    // Note: Each conflit is reported twice.
+    // So the number of reported conflicts is actually the expected nb of conflict points
 
     return new PlayerScore(
       elfPoints,
@@ -244,6 +338,193 @@ export class Score {
       dragonPoints,
       legendaryPoints,
       -conflictPoints)
+  }
+
+  legendaryAnalysis(player:number,
+    allKingdomCards:Material<number, MaterialType, LocationType>) : LegendaryCharacteristics {
+    let has2connectedElves=false //
+    let has2connectedDwarfs=false //
+    let has2connectedHumans=false //
+    let has2connectedGoblins=false //
+    let has3connectedForests=false //
+    let has3connectedMountains=false //
+    let has3connectedPlains=false //
+    let has3connectedSwamps=false //
+    let hasAllTribes=false //
+    let hasConnectedHumanDwarf=false //
+    let hasConnectedHumanElf=false //
+    let has2vs1_goblinElf=false //
+    let has2vs1_goblinDwarf=false //
+    let has2vs1_goblinHuman=false //
+    let has2vs1_dwarfElf=false //
+
+    // Aggregate card ids into a 4x4 array
+    let boardCards=this.toGrid(player, allKingdomCards)
+
+    // Loop on cards
+    let hasElf=false
+    let hasDwarf=false
+    let hasHuman=false
+    let hasGoblin=false
+    for (let i=0; i<4; i++){
+      for (let j=0; j<4; j++){
+        let currentCard=boardCards[i][j]
+        if (currentCard === undefined){
+          console.log("*** ERROR - Undefined card - "+i+" - "+j)
+        }
+
+        if (currentCard==KingdomCard.Plain){
+          // 3 connected plains ?
+          let nbConnectedPlains=0
+          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Plain){
+              nbConnectedPlains+=1
+            }
+          })
+          if (nbConnectedPlains>=2)
+            has3connectedPlains=true
+        } else if (currentCard==KingdomCard.Swamp){
+          // 3 connected swamps ?
+          let nbConnectedSwamps=0
+          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Swamp){
+              nbConnectedSwamps+=1
+            }
+          })
+          if (nbConnectedSwamps>=2)
+            has3connectedSwamps=true
+        } else if (currentCard==KingdomCard.Mountain){
+          // 3 connected mountains ?
+          let nbConnectedMountains=0
+          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Mountain){
+              nbConnectedMountains+=1
+            }
+          })
+          if (nbConnectedMountains>=2)
+            has3connectedMountains=true
+        } else if (currentCard==KingdomCard.Forest){
+          // 3 connected forests ?
+          let nbConnectedForests=0
+          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Forest){
+              nbConnectedForests+=1
+            }
+          })
+          if (nbConnectedForests>=2)
+            has3connectedForests=true
+        } else if (currentCard==KingdomCard.Goblin){
+          hasGoblin=true
+          let nbSurroundingElves=0
+          let nbSurroundingDwarfs=0
+          let nbSurroundingHumans=0
+
+          // 2 connected goblins ?
+          // Goblins cannot use portals
+          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Goblin){
+              has2connectedGoblins=true
+            } else if (adjacentCardType==KingdomCard.Elf){
+              nbSurroundingElves+=1
+            } else if (adjacentCardType==KingdomCard.Dwarf){
+              nbSurroundingDwarfs+=1
+            } else if (adjacentCardType==KingdomCard.Human){
+              nbSurroundingHumans+=1
+            }
+          })
+          if (nbSurroundingElves>=2)
+            has2vs1_goblinElf=true
+          if (nbSurroundingDwarfs>=2)
+            has2vs1_goblinDwarf=true
+          if (nbSurroundingHumans>=2)
+            has2vs1_goblinHuman=true
+        } else if (currentCard==KingdomCard.Elf){
+          hasElf=true
+          let nbSurroundingGoblins=0
+          let nbSurroundingDwarfs=0
+
+          // 2 connected elves
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Elf){
+              has2connectedElves=true
+            } else if (adjacentCardType==KingdomCard.Goblin){
+              nbSurroundingGoblins+=1
+            } else if (adjacentCardType==KingdomCard.Dwarf){
+              nbSurroundingDwarfs+=1
+            }
+          })
+          if (nbSurroundingGoblins>=2)
+            has2vs1_goblinElf=true
+          if (nbSurroundingDwarfs>=2)
+            has2vs1_dwarfElf=true
+        } else if (currentCard==KingdomCard.Dwarf){
+          hasDwarf=true
+          let nbSurroundingGoblins=0
+          let nbSurroundingElves=0
+
+          // 2 connected dwarfs ?
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Dwarf){
+              has2connectedDwarfs=true
+            } else if (adjacentCardType==KingdomCard.Goblin){
+              nbSurroundingGoblins+=1
+            } else if (adjacentCardType==KingdomCard.Elf){
+              nbSurroundingElves+=1
+            }
+          })
+          if (nbSurroundingGoblins>=2)
+            has2vs1_goblinDwarf=true
+          if (nbSurroundingElves>=2)
+            has2vs1_dwarfElf=true
+        } else if (currentCard==KingdomCard.Human){
+          hasHuman=true
+          let nbSurroundingGoblins=0
+
+          // 2 connected humans ? connected human-dwarf ? connected human-elf ?
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
+            let adjacentCardType=boardCards[coord.x][coord.y]
+            if (adjacentCardType==KingdomCard.Human){
+              has2connectedHumans=true
+            } else if (adjacentCardType==KingdomCard.Dwarf){
+              hasConnectedHumanDwarf=true
+            } else if (adjacentCardType==KingdomCard.Elf){
+              hasConnectedHumanElf=true
+            } else if (adjacentCardType==KingdomCard.Goblin){
+              nbSurroundingGoblins+=1
+            }
+          })
+          if (nbSurroundingGoblins>=2)
+            has2vs1_goblinHuman=true
+        }
+      }
+    }
+
+    // All tribes ?
+    hasAllTribes=hasGoblin && hasElf && hasHuman && hasDwarf
+
+    return new LegendaryCharacteristics(
+      has2connectedElves,
+      has2connectedDwarfs,
+      has2connectedHumans,
+      has2connectedGoblins,
+      has3connectedForests,
+      has3connectedMountains,
+      has3connectedPlains,
+      has3connectedSwamps,
+      hasAllTribes,
+      hasConnectedHumanDwarf,
+      hasConnectedHumanElf,
+      has2vs1_goblinElf,
+      has2vs1_goblinDwarf,
+      has2vs1_goblinHuman,
+      has2vs1_dwarfElf)
   }
 
   getDirectlyAdjacentCards(i:number, j:number) : GridCoordSet {
@@ -260,17 +541,11 @@ export class Score {
   }
 
   getAdjacentCardsIncludingPortals(i:number, j:number, board:KingdomCard[][]) : GridCoordSet {
-//    console.log("START - "+i+" - "+j)
     let ignoredCoords = new GridCoordSet()
     return this.getAdjacentCardsIncludingPortals_inner(i, j, board, ignoredCoords)
   }
 
   getAdjacentCardsIncludingPortals_inner(i:number, j:number, board:KingdomCard[][], ignoredCoords:GridCoordSet) : GridCoordSet {
-/*
-    console.log("inner - "+i+" - "+j)
-    console.log("ignored:")
-    console.log(ignoredCoords)
-*/
     ignoredCoords.add(new GridCoord(i, j))
 
     let directAdjacentCards=this.getDirectlyAdjacentCards(i,j)
@@ -283,17 +558,10 @@ export class Score {
       if (board[coord.x][coord.y]==KingdomCard.Portal){
         let portalAdjacentCards=this.getAdjacentCardsIncludingPortals_inner(coord.x, coord.y, board, ignoredCoords)
         portalAdjacentCards.forEach(coord2 => {
-//          if (ignoredCoords.has(coord2))
-//            return
           res.add(coord2)
-//          ignoredCoords.add(coord2)
         })
       }
     })
-/*
-    console.log("res - "+i+" - "+j+" =>")
-    console.log(res)
-*/
     return res
   }
 }

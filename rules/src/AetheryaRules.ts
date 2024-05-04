@@ -71,8 +71,11 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
 
   getScore(player: PlayerId) {
     let score=new Score()
-//    return score.playerScore(player, this.game, this.playerBoard(player))
-    return score.playerScore(player, this.material(MaterialType.KingdomCard))
+    return score.playerScore(
+      player,
+      this.material(MaterialType.KingdomCard),
+      this.material(MaterialType.LegendaryCard)
+    )
   }
 
   playerBoard(player:number){

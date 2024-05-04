@@ -164,8 +164,9 @@ export class GridCoordSet {
 
 export class Score {
   playerScore(player:number,
-    allKingdomCards:Material<number, MaterialType, LocationType>) : number {
-    let detailedScore=this.detailedPlayerScore(player, allKingdomCards)
+    allKingdomCards:Material<number, MaterialType, LocationType>,
+    allLegendaryCards:Material<number, MaterialType, LocationType>) : number {
+    let detailedScore=this.detailedPlayerScore(player, allKingdomCards, allLegendaryCards)
     return detailedScore.total
   }
 
@@ -186,8 +187,10 @@ export class Score {
   }
 
   detailedPlayerScore(player:number,
-    allKingdomCards:Material<number, MaterialType, LocationType>) : PlayerScore {
-    // Aggregate card ids into a 4x4 array
+    allKingdomCards:Material<number, MaterialType, LocationType>,
+    allLegendaryCards:Material<number, MaterialType, LocationType>) : PlayerScore {
+
+    // Aggregate kingdom card ids into a 4x4 array
     let boardCards=this.toGrid(player, allKingdomCards)
 
     // Score for each cards
@@ -195,7 +198,6 @@ export class Score {
     let dwarfPoints=0
     let humanPoints=0
     let goblinPoints=0
-    let legendaryPoints=0
     let conflictPoints=0
 
     let nbDragons=0
@@ -301,6 +303,10 @@ export class Score {
       }
     }
 
+    // Note: Each conflit is reported twice.
+    // So the number of reported conflicts is actually the expected nb of conflict points
+
+    // Dragons
     let dragonValue=0
     if (nbDragons>3){
       nbDomesticatedDragons=0
@@ -314,22 +320,16 @@ export class Score {
     }
     let dragonPoints=nbDomesticatedDragons*dragonValue-(nbDragons-nbDomesticatedDragons)*dragonValue
 
-/*
-    let total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendaryPoints-conflictPoints
+    // Legendary cards
+    let legendaryPoints=0
 
-    console.log('Elf: '+elfPoints)
-    console.log('Dwarf: '+dwarfPoints)
-    console.log('Human: '+humanPoints)
-    console.log('Goblin: '+goblinPoints)
-    console.log('Dragon: '+dragonPoints)
-    console.log('Legendary: '+legendaryPoints)
-    console.log('Conflicts: '+(-conflictPoints))
-    console.log('TOTAL: '+total)
-*/
+    allLegendaryCards.location(LocationType.PlayerLegendaryLine)
+      .player(player)
+      .getItems().forEach(item => {
+        legendaryPoints+=this.legendaryCardValue(item.id)
+      })
 
-    // Note: Each conflit is reported twice.
-    // So the number of reported conflicts is actually the expected nb of conflict points
-
+    // Result
     return new PlayerScore(
       elfPoints,
       dwarfPoints,
@@ -338,6 +338,26 @@ export class Score {
       dragonPoints,
       legendaryPoints,
       -conflictPoints)
+  }
+
+  legendaryCardValue(card:LegendaryCard): number{
+    if (card==LegendaryCard.LinkedHumanElf) return 2
+    if (card==LegendaryCard.LinkedHumanDwarf) return 2
+    if (card==LegendaryCard.TwoLinkedGoblins) return 2
+    if (card==LegendaryCard.TwoLinkedHumans) return 2
+    if (card==LegendaryCard.TwoLinkedElves) return 2
+    if (card==LegendaryCard.TwoLinkedDwarves) return 2
+    if (card==LegendaryCard.FourTribes) return 4
+    if (card==LegendaryCard.TwoVsOne_GoblinHuman) return 3
+    if (card==LegendaryCard.TwoVsOne_GoblinElf) return 3
+    if (card==LegendaryCard.TwoVsOne_GoblinDwarf) return 3
+    if (card==LegendaryCard.TwoVsOne_ElfDwarf) return 3
+    if (card==LegendaryCard.ThreeLinkedPlains) return 4
+    if (card==LegendaryCard.ThreeLinkedSwamps) return 4
+    if (card==LegendaryCard.ThreeLinkedMountains) return 4
+    if (card==LegendaryCard.ThreeLinkedForests) return 4
+    console.log("*** ERROR - Unsupported legendary card")
+    return 0
   }
 
   legendaryAnalysis(player:number,

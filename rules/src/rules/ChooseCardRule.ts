@@ -36,8 +36,6 @@ export class ChooseCardRule extends PlayerTurnRule {
       this.material(MaterialType.LegendaryCard)
       .location(LocationType.LegendaryLine)
       .filter(item => {
-        console.log("item")
-        console.log(item)
         return legendaryCharac.match(item.id)
       })
     let availableLegendaryCardsActions = availableLegendaryCards.selectItems()
@@ -84,9 +82,10 @@ export class ChooseCardRule extends PlayerTurnRule {
         // Legendary card from legendary card line
         const card = this.material(MaterialType.LegendaryCard).index(move.itemIndex)
         const itemLocation = card.getItem()!.location
+        const nbLegendaryCards = this.material(MaterialType.LegendaryCard).player(this.getActivePlayer()).getItems().length
 
         return [
-          card.moveItem({ type: LocationType.PlayerLegendaryLine, player:this.getActivePlayer() }),
+          card.moveItem({ type: LocationType.PlayerLegendaryLine, player:this.getActivePlayer(), x:nbLegendaryCards+1 }),
           ...this.legendaryDeck().deal(itemLocation, 1)
         ]
       }

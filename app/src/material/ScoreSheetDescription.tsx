@@ -44,7 +44,11 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
 */
     for (const player of rules.players) {
       let score=new Score()
-      let detailedScore=score.detailedPlayerScore(player, rules.material(MaterialType.KingdomCard))
+      let detailedScore=score.detailedPlayerScore(
+        player,
+        rules.material(MaterialType.KingdomCard),
+        rules.material(MaterialType.LegendaryCard)
+      )
 
       locations.push({
         type: LocationType.ScoreSheetBox,

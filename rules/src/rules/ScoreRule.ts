@@ -9,7 +9,11 @@ export class ScoreRule extends MaterialRulesPart {
     let nbPlayers=this.game.players.length
     for (let i=0; i<nbPlayers; i++){
       let player=this.game.players[i]
-      score.playerScore(player, this.material(MaterialType.KingdomCard))
+      score.playerScore(
+        player,
+        this.material(MaterialType.KingdomCard),
+        this.material(MaterialType.LegendaryCard)
+      )
     }
     return [ this.rules().endGame() ]
   }

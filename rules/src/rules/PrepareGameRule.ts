@@ -47,8 +47,6 @@ export class PrepareGameRule extends SimultaneousRule {
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
-      console.log('foo')
-      console.log(move)
       const player = move.data
       return [ this.rules().endPlayerTurn(player) ]
     }

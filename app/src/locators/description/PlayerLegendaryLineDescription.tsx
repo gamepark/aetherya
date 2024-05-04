@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+//import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
@@ -7,12 +7,14 @@ import { legendaryCardDescription } from '../../material/LegendaryCardDescriptio
 import { tableDesign } from '../position/TableDesign'
 
 export class PlayerLegendaryLineDescription extends LocationDescription {
-  height = legendaryCardDescription.height + 2*11
-  width = legendaryCardDescription.width + 0.5*11
+//  height = legendaryCardDescription.height + 2*11
+//  width = legendaryCardDescription.width + 0.5*11
+  height = legendaryCardDescription.height
+  width = legendaryCardDescription.width
   borderRadius = legendaryCardDescription.borderRadius
 
-  alwaysVisible = true
-  extraCss = css`border: 0.05em solid white`
+//  alwaysVisible = true
+//  extraCss = css`border: 0.05em solid white`
 
   location = { type: LocationType.PlayerLegendaryLine }
 
@@ -20,18 +22,26 @@ export class PlayerLegendaryLineDescription extends LocationDescription {
     const { rules } = context
     const locations : Location[] = []
 
-    rules.players.forEach(p => {
-      locations.push({
-        type: LocationType.PlayerLegendaryLine,
-        player: p
+    for (let i=1; i<=15; i++){
+      rules.players.forEach(p => {
+        locations.push({
+          type: LocationType.PlayerLegendaryLine,
+          player: p,
+          x: i
+        })
       })
-    })
+    }
     return locations
   }
 
   getCoordinates(location: Location, context: LocationContext) {
-    return tableDesign.playerLegendaryLineCoordinates(location, context)
+    const baseCoordinates = tableDesign.playerLegendaryLineCoordinates(location, context)
+    const deltaX=(location.x!-1)
+    const deltaY=(location.x!-1)
+    return {
+      x: baseCoordinates.x + (legendaryCardDescription.width*0)+deltaX*0.5,
+      y: baseCoordinates.y + (legendaryCardDescription.height*-1.5-0.5)+deltaY*2,
+      z: location.x!+1
+    }
   }
-
-  // deckCoordinates = { x: -30, y: 30, z: 0}
 }

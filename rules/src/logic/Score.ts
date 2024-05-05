@@ -170,8 +170,12 @@ export class Score {
     return detailedScore.total
   }
 
+  setGrid(grid:KingdomCard[][], locationX:number, locationY:number, cardId:KingdomCard) {
+    grid[locationY-1][locationX-1]=cardId
+  }
+
   toGrid(player:number,
-    allKingdomCards:Material<number, MaterialType, LocationType>){
+    allKingdomCards:Material<number, MaterialType, LocationType>):KingdomCard[][]{
 
     let board=allKingdomCards.location(LocationType.PlayerBoard)
       .player(player)
@@ -180,7 +184,7 @@ export class Score {
     let items=board.getItems()
     for (let i=0; i<items.length; i++){
       let item=items[i]
-      boardCards[item.location.y!-1][item.location.x!-1]=item.id
+      this.setGrid(boardCards, item.location.x!, item.location.y!, item.id)
     }
 
     return boardCards
@@ -362,6 +366,12 @@ export class Score {
 
   legendaryAnalysis(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>) : LegendaryCharacteristics {
+    // Aggregate card ids into a 4x4 array
+    let boardCards=this.toGrid(player, allKingdomCards)
+    return this.legendaryAnalysisFromGrid(boardCards)
+  }
+
+  legendaryAnalysisFromGrid(boardCards:KingdomCard[][]): LegendaryCharacteristics {
     let has2connectedElves=false //
     let has2connectedDwarfs=false //
     let has2connectedHumans=false //
@@ -377,9 +387,6 @@ export class Score {
     let has2vs1_goblinDwarf=false //
     let has2vs1_goblinHuman=false //
     let has2vs1_dwarfElf=false //
-
-    // Aggregate card ids into a 4x4 array
-    let boardCards=this.toGrid(player, allKingdomCards)
 
     // Loop on cards
     let hasElf=false

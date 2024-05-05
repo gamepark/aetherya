@@ -8,18 +8,19 @@ import { score } from '../logic/Score'
 
 export abstract class PlayerTurnRuleWithLegendaryMoves extends PlayerTurnRule {
   getPlayerLegendaryMoves() {
-    return this.getPlayerLegendaryMoves_inner(
-      this.material(MaterialType.KingdomCard)
-        .player(this.getActivePlayer())
-        .rotation(true))
+    let kingdomCards=this.material(MaterialType.KingdomCard)
+      .player(this.getActivePlayer())
+      .rotation(true)
+    let grid=score.toGrid(this.getActivePlayer(), kingdomCards)
+    return this.getPlayerLegendaryMoves_inner(grid)
   }
 
-  getPlayerLegendaryMoves_inner(kingdomCards:Material) {
+  getPlayerLegendaryMoves_inner(kingdomCardsAsGrid:KingdomCard[][]) {
     // Available legendary cards
     // Only 1 legendary card per turn
     let moves=[]
     if (!this.remind(Memory.PickedLegendary)){
-      let legendaryCharac=score.legendaryAnalysis(this.getActivePlayer(), kingdomCards)
+      let legendaryCharac=score.legendaryAnalysisFromGrid(kingdomCardsAsGrid)
 
       let availableLegendaryCards=
         this.material(MaterialType.LegendaryCard)
@@ -41,33 +42,9 @@ export abstract class PlayerTurnRuleWithLegendaryMoves extends PlayerTurnRule {
       .player(this.getActivePlayer())
       .rotation(true)
 
-    // WARNING - The list of cards is tweaked here
-    // As the internal structure is directly used, it's not safe
-    // To be replaced by something better
-    let foundCard=false
-    let foundIndex=0
-    let foundId=undefined
-    for (let i=0; i<kingdomCards.entries.length; i++){
-      if ((kingdomCards.entries[i][1].location.x == location.x)
-        && (kingdomCards.entries[i][1].location.y == location.y)){
-        foundCard=true
-        foundIndex=i
-        foundId=kingdomCards.entries[i][1].id
-        kingdomCards.entries[i][1].id=kingdomCardId
-        break
-      }
-    }
-    if (!foundCard){
-      kingdomCards.entries.push([-1, {id:kingdomCardId, location:location}])
-    }
-
-    let res=this.getPlayerLegendaryMoves_inner(kingdomCards)
-
-    if (!foundCard){
-      kingdomCards.entries.pop()
-    } else {
-      kingdomCards.entries[foundIndex][1].id=foundId
-    }
+    let grid=score.toGrid(this.getActivePlayer(), kingdomCards)
+    score.setGrid(grid, location.x!, location.y!, kingdomCardId)
+    let res=this.getPlayerLegendaryMoves_inner(grid)
 
     return res
   }

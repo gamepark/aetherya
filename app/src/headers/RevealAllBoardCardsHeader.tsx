@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from 'react-i18next'
 
 export const RevealAllBoardCardsHeader = () => {
-  return <>Les cartes cachées sont révélées</>
+  const { t } = useTranslation()
+  return <>{t('header.revealed-cards')}</>
 }

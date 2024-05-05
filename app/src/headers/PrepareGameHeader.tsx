@@ -1,25 +1,20 @@
 /** @jsxImportSource @emotion/react */
-// import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
-import { PlayMoveButton, useLegalMove /*, usePlayerId, usePlayerName, useRules */ } from '@gamepark/react-game'
-// import { isStartRule } from '@gamepark/rules-api'
+import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { Trans, useTranslation } from 'react-i18next'
 
 export const PrepareGameHeader = () => {
-  const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
-  return <>Echangez deux cartes centrales ou <PlayMoveButton move={pass}>Passez</PlayMoveButton></>
-
-/*
-  const rules = useRules<AetheryaRules>()!
+  const { t } = useTranslation()
   const playerId = usePlayerId()
-//  const draw = useLegalMove(isStartRule)
-  const draw = useLegalMove(isCustomMoveType(CustomMoveType.DrawLegendaryCard))
-  // const playerName = usePlayerName(rules.game.rule?.player)
+  const activePlayers = useRules<AetheryaRules>()?.game.rule?.players
+  const player = usePlayerName(activePlayers![0])
+  const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
 
-  if (rules.game.rule?.player === playerId) {
-    return <><PlayMoveButton move={draw}>Piochez</PlayMoveButton> une carte légende ou Prenez celle de la défausse</>
+  if (playerId !== undefined && activePlayers!.includes(playerId)) {
+    return <Trans defaults="header.swap-or-pass.you"><PlayMoveButton move={pass}/></Trans>
   } else {
-    return <>Piochez une carte légende ou Prenez celle de la défausse</>
+    return <>{t('header.swap-or-pass.player', { player })}</>
   }
-*/
 }

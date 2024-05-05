@@ -2,7 +2,19 @@
   "en": {
     "translation": {
       "Name": "Aetherya",
-      "draw.legendary": "<0>Draw</0> legendary or pick from discard",
+      "header.choose-board-location.you": "You must choose a board location",
+      "header.choose-board-location.player": "{player} must choose a board location",
+      "header.choose-card.you": "You must pick a kingdom card from the deck or the discard, or pick a legend card",
+      "header.choose-card.player": "{player} must pick a kingdom card from the deck or the discard, or pick a legend card",
+      "header.pick-legend-or-pass.you": "You must pick a legend card or <0>pass</0>",
+      "header.pick-legend-or-pass.player": "{player} must pick a legend card or pass",
+      "header.refill-deck-and-discard": "Refilling deck and discard",
+      "header.revealed-cards": "All cards are revealed",
+      "header.scoring": "Scoring",
+      "header.swap-or-pass.you": "You must swap central cards or <0>pass</0>",
+      "header.swap-or-pass.player": "{player} must swap central cards or pass",
+      "header.swap-or-pass.players": "Players must swap central cards or <0>pass</0>",
+
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Validate",

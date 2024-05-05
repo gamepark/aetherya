@@ -1,22 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { PlayMoveButton, useLegalMove } from '@gamepark/react-game'
+import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { Trans, useTranslation } from 'react-i18next'
 
 export const ChooseLegendaryHeader = () => {
-  const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
-  return <>Piochez une carte légendes ou <PlayMoveButton move={pass}>Passez</PlayMoveButton></>
-/*
-  const rules = useRules<AetheryaRules>()!
+  const { t } = useTranslation()
   const playerId = usePlayerId()
-//  const draw = useLegalMove(isStartRule)
-  const draw = useLegalMove(isCustomMoveType(CustomMoveType.DrawLegendaryCard))
-  // const playerName = usePlayerName(rules.game.rule?.player)
-
-  if (rules.game.rule?.player === playerId) {
-    return <><PlayMoveButton move={draw}>Piochez</PlayMoveButton> une carte légende ou Prenez celle de la défausse</>
+  const activePlayer = useRules<AetheryaRules>()?.game.rule?.player
+  const player = usePlayerName(activePlayer)
+  const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
+  if (playerId !== undefined && activePlayer==playerId) {
+    return <Trans defaults="header.pick-legend-or-pass.you"><PlayMoveButton move={pass}/></Trans>
   } else {
-    return <>Piochez une carte légende ou Prenez celle de la défausse</>
+    return <>{t('header.pick-legend-or-pass.player', { player })}</>
   }
-*/
 }

@@ -1,23 +1,17 @@
 /** @jsxImportSource @emotion/react */
-// import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
-// import { PlayMoveButton, useLegalMove, usePlayerId, /* usePlayerName, */ useRules } from '@gamepark/react-game'
-// import { isStartRule } from '@gamepark/rules-api'
-//import { isCustomMoveType } from '@gamepark/rules-api'
-//import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
+import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
+import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { useTranslation } from 'react-i18next'
 
 export const ChooseCardHeader = () => {
-  return <>Piochez une carte royaume, Prenez celle de la défausse ou Prenez une carte légendes</>
-/*
-  const rules = useRules<AetheryaRules>()!
+  const { t } = useTranslation()
   const playerId = usePlayerId()
-//  const draw = useLegalMove(isStartRule)
-  const draw = useLegalMove(isCustomMoveType(CustomMoveType.DrawLegendaryCard))
-  // const playerName = usePlayerName(rules.game.rule?.player)
+  const activePlayer = useRules<AetheryaRules>()?.game.rule?.player
+  const player = usePlayerName(activePlayer)
 
-  if (rules.game.rule?.player === playerId) {
-    return <><PlayMoveButton move={draw}>Piochez</PlayMoveButton> une carte légende ou Prenez celle de la défausse</>
+  if (playerId !== undefined && activePlayer==playerId) {
+    return <>{t('header.choose-card.you')}</>
   } else {
-    return <>Piochez une carte légende ou Prenez celle de la défausse</>
+    return <>{t('header.choose-card.player', { player })}</>
   }
-*/
 }

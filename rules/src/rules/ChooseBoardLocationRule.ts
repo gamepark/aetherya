@@ -8,7 +8,29 @@ import { RuleId } from './RuleId'
 
 export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendaryMoves {
   getPlayerMoves() {
-    let eventCardId = this.cardsFromEventArea.getItems()[0].id
+    let cardEvents=this.cardsFromEventArea.getItems()
+/*
+    if (cardEvents.length==0){
+      // No card in the event area => end of rule
+      let nextTurn=undefined
+
+      if (this.remind(Memory.PickedLegendary) || this.getPlayerLegendaryMoves().length==0){
+        // Reset turn state for next player
+        this.forget(Memory.PickedLegendary)
+        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
+      } else {
+//        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseLegendary, this.getActivePlayer())
+        nextTurn=this.rules().startRule(RuleId.ChooseLegendary)
+      }
+
+      console.log('foo')
+
+      return [
+        nextTurn
+      ]
+    }
+*/
+    let eventCardId = cardEvents[0].id
     return this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerBoard)
       .player(this.player)
@@ -45,12 +67,14 @@ export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendaryMoves {
       // otherwise the player may pick a legendary card
       let nextTurn=undefined
 
+/*
       if (this.getPlayerMoves().length==0){
         this.forget(Memory.PickedLegendary)
         return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer) ]
       }
+*/
 
-      if (this.remind(Memory.PickedLegendary) || this.getPlayerLegendaryMoves().length==0){
+      if (this.remind(Memory.PickedLegendary) || this.getPlayerLegendaryMovesAfterMove(eventCard, newBoardCardLocation).length==0){
         // Reset turn state for next player
         this.forget(Memory.PickedLegendary)
         nextTurn=this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
@@ -62,17 +86,7 @@ export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendaryMoves {
         boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation:true }),
         eventCard.moveItem(newBoardCardLocation),
         nextTurn
-
-//        this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
-
-        // For score tests only
-//        this.rules().startRule(RuleId.Score)
       ]
-/*
-    } else {
-      console.log("Skipped move")
-      console.log(move)
-*/
     }
     return []
   }

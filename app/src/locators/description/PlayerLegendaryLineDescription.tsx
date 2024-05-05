@@ -7,8 +7,6 @@ import { legendaryCardDescription } from '../../material/LegendaryCardDescriptio
 import { tableDesign } from '../position/TableDesign'
 
 export class PlayerLegendaryLineDescription extends LocationDescription {
-//  height = legendaryCardDescription.height + 2*11
-//  width = legendaryCardDescription.width + 0.5*11
   height = legendaryCardDescription.height
   width = legendaryCardDescription.width
   borderRadius = legendaryCardDescription.borderRadius

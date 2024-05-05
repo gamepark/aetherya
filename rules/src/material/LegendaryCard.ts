@@ -6,7 +6,7 @@ export enum LegendaryCard {
   TwoLinkedGoblins = 3,
   TwoLinkedHumans = 4,
   TwoLinkedElves = 5,
-  TwoLinkedDwarves = 6,
+  TwoLinkedDwarfs = 6,
   FourTribes = 7,
   TwoVsOne_GoblinHuman = 8,
   TwoVsOne_GoblinElf = 9,

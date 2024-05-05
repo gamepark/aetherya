@@ -2,18 +2,29 @@
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 */
 import { MaterialGameAnimations } from '@gamepark/react-game'
+// import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
-import { isMoveItemType /*, isShuffle */ } from '@gamepark/rules-api'
+import { isMoveItemType /*, isShuffle*/  } from '@gamepark/rules-api'
 
 export const aetheryaAnimations = new MaterialGameAnimations()
 
+/*
+aetheryaAnimations.when()
+  .move((move) => isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type === LocationType.KingdomDeck)
+  .duration(2)
+
+aetheryaAnimations.when()
+  .move((move) => isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type !== LocationType.KingdomDeck)
+  .duration(0.6)
+*/
+
 aetheryaAnimations.when()
   .move((move) => isMoveItemType(MaterialType.KingdomCard)(move))
-  .duration(0.5)
+  .duration(0.6)
 
-  aetheryaAnimations.when()
-    .move((move) => isMoveItemType(MaterialType.LegendaryCard)(move))
-    .duration(0.5)
+aetheryaAnimations.when()
+  .move((move) => isMoveItemType(MaterialType.LegendaryCard)(move))
+  .duration(0.6)
 
 /*
 aetheryaAnimations.when()

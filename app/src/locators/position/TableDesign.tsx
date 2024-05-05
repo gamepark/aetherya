@@ -18,7 +18,7 @@ export class TableDesign {
         return { xMin: -27, xMax: 140, yMin: -33, yMax: 39 }
       default:
         // 2 players
-        return { xMin: -60, xMax: 60, yMin: -35, yMax: 30 }
+        return { xMin: -55, xMax: 57, yMin: -37, yMax: 17 }
     }
   }
 
@@ -26,12 +26,12 @@ export class TableDesign {
 //    const { player, rules } = context
     const locationPlayer = location.player
     const { rules } = context
+    let nbPlayers=this.nbPlayers(rules)
 
     // Default value - If unsupported player number
     let x=-20
     let y=-20
     let z=0
-    let nbPlayers=this.nbPlayers(rules)
 
     if (nbPlayers==2){
       if (locationPlayer==1){
@@ -53,9 +53,16 @@ export class TableDesign {
   playerLegendaryLineCoordinates(location: Location, context: LocationContext){
     const boardCoord=this.playerBoardCoordinates(location, context)
     const locationPlayer = location.player
-    let deltaX=-25
-    if (locationPlayer==2){
-      deltaX=25
+    const { rules } = context
+    let nbPlayers=this.nbPlayers(rules)
+
+    let deltaX=0
+    if (nbPlayers==2){
+      if (locationPlayer==1){
+        deltaX=-25
+      } else if (locationPlayer==2){
+        deltaX=20
+      }
     }
     return {x:boardCoord.x+deltaX, y:boardCoord.y, z:boardCoord.z}
   }

@@ -65,7 +65,7 @@ export class LegendaryCharacteristics {
       return this.has2connectedHumans
     if (type==LegendaryCard.TwoLinkedElves)
       return this.has2connectedElves
-    if (type==LegendaryCard.TwoLinkedDwarves)
+    if (type==LegendaryCard.TwoLinkedDwarfs)
       return this.has2connectedDwarfs
     if (type==LegendaryCard.FourTribes)
       return this.hasAllTribes
@@ -350,7 +350,7 @@ export class Score {
     if (card==LegendaryCard.TwoLinkedGoblins) return 2
     if (card==LegendaryCard.TwoLinkedHumans) return 2
     if (card==LegendaryCard.TwoLinkedElves) return 2
-    if (card==LegendaryCard.TwoLinkedDwarves) return 2
+    if (card==LegendaryCard.TwoLinkedDwarfs) return 2
     if (card==LegendaryCard.FourTribes) return 4
     if (card==LegendaryCard.TwoVsOne_GoblinHuman) return 3
     if (card==LegendaryCard.TwoVsOne_GoblinElf) return 3

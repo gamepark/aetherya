@@ -6,7 +6,7 @@ import LinkedHumanDwarf from '../images/LegendHumanDwarf.jpg'
 import TwoLinkedGoblins from '../images/LegendGoblin2.jpg'
 import TwoLinkedHumans from '../images/LegendHuman2.jpg'
 import TwoLinkedElves from '../images/LegendElf2.jpg'
-import TwoLinkedDwarves from '../images/LegendDwarf2.jpg'
+import TwoLinkedDwarfs from '../images/LegendDwarf2.jpg'
 import FourTribes from '../images/LegendAllTribes.jpg'
 import TwoVsOne_GoblinHuman from '../images/Legend2v1GoblinHuman.jpg'
 import TwoVsOne_GoblinElf from '../images/Legend2v1GoblinElf.jpg'
@@ -16,6 +16,7 @@ import ThreeLinkedPlains from '../images/LegendPlains.jpg'
 import ThreeLinkedSwamps from '../images/LegendSwamps.jpg'
 import ThreeLinkedMountains from '../images/LegendMountains.jpg'
 import ThreeLinkedForests from '../images/LegendForests.jpg'
+import { LegendaryCardHelp } from './help/LegendaryCardHelp'
 
 export class LegendaryCardDescription extends CardDescription {
   height = 7
@@ -23,6 +24,7 @@ export class LegendaryCardDescription extends CardDescription {
   borderRadius = 0.5
 
   backImage = LegendaryBack
+  help = LegendaryCardHelp
 
   images = {
     [LegendaryCard.LinkedHumanElf]: LinkedHumanElf,
@@ -30,7 +32,7 @@ export class LegendaryCardDescription extends CardDescription {
     [LegendaryCard.TwoLinkedGoblins]: TwoLinkedGoblins,
     [LegendaryCard.TwoLinkedHumans]: TwoLinkedHumans,
     [LegendaryCard.TwoLinkedElves]: TwoLinkedElves,
-    [LegendaryCard.TwoLinkedDwarves]: TwoLinkedDwarves,
+    [LegendaryCard.TwoLinkedDwarfs]: TwoLinkedDwarfs,
     [LegendaryCard.FourTribes]: FourTribes,
     [LegendaryCard.TwoVsOne_GoblinHuman]: TwoVsOne_GoblinHuman,
     [LegendaryCard.TwoVsOne_GoblinElf]: TwoVsOne_GoblinElf,

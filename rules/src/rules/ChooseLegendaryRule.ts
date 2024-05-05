@@ -9,7 +9,6 @@ import { RuleId } from './RuleId'
 
 export class ChooseLegendaryRule extends PlayerTurnRuleWithLegendaryMoves {
   onRuleStart() {
-    console.log("Choose legendary rule - onRuleStart")
     if (this.getPlayerMoves().length==0){
       this.forget(Memory.PickedLegendary)
       return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer) ]

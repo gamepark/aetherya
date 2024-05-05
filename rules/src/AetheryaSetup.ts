@@ -5,7 +5,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { RuleId } from './rules/RuleId'
 import { kingdomCards } from './material/KingdomCard'
-import { legendaryCards } from './material/LegendaryCard'
+import { legendCards } from './material/LegendCard'
 
 /**
  * This class creates a new Game based on the game options
@@ -15,8 +15,8 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
 
   setupMaterial(options: AetheryaOptions) {
     this.setupKingdomCards(options)
-    this.setupLegendaryCards()
-    this.setupLegendaryLine()
+    this.setupLegendCards()
+    this.setupLegendLine()
     this.setupPlayers(options)
   }
 
@@ -35,22 +35,22 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     this.material(MaterialType.KingdomCard).shuffle()
   }
 
-  setupLegendaryCards() {
-    const cards=legendaryCards.map((legendaryCard) => ({
-      id: legendaryCard,
+  setupLegendCards() {
+    const cards=legendCards.map((legendCard) => ({
+      id: legendCard,
       location: {
-        type: LocationType.LegendaryDeck
+        type: LocationType.LegendDeck
       }
     }))
 
-    this.material(MaterialType.LegendaryCard).createItems(cards)
-    this.material(MaterialType.LegendaryCard).shuffle()
+    this.material(MaterialType.LegendCard).createItems(cards)
+    this.material(MaterialType.LegendCard).shuffle()
   }
 
-  setupLegendaryLine() {
-    const deck = this.material(MaterialType.LegendaryCard).deck()
+  setupLegendLine() {
+    const deck = this.material(MaterialType.LegendCard).deck()
     for (let i=1; i<=8; i++){
-      deck.deal({ type: LocationType.LegendaryLine, x:i }, 1)
+      deck.deal({ type: LocationType.LegendLine, x:i }, 1)
     }
   }
 
@@ -79,6 +79,5 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
 
   start() {
     this.startSimultaneousRule(RuleId.PrepareGame)
-//    this.startPlayerTurn(RuleId.ChooseLegendaryCard, this.game.players[0])
   }
 }

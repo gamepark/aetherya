@@ -2,11 +2,10 @@ import { isSelectItem, /* isMoveItemType, */ ItemMove, MaterialMove /*, PlayerTu
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
-import { PlayerTurnRuleWithLegendaryMoves } from './PlayerTurnRuleWithLegendaryMoves'
+import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
 import { RuleId } from './RuleId'
-//import { Score } from '../logic/Score'
 
-export class ChooseCardRule extends PlayerTurnRuleWithLegendaryMoves {
+export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
     let nbPlayers=this.game.players.length
@@ -38,32 +37,14 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendaryMoves {
     const discardCards = this.discardDeckCards()
     const discardCardActions = discardCards.maxBy(item => item.location.x!).selectItems()
 
-    // Legendary card moves
-    const availableLegendaryCardsActions=this.getPlayerLegendaryMoves()
+    // Legend card moves
+    const availableLegendCardsActions=this.getPlayerLegendMoves()
 
-    let moves = [
+    return [
       ...deckCardActions,
       ...discardCardActions,
-      ...availableLegendaryCardsActions
+      ...availableLegendCardsActions
     ]
-/*
-    // Only 1 legendary card per turn
-    if (!this.remind(Memory.PickedLegendary)){
-      let score=new Score()
-      let legendaryCharac=score.legendaryAnalysis(this.getActivePlayer(), this.material(MaterialType.KingdomCard))
-
-      let availableLegendaryCards=
-        this.material(MaterialType.LegendaryCard)
-        .location(LocationType.LegendaryLine)
-        .filter(item => {
-          return legendaryCharac.match(item.id)
-        })
-      let availableLegendaryCardsActions = availableLegendaryCards.selectItems()
-
-      moves.push(...availableLegendaryCardsActions)
-    }
-    */
-    return moves
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
@@ -86,17 +67,17 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendaryMoves {
         }
         moves.push(this.rules().startPlayerTurn(RuleId.ChooseBoardLocation, this.getActivePlayer()))
         return moves
-      } else if (move.itemType==MaterialType.LegendaryCard){
-        // Legendary card from legendary card line
-        const card = this.material(MaterialType.LegendaryCard).index(move.itemIndex)
+      } else if (move.itemType==MaterialType.LegendCard){
+        // Legend card from legend card line
+        const card = this.material(MaterialType.LegendCard).index(move.itemIndex)
         const itemLocation = card.getItem()!.location
-        const nbLegendaryCards = this.material(MaterialType.LegendaryCard).player(this.getActivePlayer()).getItems().length
+        const nbLegendCards = this.material(MaterialType.LegendCard).player(this.getActivePlayer()).getItems().length
 
-        this.memorize(Memory.PickedLegendary, true)
+        this.memorize(Memory.PickedLegend, true)
 
         return [
-          card.moveItem({ type: LocationType.PlayerLegendaryLine, player:this.getActivePlayer(), x:nbLegendaryCards+1 }),
-          ...this.legendaryDeck().deal(itemLocation, 1)
+          card.moveItem({ type: LocationType.PlayerLegendLine, player:this.getActivePlayer(), x:nbLegendCards+1 }),
+          ...this.legendDeck().deal(itemLocation, 1)
         ]
       }
     }
@@ -125,9 +106,9 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendaryMoves {
     return this.discardDeckCards().deck()
   }
 
-  legendaryDeck() {
-    return this.material(MaterialType.LegendaryCard)
-      .location(LocationType.LegendaryDeck)
+  legendDeck() {
+    return this.material(MaterialType.LegendCard)
+      .location(LocationType.LegendDeck)
       .deck()
   }
 }

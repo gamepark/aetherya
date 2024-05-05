@@ -2,15 +2,13 @@ import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { score } from '@gamepark/aetherya/logic/Score'
-//import { ScoreHelper } from '@gamepark/aetherya/rules/helper/ScoreHelper'
 import { FlatMaterialDescription, ItemContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import ScoreSheet from '../images/scoresheet.jpg'
-// import { ScoreSheetHelp } from './help/ScoreSheetHelp'
 
 export class ScoreSheetDescription extends FlatMaterialDescription {
   width = 9
-  height = 11 // 10.5
+  height = 11
 
   image = ScoreSheet
 
@@ -29,7 +27,7 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
       let detailedScore=score.detailedPlayerScore(
         player,
         rules.material(MaterialType.KingdomCard),
-        rules.material(MaterialType.LegendaryCard)
+        rules.material(MaterialType.LegendCard)
       )
 
       locations.push({
@@ -76,7 +74,7 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
       })
       locations.push({
         type: LocationType.ScoreSheetBox,
-        id: detailedScore.legendaryPoints,
+        id: detailedScore.legendPoints,
         parent: 0,
         x: player,
         y: 6

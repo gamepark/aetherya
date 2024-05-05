@@ -8,7 +8,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { ChooseCardRule } from './rules/ChooseCardRule'
-import { ChooseLegendaryRule } from './rules/ChooseLegendaryRule'
+import { ChooseLegendRule } from './rules/ChooseLegendRule'
 import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
@@ -44,7 +44,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
     [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
-    [RuleId.ChooseLegendary]: ChooseLegendaryRule
+    [RuleId.ChooseLegend]: ChooseLegendRule
   }
 
   locationsStrategies = {
@@ -60,8 +60,8 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
       [LocationType.KingdomDiscard]: alwaysShow,
       [LocationType.PlayerBoard]: hideCardWhenNotRotated
     },
-    [MaterialType.LegendaryCard]: {
-      [LocationType.LegendaryDeck]: alwaysHide
+    [MaterialType.LegendCard]: {
+      [LocationType.LegendDeck]: alwaysHide
     }
   }
 
@@ -70,7 +70,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     return score.playerScore(
       player,
       this.material(MaterialType.KingdomCard),
-      this.material(MaterialType.LegendaryCard)
+      this.material(MaterialType.LegendCard)
     )
   }
 

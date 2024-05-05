@@ -1,5 +1,4 @@
 import { MaterialRulesPart } from '@gamepark/rules-api'
-//import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { score } from '../logic/Score'
 
@@ -11,7 +10,7 @@ export class ScoreRule extends MaterialRulesPart {
       score.playerScore(
         player,
         this.material(MaterialType.KingdomCard),
-        this.material(MaterialType.LegendaryCard)
+        this.material(MaterialType.LegendCard)
       )
     }
     return [ this.rules().endGame() ]

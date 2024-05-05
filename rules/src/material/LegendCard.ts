@@ -1,6 +1,6 @@
 import { isEnumValue } from '@gamepark/rules-api'
 
-export enum LegendaryCard {
+export enum LegendCard {
   LinkedHumanElf = 1,
   LinkedHumanDwarf = 2,
   TwoLinkedGoblins = 3,
@@ -18,4 +18,4 @@ export enum LegendaryCard {
   ThreeLinkedForests = 15
 }
 
-export const legendaryCards = Object.values(LegendaryCard).filter(isEnumValue)
+export const legendCards = Object.values(LegendCard).filter(isEnumValue)

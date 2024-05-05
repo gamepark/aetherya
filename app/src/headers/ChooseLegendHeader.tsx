@@ -5,7 +5,7 @@ import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
 import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
 
-export const ChooseLegendaryHeader = () => {
+export const ChooseLegendHeader = () => {
   const { t } = useTranslation()
   const playerId = usePlayerId()
   const activePlayer = useRules<AetheryaRules>()?.game.rule?.player

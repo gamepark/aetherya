@@ -1,4 +1,3 @@
 export enum Memory {
-  PickedKingdom,
-  PickedLegendary
+  PickedLegend = 1
 }

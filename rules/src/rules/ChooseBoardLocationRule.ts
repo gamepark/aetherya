@@ -3,33 +3,12 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { KingdomCard } from '../material/KingdomCard'
 import { Memory } from './Memory'
-import { PlayerTurnRuleWithLegendaryMoves } from './PlayerTurnRuleWithLegendaryMoves'
+import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
 import { RuleId } from './RuleId'
 
-export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendaryMoves {
+export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendMoves {
   getPlayerMoves() {
     let cardEvents=this.cardsFromEventArea.getItems()
-/*
-    if (cardEvents.length==0){
-      // No card in the event area => end of rule
-      let nextTurn=undefined
-
-      if (this.remind(Memory.PickedLegendary) || this.getPlayerLegendaryMoves().length==0){
-        // Reset turn state for next player
-        this.forget(Memory.PickedLegendary)
-        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
-      } else {
-//        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseLegendary, this.getActivePlayer())
-        nextTurn=this.rules().startRule(RuleId.ChooseLegendary)
-      }
-
-      console.log('foo')
-
-      return [
-        nextTurn
-      ]
-    }
-*/
     let eventCardId = cardEvents[0].id
     return this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerBoard)
@@ -63,23 +42,16 @@ export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendaryMoves {
       // Unselect all cards
       this.material(MaterialType.KingdomCard).selected(true).getItems().forEach((item) => delete item.selected)
 
-      // If the player already picked a legendary card, it's the end of the turn
-      // otherwise the player may pick a legendary card
+      // If the player already picked a legend card, it's the end of the turn
+      // otherwise the player may pick a legend card
       let nextTurn=undefined
 
-/*
-      if (this.getPlayerMoves().length==0){
-        this.forget(Memory.PickedLegendary)
-        return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer) ]
-      }
-*/
-
-      if (this.remind(Memory.PickedLegendary) || this.getPlayerLegendaryMovesAfterMove(eventCard, newBoardCardLocation).length==0){
+      if (this.remind(Memory.PickedLegend) || this.getPlayerLegendMovesAfterMove(eventCard, newBoardCardLocation).length==0){
         // Reset turn state for next player
-        this.forget(Memory.PickedLegendary)
+        this.forget(Memory.PickedLegend)
         nextTurn=this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
       } else {
-        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseLegendary, this.getActivePlayer())
+        nextTurn=this.rules().startPlayerTurn(RuleId.ChooseLegend, this.getActivePlayer())
       }
 
       return [

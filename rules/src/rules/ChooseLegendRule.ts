@@ -3,14 +3,13 @@ import { CustomMoveType } from './CustomMoveType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
-import { PlayerTurnRuleWithLegendaryMoves } from './PlayerTurnRuleWithLegendaryMoves'
+import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
 import { RuleId } from './RuleId'
-//import { Score } from '../logic/Score'
 
-export class ChooseLegendaryRule extends PlayerTurnRuleWithLegendaryMoves {
+export class ChooseLegendRule extends PlayerTurnRuleWithLegendMoves {
   onRuleStart() {
     if (this.getPlayerMoves().length==0){
-      this.forget(Memory.PickedLegendary)
+      this.forget(Memory.PickedLegend)
       return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer) ]
     }
     return []
@@ -18,7 +17,7 @@ export class ChooseLegendaryRule extends PlayerTurnRuleWithLegendaryMoves {
 
   getPlayerMoves() {
     return [
-      ...this.getPlayerLegendaryMoves(),
+      ...this.getPlayerLegendMoves(),
       this.rules().customMove(CustomMoveType.Pass)
     ]
   }
@@ -32,17 +31,17 @@ export class ChooseLegendaryRule extends PlayerTurnRuleWithLegendaryMoves {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isSelectItem(move)) {
-      if (move.itemType==MaterialType.LegendaryCard){
-        // Legendary card from legendary card line
-        const card = this.material(MaterialType.LegendaryCard).index(move.itemIndex)
+      if (move.itemType==MaterialType.LegendCard){
+        // Legend card from legend card line
+        const card = this.material(MaterialType.LegendCard).index(move.itemIndex)
         const itemLocation = card.getItem()!.location
-        const nbLegendaryCards = this.material(MaterialType.LegendaryCard).player(this.getActivePlayer()).getItems().length
+        const nbLegendCards = this.material(MaterialType.LegendCard).player(this.getActivePlayer()).getItems().length
 
-        // this.memorize(Memory.PickedLegendary, true)
+        // this.memorize(Memory.PickedLegend, true)
 
         return [
-          card.moveItem({ type: LocationType.PlayerLegendaryLine, player:this.getActivePlayer(), x:nbLegendaryCards+1 }),
-          ...this.legendaryDeck().deal(itemLocation, 1),
+          card.moveItem({ type: LocationType.PlayerLegendLine, player:this.getActivePlayer(), x:nbLegendCards+1 }),
+          ...this.legendDeck().deal(itemLocation, 1),
           this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
         ]
       }
@@ -72,9 +71,9 @@ export class ChooseLegendaryRule extends PlayerTurnRuleWithLegendaryMoves {
     return this.discardDeckCards().deck()
   }
 
-  legendaryDeck() {
-    return this.material(MaterialType.LegendaryCard)
-      .location(LocationType.LegendaryDeck)
+  legendDeck() {
+    return this.material(MaterialType.LegendCard)
+      .location(LocationType.LegendDeck)
       .deck()
   }
 }

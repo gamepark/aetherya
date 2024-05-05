@@ -2,7 +2,7 @@ import { Material } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { KingdomCard } from '../material/KingdomCard'
-import { LegendaryCard } from '../material/LegendaryCard'
+import { LegendCard } from '../material/LegendCard'
 
 export class PlayerScore {
   elfPoints:number
@@ -10,7 +10,7 @@ export class PlayerScore {
   humanPoints:number
   goblinPoints:number
   dragonPoints:number
-  legendaryPoints:number
+  legendPoints:number
   conflictPoints:number
   total:number
 
@@ -20,20 +20,20 @@ export class PlayerScore {
     humanPoints:number,
     goblinPoints:number,
     dragonPoints:number,
-    legendaryPoints:number,
+    legendPoints:number,
     conflictPoints:number){
     this.elfPoints=elfPoints
     this.dwarfPoints=dwarfPoints
     this.humanPoints=humanPoints
     this.goblinPoints=goblinPoints
     this.dragonPoints=dragonPoints
-    this.legendaryPoints=legendaryPoints
+    this.legendPoints=legendPoints
     this.conflictPoints=conflictPoints
-    this.total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendaryPoints+conflictPoints
+    this.total=elfPoints+dwarfPoints+humanPoints+goblinPoints+dragonPoints+legendPoints+conflictPoints
   }
 }
 
-export class LegendaryCharacteristics {
+export class LegendCharacteristics {
   has2connectedElves:boolean
   has2connectedDwarfs:boolean
   has2connectedHumans:boolean
@@ -54,39 +54,39 @@ export class LegendaryCharacteristics {
   has2vs1_goblinHuman:boolean
   has2vs1_dwarfElf:boolean
 
-  match(type:LegendaryCard) : boolean {
-    if (type==LegendaryCard.LinkedHumanElf)
+  match(type:LegendCard) : boolean {
+    if (type==LegendCard.LinkedHumanElf)
       return this.hasConnectedHumanElf
-    if (type==LegendaryCard.LinkedHumanDwarf)
+    if (type==LegendCard.LinkedHumanDwarf)
       return this.hasConnectedHumanDwarf
-    if (type==LegendaryCard.TwoLinkedGoblins)
+    if (type==LegendCard.TwoLinkedGoblins)
       return this.has2connectedGoblins
-    if (type==LegendaryCard.TwoLinkedHumans)
+    if (type==LegendCard.TwoLinkedHumans)
       return this.has2connectedHumans
-    if (type==LegendaryCard.TwoLinkedElves)
+    if (type==LegendCard.TwoLinkedElves)
       return this.has2connectedElves
-    if (type==LegendaryCard.TwoLinkedDwarfs)
+    if (type==LegendCard.TwoLinkedDwarfs)
       return this.has2connectedDwarfs
-    if (type==LegendaryCard.FourTribes)
+    if (type==LegendCard.FourTribes)
       return this.hasAllTribes
-    if (type==LegendaryCard.TwoVsOne_GoblinHuman)
+    if (type==LegendCard.TwoVsOne_GoblinHuman)
       return this.has2vs1_goblinHuman
-    if (type==LegendaryCard.TwoVsOne_GoblinElf)
+    if (type==LegendCard.TwoVsOne_GoblinElf)
       return this.has2vs1_goblinElf
-    if (type==LegendaryCard.TwoVsOne_GoblinDwarf)
+    if (type==LegendCard.TwoVsOne_GoblinDwarf)
       return this.has2vs1_goblinDwarf
-    if (type==LegendaryCard.TwoVsOne_ElfDwarf)
+    if (type==LegendCard.TwoVsOne_ElfDwarf)
       return this.has2vs1_dwarfElf
-    if (type==LegendaryCard.ThreeLinkedPlains)
+    if (type==LegendCard.ThreeLinkedPlains)
       return this.has3connectedPlains
-    if (type==LegendaryCard.ThreeLinkedSwamps)
+    if (type==LegendCard.ThreeLinkedSwamps)
       return this.has3connectedSwamps
-    if (type==LegendaryCard.ThreeLinkedMountains)
+    if (type==LegendCard.ThreeLinkedMountains)
       return this.has3connectedMountains
-    if (type==LegendaryCard.ThreeLinkedForests)
+    if (type==LegendCard.ThreeLinkedForests)
       return this.has3connectedForests
 
-    console.log("*** ERROR - Unsupported legendary card")
+    console.log("*** ERROR - Unsupported legend card")
     return false
   }
 
@@ -165,8 +165,8 @@ export class GridCoordSet {
 export class Score {
   playerScore(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>,
-    allLegendaryCards:Material<number, MaterialType, LocationType>) : number {
-    let detailedScore=this.detailedPlayerScore(player, allKingdomCards, allLegendaryCards)
+    allLegendCards:Material<number, MaterialType, LocationType>) : number {
+    let detailedScore=this.detailedPlayerScore(player, allKingdomCards, allLegendCards)
     return detailedScore.total
   }
 
@@ -192,7 +192,7 @@ export class Score {
 
   detailedPlayerScore(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>,
-    allLegendaryCards:Material<number, MaterialType, LocationType>) : PlayerScore {
+    allLegendCards:Material<number, MaterialType, LocationType>) : PlayerScore {
 
     // Aggregate kingdom card ids into a 4x4 array
     let boardCards=this.toGrid(player, allKingdomCards)
@@ -324,13 +324,13 @@ export class Score {
     }
     let dragonPoints=nbDomesticatedDragons*dragonValue-(nbDragons-nbDomesticatedDragons)*dragonValue
 
-    // Legendary cards
-    let legendaryPoints=0
+    // Legend cards
+    let legendPoints=0
 
-    allLegendaryCards.location(LocationType.PlayerLegendaryLine)
+    allLegendCards.location(LocationType.PlayerLegendLine)
       .player(player)
       .getItems().forEach(item => {
-        legendaryPoints+=this.legendaryCardValue(item.id)
+        legendPoints+=this.legendCardValue(item.id)
       })
 
     // Result
@@ -340,38 +340,38 @@ export class Score {
       humanPoints,
       goblinPoints,
       dragonPoints,
-      legendaryPoints,
+      legendPoints,
       -conflictPoints)
   }
 
-  legendaryCardValue(card:LegendaryCard): number{
-    if (card==LegendaryCard.LinkedHumanElf) return 2
-    if (card==LegendaryCard.LinkedHumanDwarf) return 2
-    if (card==LegendaryCard.TwoLinkedGoblins) return 2
-    if (card==LegendaryCard.TwoLinkedHumans) return 2
-    if (card==LegendaryCard.TwoLinkedElves) return 2
-    if (card==LegendaryCard.TwoLinkedDwarfs) return 2
-    if (card==LegendaryCard.FourTribes) return 4
-    if (card==LegendaryCard.TwoVsOne_GoblinHuman) return 3
-    if (card==LegendaryCard.TwoVsOne_GoblinElf) return 3
-    if (card==LegendaryCard.TwoVsOne_GoblinDwarf) return 3
-    if (card==LegendaryCard.TwoVsOne_ElfDwarf) return 3
-    if (card==LegendaryCard.ThreeLinkedPlains) return 4
-    if (card==LegendaryCard.ThreeLinkedSwamps) return 4
-    if (card==LegendaryCard.ThreeLinkedMountains) return 4
-    if (card==LegendaryCard.ThreeLinkedForests) return 4
-    console.log("*** ERROR - Unsupported legendary card")
+  legendCardValue(card:LegendCard): number{
+    if (card==LegendCard.LinkedHumanElf) return 2
+    if (card==LegendCard.LinkedHumanDwarf) return 2
+    if (card==LegendCard.TwoLinkedGoblins) return 2
+    if (card==LegendCard.TwoLinkedHumans) return 2
+    if (card==LegendCard.TwoLinkedElves) return 2
+    if (card==LegendCard.TwoLinkedDwarfs) return 2
+    if (card==LegendCard.FourTribes) return 4
+    if (card==LegendCard.TwoVsOne_GoblinHuman) return 3
+    if (card==LegendCard.TwoVsOne_GoblinElf) return 3
+    if (card==LegendCard.TwoVsOne_GoblinDwarf) return 3
+    if (card==LegendCard.TwoVsOne_ElfDwarf) return 3
+    if (card==LegendCard.ThreeLinkedPlains) return 4
+    if (card==LegendCard.ThreeLinkedSwamps) return 4
+    if (card==LegendCard.ThreeLinkedMountains) return 4
+    if (card==LegendCard.ThreeLinkedForests) return 4
+    console.log("*** ERROR - Unsupported legend card")
     return 0
   }
 
-  legendaryAnalysis(player:number,
-    allKingdomCards:Material<number, MaterialType, LocationType>) : LegendaryCharacteristics {
+  legendAnalysis(player:number,
+    allKingdomCards:Material<number, MaterialType, LocationType>) : LegendCharacteristics {
     // Aggregate card ids into a 4x4 array
     let boardCards=this.toGrid(player, allKingdomCards)
-    return this.legendaryAnalysisFromGrid(boardCards)
+    return this.legendAnalysisFromGrid(boardCards)
   }
 
-  legendaryAnalysisFromGrid(boardCards:KingdomCard[][]): LegendaryCharacteristics {
+  legendAnalysisFromGrid(boardCards:KingdomCard[][]): LegendCharacteristics {
     let has2connectedElves=false //
     let has2connectedDwarfs=false //
     let has2connectedHumans=false //
@@ -535,7 +535,7 @@ export class Score {
     // All tribes ?
     hasAllTribes=hasGoblin && hasElf && hasHuman && hasDwarf
 
-    return new LegendaryCharacteristics(
+    return new LegendCharacteristics(
       has2connectedElves,
       has2connectedDwarfs,
       has2connectedHumans,

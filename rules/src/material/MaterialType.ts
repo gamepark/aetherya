@@ -1,5 +1,5 @@
 export enum MaterialType {
-  KingdomCard   = 1,
-  LegendaryCard = 2,
-  ScoreSheet    = 3
+  KingdomCard = 1,
+  LegendCard  = 2,
+  ScoreSheet  = 3
 }

@@ -81,7 +81,7 @@ export class TableDesign {
     return {x:x, y:y, z:z}
   }
 
-  playerLegendaryLineCoordinates(location: Location, context: LocationContext){
+  playerLegendLineCoordinates(location: Location, context: LocationContext){
     const boardCoord=this.playerBoardCoordinates(location, context)
     const locationPlayer = location.player
     const { rules } = context
@@ -121,7 +121,7 @@ export class TableDesign {
     return {x:boardCoord.x+deltaX, y:boardCoord.y, z:boardCoord.z}
   }
 
-  commonLegendaryLineCoordinates(context: LocationContext){
+  commonLegendLineCoordinates(context: LocationContext){
     const { rules } = context
     let nbPlayers=this.nbPlayers(rules)
 
@@ -147,10 +147,10 @@ export class TableDesign {
     return {x:x, y:y, z:z}
   }
 
-  commonLegendaryDeckCoordinates(context: LocationContext){
+  commonLegendDeckCoordinates(context: LocationContext){
     const { rules } = context
     let nbPlayers=this.nbPlayers(rules)
-    let lineCoord=this.commonLegendaryLineCoordinates(context)
+    let lineCoord=this.commonLegendLineCoordinates(context)
 
     let deltaX=0
     let deltaY=0

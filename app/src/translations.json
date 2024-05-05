@@ -2,6 +2,7 @@
   "en": {
     "translation": {
       "Name": "Aetherya",
+
       "header.choose-board-location.you": "You must choose a board location",
       "header.choose-board-location.player": "{player} must choose a board location",
       "header.choose-card.you": "You must pick a kingdom card from the deck or the discard, or pick a legend card",
@@ -14,6 +15,17 @@
       "header.swap-or-pass.you": "You must swap central cards or <0>pass</0>",
       "header.swap-or-pass.player": "{player} must swap central cards or pass",
       "header.swap-or-pass.players": "Players must swap central cards or <0>pass</0>",
+
+      "help.dragon": "Dragon",
+      "help.dwarf": "Dwarf",
+      "help.elf": "Elf",
+      "help.forest": "Forest",
+      "help.goblin": "Goblin",
+      "help.human": "Human",
+      "help.mountain": "Mountain",
+      "help.plain": "Plain",
+      "help.portal": "Portal",
+      "help.swamp": "Swamp",
 
       "Menu": "Menu",
       "OK": "OK",

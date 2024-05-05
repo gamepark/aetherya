@@ -11,6 +11,7 @@ import Elf from '../images/KingdomElf.jpg'
 import Dwarf from '../images/KingdomDwarf.jpg'
 import Portal from '../images/KingdomPortal.jpg'
 import Dragon from '../images/KingdomDragon.jpg'
+import { KingdomCardHelp } from './help/KingdomCardHelp'
 
 export class KingdomCardDescription extends CardDescription {
   height = 7
@@ -18,6 +19,7 @@ export class KingdomCardDescription extends CardDescription {
   borderRadius = 0.5
 
   backImage = KingdomBack
+  help = KingdomCardHelp
 
   images = {
     [KingdomCard.Plain]: Plain,

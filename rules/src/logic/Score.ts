@@ -399,10 +399,11 @@ export class Score {
         if (currentCard === undefined)
           continue
 
+        // Note from Francois - Lands may be connected through portals
         if (currentCard==KingdomCard.Plain){
           // 3 connected plains ?
           let nbConnectedPlains=0
-          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
             let adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Plain){
               nbConnectedPlains+=1
@@ -413,7 +414,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Swamp){
           // 3 connected swamps ?
           let nbConnectedSwamps=0
-          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
             let adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Swamp){
               nbConnectedSwamps+=1
@@ -424,7 +425,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Mountain){
           // 3 connected mountains ?
           let nbConnectedMountains=0
-          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
             let adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Mountain){
               nbConnectedMountains+=1
@@ -435,7 +436,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Forest){
           // 3 connected forests ?
           let nbConnectedForests=0
-          this.getDirectlyAdjacentCards(i, j).forEach(coord => {
+          this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
             let adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Forest){
               nbConnectedForests+=1

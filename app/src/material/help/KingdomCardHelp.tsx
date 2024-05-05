@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-
 import { KingdomCard } from '@gamepark/aetherya/material/KingdomCard'
-import { MaterialHelpProps, Picture /*, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules */ } from '@gamepark/react-game'
+import { MaterialHelpProps, Picture } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
 import dwarfIcon from '../../images/icon/dwarf2.png'
@@ -25,7 +24,11 @@ export const KingdomCardHelp = (props: MaterialHelpProps) => {
   const {item}=props
   const { t } = useTranslation()
 
-  if (item.id==KingdomCard.Plain){
+  if (item.id===undefined){
+    return <>
+      <h2>{t('help.kingdom-card')}</h2>
+      </>
+  } else if (item.id==KingdomCard.Plain){
     return <>
       <h2>{t('help.plain')}</h2>
       <Picture src={plainIcon}/>

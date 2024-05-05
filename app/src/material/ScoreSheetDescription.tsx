@@ -5,12 +5,14 @@ import { score } from '@gamepark/aetherya/logic/Score'
 import { FlatMaterialDescription, ItemContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import ScoreSheet from '../images/scoresheet.jpg'
+import { ScoreSheetHelp } from './help/ScoreSheetHelp'
 
 export class ScoreSheetDescription extends FlatMaterialDescription {
   width = 9
   height = 11
 
   image = ScoreSheet
+  help = ScoreSheetHelp
 
   staticItem = {
     location: {

@@ -9,7 +9,11 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
   const {item}=props
   const { t } = useTranslation()
 
-  if (item.id==LegendCard.LinkedHumanElf){
+  if (item.id===undefined){
+    return <>
+      <h2>{t('help.legend-card')}</h2>
+      </>
+  } else if (item.id==LegendCard.LinkedHumanElf){
     return <>
       <h2>{t('help.linked-human-elf')}</h2>
       Value: 2 points<br/>

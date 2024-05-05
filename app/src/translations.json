@@ -16,6 +16,10 @@
       "header.swap-or-pass.player": "{player} must swap central cards or pass",
       "header.swap-or-pass.players": "Players must swap central cards or <0>pass</0>",
 
+      "help.legend-card": "Legend card",
+      "help.kingdom-card": "Kingdom card",
+      "help.scoresheet": "Score sheet",
+
       "help.dragon": "Wild dragon",
       "help.dwarf": "Dwarf",
       "help.elf": "Elf",

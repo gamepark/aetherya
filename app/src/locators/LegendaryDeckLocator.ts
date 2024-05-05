@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator } from '@gamepark/react-game'
+import { DeckLocator, ItemContext } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { LegendaryDeckDescription } from './description/LegendaryDeckDescription'
+import { tableDesign } from './position/TableDesign'
 
 export class LegendaryDeckLocator extends DeckLocator {
   locationDescription = new LegendaryDeckDescription()
-  delta = { x: -0.04, y: -0.04 }
-  coordinates = this.locationDescription.deckCoordinates
+
+  getCoordinates(_item: MaterialItem, context: ItemContext) {
+    return tableDesign.commonLegendaryDeckCoordinates(context)
+  }
 }
 
 export const legendaryDeckLocator = new LegendaryDeckLocator()

@@ -31,11 +31,11 @@ export class LegendaryLineDescription extends LocationDescription {
     const posY=(location.x!-1-posX) / 4
     return {
       x: baseCoordinates.x + (legendaryCardDescription.width+0.5)*(posX-1.5),
-      y: baseCoordinates.y + (legendaryCardDescription.height+0.5)*(posY-1.5),
+      y: baseCoordinates.y + (legendaryCardDescription.height+0.5)*(posY-0.5),
       z: 0
     }
   }
 
-  getRegionCoordinates(location: Location, context: LocationContext) {
-    return tableDesign.commonLegendaryLineCoordinates(location, context)
+  getRegionCoordinates(_location: Location, context: LocationContext) {
+    return tableDesign.commonLegendaryLineCoordinates(context)
   }}

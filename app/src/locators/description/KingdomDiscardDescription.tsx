@@ -5,6 +5,7 @@ import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isSelectItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { kingdomCardDescription } from '../../material/KingdomCardDescription'
+import { tableDesign } from '../position/TableDesign'
 
 export class KingdomDiscardDescription extends LocationDescription {
   height = kingdomCardDescription.height
@@ -15,15 +16,14 @@ export class KingdomDiscardDescription extends LocationDescription {
   extraCss = css`border: 0.05em solid white`
 
   location = { type: LocationType.KingdomDiscard }
-  getCoordinates(_location: Location, _context: LocationContext) {
+  getCoordinates(_location: Location, context: LocationContext) {
+    const baseCoordinates=tableDesign.kingdomDiscardCoordinates(context)
     return {
-      x: this.discardCoordinates.x,
-      y: this.discardCoordinates.y,
-      z: 10
+      x: baseCoordinates.x,
+      y: baseCoordinates.y,
+      z: 0
     }
   }
-
-  discardCoordinates = { x: 5, y: 0, z: 0}
 
   canShortClick(move: MaterialMove, _location: Location, context: MaterialContext): boolean {
     if (isSelectItemType(MaterialType.KingdomCard)(move)) {
@@ -31,10 +31,5 @@ export class KingdomDiscardDescription extends LocationDescription {
       if (item.location.type === LocationType.KingdomDiscard) return true
     }
     return false
-/*
-    return isSelectItem(move)
-//      && move.type
-      && move.location.type===LocationType.KingdomDiscard
-*/
   }
 }

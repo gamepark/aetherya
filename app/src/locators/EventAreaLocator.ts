@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { ItemLocator } from '@gamepark/react-game'
+import { ItemLocator, ItemContext } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { EventAreaDescription } from './description/EventAreaDescription'
+import { tableDesign } from './position/TableDesign'
 
 export class EventAreaLocator extends ItemLocator {
   locationDescription = new EventAreaDescription()
-  coordinates = this.locationDescription.deckCoordinates
 
-  getPosition() /*item: MaterialItem, { type }: ItemContext : Coordinates */ {
-    return this.coordinates
+  getPosition(_item: MaterialItem, context: ItemContext) {
+    return tableDesign.eventAreaCoordinates(context)
   }
 }
 

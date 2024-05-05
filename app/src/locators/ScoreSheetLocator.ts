@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
+import { tableDesign } from './position/TableDesign'
 
 export class ScoreSheetLocator extends ItemLocator {
-  getPosition(_item: MaterialItem, _context: ItemContext): Coordinates {
-    return { x: 25, y: -27, z: 10}
+  getPosition(_item: MaterialItem, context: ItemContext): Coordinates {
+    return tableDesign.scoreSheetCoordinates(context)
   }
 }
 

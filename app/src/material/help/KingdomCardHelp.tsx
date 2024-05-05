@@ -30,6 +30,7 @@ export const KingdomCardHelp = (props: MaterialHelpProps) => {
   } else if (item.id==KingdomCard.Swamp){
     return <>
       <h2>{t('help.swamp')}</h2>
+      <Picture src={swampIcon}/>
       </>
   } else if (item.id==KingdomCard.Mountain){
     return <>

@@ -1,15 +1,12 @@
-//import { Region } from '@gamepark/aetherya/cards/Region'
-//import { RegionQuests } from '@gamepark/aetherya/cards/RegionQuests'
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
-import { Score } from '@gamepark/aetherya/logic/Score'
+import { score } from '@gamepark/aetherya/logic/Score'
 //import { ScoreHelper } from '@gamepark/aetherya/rules/helper/ScoreHelper'
 import { FlatMaterialDescription, ItemContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import ScoreSheet from '../images/scoresheet.jpg'
 // import { ScoreSheetHelp } from './help/ScoreSheetHelp'
-
 
 export class ScoreSheetDescription extends FlatMaterialDescription {
   width = 9
@@ -28,22 +25,7 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
     if (!rules.isOver()) return []
     const locations: Location[] = []
 
-/*
-    const regions = rules.material(MaterialType.Region).location(LocationType.PlayerRegionLine).sort(item => -item.location.x!)
-    for (const index of regions.getIndexes()) {
-      const region = regions.getItem<Region>(index)!
-      const regionQuest = RegionQuests[region.id!]
-      locations.push({
-        type: LocationType.ScoreSheetBox,
-        id: regionQuest?.getTotalScore(rules.game, index, MaterialType.Region, region.location.player!) ?? '/',
-        parent: 0,
-        x: region.location.player,
-        y: 8 - region.location.x!
-      })
-    }
-*/
     for (const player of rules.players) {
-      let score=new Score()
       let detailedScore=score.detailedPlayerScore(
         player,
         rules.material(MaterialType.KingdomCard),

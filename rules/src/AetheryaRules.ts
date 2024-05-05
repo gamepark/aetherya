@@ -8,13 +8,12 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { ChooseCardRule } from './rules/ChooseCardRule'
+import { ChooseLegendaryRule } from './rules/ChooseLegendaryRule'
 import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
 import { ScoreRule } from './rules/ScoreRule'
 import { ShuffleKingdomDeckRule } from './rules/ShuffleKingdomDeckRule'
-import { OkRule } from './rules/OkRule'
-import { ErrorRule } from './rules/ErrorRule'
 import { RuleId } from './rules/RuleId'
 import { PlayerId } from './PlayerId'
 import { Score } from './logic/Score'
@@ -45,10 +44,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
     [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
-
-    // For debugging only
-    [RuleId.Ok]: OkRule,
-    [RuleId.Error]: ErrorRule
+    [RuleId.ChooseLegendary]: ChooseLegendaryRule
   }
 
   locationsStrategies = {

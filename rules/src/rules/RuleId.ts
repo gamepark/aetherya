@@ -5,8 +5,5 @@ export enum RuleId {
   RevealAllBoardCards = 4,
   Score = 5,
   ShuffleKingdomDeck = 6,
-
-  // For debugging only
-  Ok = 7,
-  Error = 8
+  ChooseLegendary = 7,
 }

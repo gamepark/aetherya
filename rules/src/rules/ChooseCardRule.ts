@@ -1,10 +1,12 @@
-import { isSelectItem, /* isMoveItemType, */ ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isSelectItem, /* isMoveItemType, */ ItemMove, MaterialMove /*, PlayerTurnRule */ } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Memory } from './Memory'
+import { PlayerTurnRuleWithLegendaryMoves } from './PlayerTurnRuleWithLegendaryMoves'
 import { RuleId } from './RuleId'
-import { Score } from '../logic/Score'
+//import { Score } from '../logic/Score'
 
-export class ChooseCardRule extends PlayerTurnRule {
+export class ChooseCardRule extends PlayerTurnRuleWithLegendaryMoves {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
     let nbPlayers=this.game.players.length
@@ -28,18 +30,6 @@ export class ChooseCardRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
-    // Available legendary cards
-    let score=new Score()
-    let legendaryCharac=score.legendaryAnalysis(this.getActivePlayer(), this.material(MaterialType.KingdomCard))
-
-    let availableLegendaryCards=
-      this.material(MaterialType.LegendaryCard)
-      .location(LocationType.LegendaryLine)
-      .filter(item => {
-        return legendaryCharac.match(item.id)
-      })
-    let availableLegendaryCardsActions = availableLegendaryCards.selectItems()
-
     // Card from the deck
     const deckCards = this.kingdomDeckCards()
     const deckCardActions = deckCards.maxBy(item => item.location.x!).selectItems()
@@ -48,11 +38,32 @@ export class ChooseCardRule extends PlayerTurnRule {
     const discardCards = this.discardDeckCards()
     const discardCardActions = discardCards.maxBy(item => item.location.x!).selectItems()
 
-    return [
+    // Legendary card moves
+    const availableLegendaryCardsActions=this.getPlayerLegendaryMoves()
+
+    let moves = [
       ...deckCardActions,
       ...discardCardActions,
       ...availableLegendaryCardsActions
     ]
+/*
+    // Only 1 legendary card per turn
+    if (!this.remind(Memory.PickedLegendary)){
+      let score=new Score()
+      let legendaryCharac=score.legendaryAnalysis(this.getActivePlayer(), this.material(MaterialType.KingdomCard))
+
+      let availableLegendaryCards=
+        this.material(MaterialType.LegendaryCard)
+        .location(LocationType.LegendaryLine)
+        .filter(item => {
+          return legendaryCharac.match(item.id)
+        })
+      let availableLegendaryCardsActions = availableLegendaryCards.selectItems()
+
+      moves.push(...availableLegendaryCardsActions)
+    }
+    */
+    return moves
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
@@ -80,6 +91,8 @@ export class ChooseCardRule extends PlayerTurnRule {
         const card = this.material(MaterialType.LegendaryCard).index(move.itemIndex)
         const itemLocation = card.getItem()!.location
         const nbLegendaryCards = this.material(MaterialType.LegendaryCard).player(this.getActivePlayer()).getItems().length
+
+        this.memorize(Memory.PickedLegendary, true)
 
         return [
           card.moveItem({ type: LocationType.PlayerLegendaryLine, player:this.getActivePlayer(), x:nbLegendaryCards+1 }),

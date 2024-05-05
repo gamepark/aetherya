@@ -389,9 +389,8 @@ export class Score {
     for (let i=0; i<4; i++){
       for (let j=0; j<4; j++){
         let currentCard=boardCards[i][j]
-        if (currentCard === undefined){
-          console.log("*** ERROR - Undefined card - "+i+" - "+j)
-        }
+        if (currentCard === undefined)
+          continue
 
         if (currentCard==KingdomCard.Plain){
           // 3 connected plains ?
@@ -585,3 +584,5 @@ export class Score {
     return res
   }
 }
+
+export const score = new Score()

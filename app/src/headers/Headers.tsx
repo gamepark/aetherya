@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/aetherya/rules/RuleId'
 import { ComponentType } from 'react'
-import { ChooseCardHeader } from './ChooseCardHeader'
 import { ChooseBoardLocationHeader } from './ChooseBoardLocationHeader'
+import { ChooseCardHeader } from './ChooseCardHeader'
+import { ChooseLegendaryHeader } from './ChooseLegendaryHeader'
 import { PrepareGameHeader } from './PrepareGameHeader'
 import { RevealAllBoardCardsHeader } from './RevealAllBoardCardsHeader'
 import { ScoreHeader } from './ScoreHeader'
-import { ErrorHeader } from './ErrorHeader'
-import { OkHeader } from './OkHeader'
+import { ShuffleKingdomDeckHeader } from './ShuffleKingdomDeckHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PrepareGame]: PrepareGameHeader,
@@ -15,8 +15,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.ChooseBoardLocation]: ChooseBoardLocationHeader,
   [RuleId.RevealAllBoardCards]: RevealAllBoardCardsHeader,
   [RuleId.Score]: ScoreHeader,
-
-  // For debugging only
-  [RuleId.Ok]: OkHeader,
-  [RuleId.Error]: ErrorHeader
+  [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckHeader,
+  [RuleId.ChooseLegendary]: ChooseLegendaryHeader
 }

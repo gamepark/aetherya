@@ -1,4 +1,4 @@
-import { /*isSelectItem, isMoveItemType, ItemMove, MaterialMove, */ Location, Material, PlayerTurnRule } from '@gamepark/rules-api'
+import { Location, Material, PlayerTurnRule } from '@gamepark/rules-api'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'

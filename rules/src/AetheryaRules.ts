@@ -44,7 +44,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
     [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
-    [RuleId.ChooseLegend]: ChooseLegendRule
+    [RuleId.ChooseLegend]: ChooseLegendRule,
   }
 
   locationsStrategies = {

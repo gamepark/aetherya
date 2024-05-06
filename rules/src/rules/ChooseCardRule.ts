@@ -1,4 +1,4 @@
-import { isSelectItem, /* isMoveItemType, */ ItemMove, MaterialMove /*, PlayerTurnRule */ } from '@gamepark/rules-api'
+import { isSelectItem, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'

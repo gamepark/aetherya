@@ -34,6 +34,10 @@ export class PrepareGameRule extends SimultaneousRule {
     if (!isMoveItemType(MaterialType.KingdomCard)(move)) return []
 
     const item = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)!
+
+//    console.log('foo')
+//    console.log(item)
+
     const player = item.location.player!
     return [
       ...this.material(MaterialType.KingdomCard)

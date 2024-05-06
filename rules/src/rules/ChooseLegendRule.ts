@@ -1,4 +1,4 @@
-import { CustomMove, isSelectItem,/* isMoveItemType, */ ItemMove, MaterialMove /* , PlayerTurnRule */ } from '@gamepark/rules-api'
+import { CustomMove, isSelectItem, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { CustomMoveType } from './CustomMoveType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'

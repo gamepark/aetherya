@@ -1,4 +1,4 @@
-import { isSelectItem, ItemMove, MaterialMove /*, PlayerTurnRule */ } from '@gamepark/rules-api'
+import { isSelectItem, ItemMove, Location, MaterialMove /*, PlayerTurnRule */ } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { KingdomCard } from '../material/KingdomCard'
@@ -46,7 +46,10 @@ export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendMoves {
       // otherwise the player may pick a legend card
       let nextTurn=undefined
 
-      if (this.remind(Memory.PickedLegend) || this.getPlayerLegendMovesAfterMove(eventCard, newBoardCardLocation).length==0){
+      // Note from François - It's forbidden to pick a legend card after revealing his 16th card
+      if (this.remind(Memory.PickedLegend)
+        || this.getPlayerLegendMovesAfterMove(eventCard, newBoardCardLocation).length==0
+        || this.allKingdomCardsVisibleAfterMove(boardCardLocation)){
         // Reset turn state for next player
         this.forget(Memory.PickedLegend)
         nextTurn=this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
@@ -61,5 +64,22 @@ export class ChooseBoardLocationRule extends PlayerTurnRuleWithLegendMoves {
       ]
     }
     return []
+  }
+
+  allKingdomCardsVisibleAfterMove(moveLocation:Location){
+    // Returns true if 15th card were revealed, and the move is about the missing location
+    let nbVisibleCards = this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(this.getActivePlayer())
+      .filter(item => !!item.location.rotation)
+      .length
+
+    let moveRevealsACard = this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(this.getActivePlayer())
+      .filter(item => (item.location.x==moveLocation.x && item.location.y==moveLocation.y && !item.location.rotation))
+      .length > 0
+
+    return (moveRevealsACard && nbVisibleCards >= 15)
   }
 }

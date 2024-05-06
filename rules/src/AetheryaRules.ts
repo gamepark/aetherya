@@ -16,7 +16,7 @@ import { ScoreRule } from './rules/ScoreRule'
 import { ShuffleKingdomDeckRule } from './rules/ShuffleKingdomDeckRule'
 import { RuleId } from './rules/RuleId'
 import { PlayerId } from './PlayerId'
-import { Score } from './logic/Score'
+import { score, PlayerScore } from './logic/Score'
 
 export const hideCardWhenNotRotated: HidingStrategy = (
   item: MaterialItem
@@ -66,12 +66,43 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
   }
 
   getScore(player: PlayerId) {
-    let score=new Score()
     return score.playerScore(
       player,
       this.material(MaterialType.KingdomCard),
       this.material(MaterialType.LegendCard)
     )
+  }
+
+  getTieBreaker(tieBreaker: number, player: PlayerId): number | undefined {
+    if (tieBreaker === 1) {
+      // The highest score among the 7 categories is used
+      // Otherwise the next highest score, etc.
+      let scoreDetails:PlayerScore = score.detailedPlayerScore(
+        player,
+        this.material(MaterialType.KingdomCard),
+        this.material(MaterialType.LegendCard)
+      )
+      let values=[
+        scoreDetails.elfPoints,
+        scoreDetails.dwarfPoints,
+        scoreDetails.humanPoints,
+        scoreDetails.goblinPoints,
+        scoreDetails.dragonPoints,
+        scoreDetails.legendPoints,
+        scoreDetails.conflictPoints
+      ]
+      // Order values - smallest to highest - Numeric sort
+      values.sort(function(a,b){return a-b})
+
+      // Values are aggregated
+      // Negative values are supported with (100+value)
+      let res=0
+      for (let i=0; i<7; i++){
+        res=(res*1000)+(100+values[6-i])
+      }
+      return res
+    }
+    return
   }
 
   playerBoard(player:number){

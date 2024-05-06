@@ -275,14 +275,6 @@ export class TableDesign {
     }
     return { x:x, y:y, z:10}
   }
-
-/*
-  playerHandCoordinates(location: Location, context: LocationContext){
-    const boardCoord=this.playerBoardCoordinates(location, context)
-    let deltaY=20
-    return {x:boardCoord.x, y:boardCoord.y+deltaY, z:boardCoord.z}
-  }
-*/
 }
 
 export const tableDesign = new TableDesign()

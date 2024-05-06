@@ -193,9 +193,23 @@ export class Score {
   detailedPlayerScore(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>,
     allLegendCards:Material<number, MaterialType, LocationType>) : PlayerScore {
-
     // Aggregate kingdom card ids into a 4x4 array
     let boardCards=this.toGrid(player, allKingdomCards)
+
+    let allLegendCardIds:LegendCard[]=[]
+
+    allLegendCards.location(LocationType.PlayerLegendLine)
+      .player(player)
+      .getItems().forEach(item => {
+        allLegendCardIds.push(item.id)
+      })
+
+//      legendPoints+=this.legendCardValue(item.id)
+    return this.detailedPlayerScoreFromGrid(boardCards, allLegendCardIds)
+  }
+
+  detailedPlayerScoreFromGrid(boardCards:KingdomCard[][],
+    allLegendCardIds:LegendCard[]) : PlayerScore {
 
     // Score for each cards
     let elfPoints=0
@@ -327,11 +341,15 @@ export class Score {
     // Legend cards
     let legendPoints=0
 
+    allLegendCardIds.forEach(id => legendPoints+=this.legendCardValue(id))
+
+/*
     allLegendCards.location(LocationType.PlayerLegendLine)
       .player(player)
       .getItems().forEach(item => {
         legendPoints+=this.legendCardValue(item.id)
       })
+*/
 
     // Result
     return new PlayerScore(

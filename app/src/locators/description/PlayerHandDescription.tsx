@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+//import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
@@ -11,8 +11,8 @@ export class PlayerHandDescription extends LocationDescription {
   width = legendCardDescription.width
   borderRadius = legendCardDescription.borderRadius
 
-  alwaysVisible = true
-  extraCss = css`border: 0.05em solid white`
+//  alwaysVisible = true
+//  extraCss = css`border: 0.05em solid white`
 
   getLocations(context: MaterialContext) : Location[]  {
     const { rules } = context

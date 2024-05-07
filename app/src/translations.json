@@ -12,9 +12,8 @@
       "header.refill-deck-and-discard": "Refilling deck and discard",
       "header.revealed-cards": "All cards are revealed",
       "header.scoring": "Scoring",
-      "header.swap-or-pass.you": "You must swap central cards or <0>pass</0>",
-      "header.swap-or-pass.player": "{player} must swap central cards or pass",
-      "header.swap-or-pass.players": "Players must swap central cards or <0>pass</0>",
+      "header.place-central-cards.you": "You must place your 4 central cards",
+      "header.place-central-cards.player": "{player} must place his/her 4 central cards",
 
       "help.legend-card": "Legend card",
       "help.kingdom-card": "Kingdom card",

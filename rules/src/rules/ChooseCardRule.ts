@@ -180,7 +180,7 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
 
           let moves:MaterialMove[]=this.refillLegendLineActions()
           if (this.getPlayerMoves().length==0){
-            return this.cleanMemoryAndStartNewPlayerTurn()
+            moves.push(...this.cleanMemoryAndStartNewPlayerTurn())
 //            moves.push(this.rules().startPlayerTurn(RuleId.NextPlayer, this.player))
           }
           return moves

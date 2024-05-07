@@ -11,8 +11,8 @@ export class PlayerLegendLineDescription extends LocationDescription {
   width = legendCardDescription.width
   borderRadius = legendCardDescription.borderRadius
 
-//  alwaysVisible = true
-//  extraCss = css`border: 0.05em solid white`
+  //alwaysVisible = true
+  //extraCss = css`border: 0.05em solid white`
 
   location = { type: LocationType.PlayerLegendLine }
 

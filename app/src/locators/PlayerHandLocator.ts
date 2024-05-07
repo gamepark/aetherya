@@ -9,7 +9,7 @@ export class PlayerHandLocator extends ItemLocator {
   getPosition(item: MaterialItem, context: ItemContext) {
     return {
       ...this.locationDescription.getCoordinates(item.location, context),
-      z:0.05
+      z:2.05
     }
   }
 }

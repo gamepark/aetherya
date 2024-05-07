@@ -11,7 +11,7 @@ export class TableDesign {
       case 1:
         return { xMin: -56, xMax: 12, yMin: -34, yMax: 17 }
       case 2:
-        return { xMin: -55, xMax: 57, yMin: -35, yMax: 17 }
+        return { xMin: -55, xMax: 57, yMin: -35, yMax: 18 }
       case 3:
         return { xMin: -55, xMax: 57, yMin: -37, yMax: 37 }
       case 4:
@@ -79,6 +79,45 @@ export class TableDesign {
       console.log("*** Unsupported table configuration")
     }
     return {x:x, y:y, z:z}
+  }
+
+  playerHandCoordinates(location: Location, context: LocationContext){
+    const boardCoords=this.playerBoardCoordinates(location, context)
+
+//    const locationPlayer = location.player
+    const { rules } = context
+    let nbPlayers=this.nbPlayers(rules)
+
+    let deltaX=0
+    let deltaY=0
+
+    if (nbPlayers==1){
+      deltaX=2
+      deltaY=13
+    } else if (nbPlayers==2){
+      deltaX=2
+      deltaY=13
+    } else if (nbPlayers==3){
+      deltaX=2
+      deltaY=13
+/*
+      if (locationPlayer==1){
+        deltaX=31
+        deltaY=11.5
+      } else {
+        deltaX=0
+        deltaY=20
+      }
+*/
+    } else if (nbPlayers==4){
+      deltaX=2
+      deltaY=13
+    } else {
+      // Error
+      console.log("*** Unsupported table configuration")
+    }
+
+    return {x:boardCoords.x+deltaX, y:boardCoords.y+deltaY, z:boardCoords.z+1}
   }
 
   playerLegendLineCoordinates(location: Location, context: LocationContext){
@@ -191,7 +230,7 @@ export class TableDesign {
       y=0
     } else if (nbPlayers==4){
       x=-20
-      y=-3.75
+      y=0
     } else {
       // Error
       console.log("*** Unsupported table configuration")
@@ -216,8 +255,8 @@ export class TableDesign {
       deltaX=10
       deltaY=0
     } else if (nbPlayers==4){
-      deltaX=0
-      deltaY=7.5
+      deltaX=10
+      deltaY=0
     } else {
       // Error
       console.log("*** Unsupported table configuration")
@@ -243,31 +282,6 @@ export class TableDesign {
       y=-27
     } else if (nbPlayers==4){
       x=-42
-      y=0
-    } else {
-      // Error
-      console.log("*** Unsupported table configuration")
-    }
-    return { x:x, y:y, z:10}
-  }
-
-  eventAreaCoordinates(context: LocationContext){
-    const { rules } = context
-    let nbPlayers=this.nbPlayers(rules)
-
-    let x=0
-    let y=0
-    if (nbPlayers==1){
-      x=0
-      y=-10
-    } else if (nbPlayers==2){
-      x=0
-      y=-10
-    } else if (nbPlayers==3){
-      x=0
-      y=-10
-    } else if (nbPlayers==4){
-      x=-10
       y=0
     } else {
       // Error

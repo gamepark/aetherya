@@ -36,12 +36,11 @@ export class PlayerHandDescription extends LocationDescription {
     return {
       x: baseCoordinates.x + (legendCardDescription.width+0.5)*(posX-1.5),
       y: baseCoordinates.y,
-      z: 0
+      z: 2
     }
   }
 
   getRegionCoordinates(location: Location, context: LocationContext) {
-    const {x,y,z}=tableDesign.playerBoardCoordinates(location, context)
-    return {x:x, y:y+20, z:z}
+    return tableDesign.playerHandCoordinates(location, context)
   }
 }

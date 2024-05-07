@@ -21,7 +21,7 @@ export class LegendDeckDescription extends LocationDescription {
     return {
       x: baseCoordinates.x,
       y: baseCoordinates.y,
-      z: 10
+      z: 0
     }
   }
 }

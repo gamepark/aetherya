@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
-//import { KingdomCard } from '@gamepark/aetherya/material/KingdomCard'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
-//import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
-import { /*isCustomMoveType, */ isMoveItemType /*, isSelectItem */ } from '@gamepark/rules-api'
+import { isMoveItemType } from '@gamepark/rules-api'
 import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
 import { TutorialSetup } from './TutorialSetup'
 
@@ -82,38 +80,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         position: { x:14, y:0 }
       }
     },
-/*
-    {
-      popup: {
-        text: () => (
-          <>
-          En début de partie, vous avez la possibilité de garder la configuration installée ou d'intervertir 2 cartes.<br/>
-          &nbsp;<br/>
-          -&gt; Déplacez la carte "Humain" sur la carte "Marais"
-          </>
-        ),
-        position: { x:14, y:0 }
-      },
-      move: {
-        player: me,
-        filter: (move, game) => {
-          return isMoveItemType(MaterialType.KingdomCard)(move)
-            // Source = Human
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.id==KingdomCard.Human
-            // Destination = Swamp
-            && move.location.x == 3 && move.location.y == 3
-        }
-      }
-    },
-    {
-      move: {
-        player: opponent,
-        filter: (move, _game) => {
-          return isCustomMoveType(CustomMoveType.Pass)(move)
-        }
-      }
-    },
-    */
     {
       popup: {
         text: () => (
@@ -133,10 +99,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           // Get card from discard
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-*/
         }
       }
     },
@@ -161,15 +123,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && move.location.x == 2
             && move.location.y == 1
-//            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-/*
-          if (!isSelectItem(move))
-            return false
-          let location=this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location
-          return location.type == LocationType.PlayerBoard
-            && location.x == 2
-            && location.y == 1
-*/
         }
       }
     },
@@ -180,10 +133,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-*/
         }
       }
     },
@@ -195,14 +144,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && move.location.x == 3
             && move.location.y == 2
-/*
-          if (!isSelectItem(move))
-            return false
-          let location=this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location
-          return location.type == LocationType.PlayerBoard
-            && location.x == 3
-            && location.y == 2
-*/
         }
       }
     },
@@ -268,10 +209,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           // Get card from discard
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-*/
         }
       }
     },
@@ -290,14 +227,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && move.location.x == 4
             && move.location.y == 3
-/*
-          if (!isSelectItem(move))
-            return false
-          let location=this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location
-          return location.type == LocationType.PlayerBoard
-            && location.x == 4
-            && location.y == 3
-*/
         }
       }
     },
@@ -319,14 +248,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, _game) => {
           // Get 1st legend card
           return isMoveItemType(MaterialType.LegendCard)(move)
-/*
-            && move.location.x == 4
-            && move.location.y == 3
-*/
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.LegendCard).getItem(move.itemIndex)!.location.type == LocationType.LegendLine
-*/
         }
       }
     },
@@ -337,10 +258,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-*/
         }
       }
     },
@@ -352,14 +269,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && move.location.x == 3
             && move.location.y == 1
-/*
-          if (!isSelectItem(move))
-            return false
-          let location=this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location
-          return location.type == LocationType.PlayerBoard
-            && location.x == 3
-            && location.y == 1
-*/
         }
       }
     },
@@ -401,10 +310,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
-*/
         }
       }
     },
@@ -442,14 +347,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && move.location.x == 3
             && move.location.y == 2
-/*
-          if (!isSelectItem(move))
-            return false
-          let location=this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location
-          return location.type == LocationType.PlayerBoard
-            && location.x == 3
-            && location.y == 2
-*/
         }
       }
     },
@@ -468,10 +365,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, _game) => {
           // Get 1st legend card
           return isMoveItemType(MaterialType.LegendCard)(move)
-/*
-          return isSelectItem(move)
-            && this.material(game, MaterialType.LegendCard).getItem(move.itemIndex)!.location.type == LocationType.LegendLine
-*/
         }
       }
     },

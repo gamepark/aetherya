@@ -1,4 +1,4 @@
-import { CustomMove, isSelectItem, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { CustomMove, /* isSelectItem, */ isMoveItem, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { CustomMoveType } from './CustomMoveType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -30,20 +30,12 @@ export class ChooseLegendRule extends PlayerTurnRuleWithLegendMoves {
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
-    if (isSelectItem(move)) {
+    if (isMoveItem(move)){
       if (move.itemType==MaterialType.LegendCard){
-        // Legend card from legend card line
-        const card = this.material(MaterialType.LegendCard).index(move.itemIndex)
-        const itemLocation = card.getItem()!.location
-        const nbLegendCards = this.material(MaterialType.LegendCard).player(this.getActivePlayer()).getItems().length
+        let moves:MaterialMove[]=this.refillLegendLineActions()
+        moves.push(this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer))
 
-        // this.memorize(Memory.PickedLegend, true)
-
-        return [
-          card.moveItem({ type: LocationType.PlayerLegendLine, player:this.getActivePlayer(), x:nbLegendCards+1 }),
-          ...this.legendDeck().deal(itemLocation, 1),
-          this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)
-        ]
+        return moves
       }
     }
     return []

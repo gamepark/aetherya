@@ -71,12 +71,12 @@ export class TutorialSetup extends AetheryaSetup {
 
     this.putCard(me, 1, 2, false, humanDeck)
     this.putCard(me, 2, 2, true, dwarfDeck)
-    this.putCard(me, 3, 2, true, humanDeck)
+    this.putCard(me, 3, 2, true, swampDeck)
     this.putCard(me, 4, 2, false, portalDeck)
 
     this.putCard(me, 1, 3, false, dragonDeck)
     this.putCard(me, 2, 3, true, plainDeck)
-    this.putCard(me, 3, 3, true, swampDeck)
+    this.putCard(me, 3, 3, true, humanDeck)
     this.putCard(me, 4, 3, false, portalDeck)
 
     this.putCard(me, 1, 4, false, plainDeck)
@@ -113,6 +113,7 @@ export class TutorialSetup extends AetheryaSetup {
   }
 
   start() {
-    this.startSimultaneousRule(RuleId.PrepareGame)
+    this.startPlayerTurn(RuleId.ChooseCard, this.game.players[0])
+//    this.startSimultaneousRule(RuleId.PrepareGame)
   }
 }

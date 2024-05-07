@@ -7,6 +7,7 @@ import { kingdomDiscardLocator } from './KingdomDiscardLocator'
 import { legendDeckLocator } from './LegendDeckLocator'
 import { legendLineLocator } from './LegendLineLocator'
 import { playerBoardLocator } from './PlayerBoardLocator'
+import { playerHandLocator } from './PlayerHandLocator'
 import { playerLegendLineLocator } from './PlayerLegendLineLocator'
 import { eventAreaLocator } from './EventAreaLocator'
 import { scoreSheetLocator } from './ScoreSheetLocator'
@@ -21,5 +22,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.PlayerLegendLine]: playerLegendLineLocator,
   [LocationType.EventArea]: eventAreaLocator,
   [LocationType.ScoreSheet]: scoreSheetLocator,
-  [LocationType.ScoreSheetBox]: scoreSheetBoxLocator
+  [LocationType.ScoreSheetBox]: scoreSheetBoxLocator,
+  [LocationType.PlayerHand]: playerHandLocator
 }

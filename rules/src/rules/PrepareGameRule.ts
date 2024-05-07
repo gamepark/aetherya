@@ -1,5 +1,4 @@
-import { CustomMove, isMoveItemType, ItemMove, MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
-import { CustomMoveType } from './CustomMoveType'
+import { isMoveItemType, ItemMove, MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
@@ -10,7 +9,12 @@ export class PrepareGameRule extends SimultaneousRule {
     // Unit tests - May be disabled in the file UnitTests.ts
     unitTests.run()
 
-    // Allow swap and pass actions
+    // Place hand cards into any empty central square
+    const handCards =
+      this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerHand)
+      .player(playerId)
+
     const boardCards =
       this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerBoard)
@@ -20,45 +24,29 @@ export class PrepareGameRule extends SimultaneousRule {
     for (let i=2; i<=3; i++){
       for (let j=2; j<=3; j++){
         let item=boardCards.filter(item => item.location.x==i && item.location.y==j)
-        for (let a=2; a<=3; a++){
-          for (let b=2; b<=3; b++){
-            if (i!=a || j!=b){
-              moves.push(
-                ...item.moveItems({ type:LocationType.PlayerBoard, player:playerId, x:a, y:b, z:1, rotation:true })
-              )
-            }
-          }
+        if (item.getItems().length == 0){
+          // (i,j) is an empty square
+          moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player:playerId, x:i, y:j, z:1, rotation:true}))
         }
       }
     }
-    moves.push( this.rules().customMove(CustomMoveType.Pass, playerId) )
     return moves
   }
 
-  beforeItemMove(move: ItemMove) {
+  afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.KingdomCard)(move)) return []
 
     const item = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)!
+    const playerId = item.location.player!
 
-//    console.log('foo')
-//    console.log(item)
+    const handCards =
+      this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerHand)
+      .player(playerId)
 
-    const player = item.location.player!
-    return [
-      ...this.material(MaterialType.KingdomCard)
-        .location(LocationType.PlayerBoard)
-        .player(player)
-        .filter(card => card.location.x==move.location.x && card.location.y==move.location.y)
-        .moveItems({ type:LocationType.PlayerBoard, player:player, x:item.location.x, y:item.location.y, z:1, rotation:true }),
-      this.rules().endPlayerTurn(player)
-    ]
-  }
+    if (handCards.getItems().length==0)
+      return [this.rules().endPlayerTurn(playerId)]
 
-  onCustomMove(move: CustomMove) {
-    if (move.type === CustomMoveType.Pass) {
-      const player = move.data
-      return [ this.rules().endPlayerTurn(player) ]
-    }
     return []
   }
 

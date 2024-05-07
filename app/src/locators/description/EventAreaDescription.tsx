@@ -20,7 +20,7 @@ export class EventAreaDescription extends LocationDescription {
     return {
       x: baseCoordinates.x,
       y: baseCoordinates.y,
-      z: 10
+      z: 0
     }
   }
 }

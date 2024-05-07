@@ -57,20 +57,27 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   setupPlayers(options: AetheryaOptions) {
     const deck = this.material(MaterialType.KingdomCard).deck()
     for (let index = 0; index < options.players; index++) {
-      for (let i=2; i<=3; i++){
-        for (let j=2; j<=3; j++){
-          deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:j, z:1, rotation:true }, 1)
-        }
+      // Player's hand
+      for (let i=1; i<=4; i++){
+        deck.deal({ type: LocationType.PlayerHand, player: index + 1, x:i, rotation:true }, 1)
       }
 
-      // Quicker start
+/*
+      for (let i=2; i<=3; i++){
+        for (let j=2; j<=3; j++){
+          deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:j, rotation:true }, 1)
+        }
+      }
+*/
+
+      // Surrounding cards
       for (let i=1; i<=4; i++){
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:1, z:1 }, 1)
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:4, z:1 }, 1)
+        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:1 }, 1)
+        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:4 }, 1)
       }
       for (let i=2; i<=3; i++){
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:1, y:i, z:1 }, 1)
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:4, y:i, z:1 }, 1)
+        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:1, y:i }, 1)
+        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:4, y:i }, 1)
       }
     }
   }

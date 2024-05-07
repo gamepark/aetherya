@@ -20,7 +20,7 @@ export class KingdomDeckDescription extends LocationDescription {
     return {
       x: baseCoordinates.x,
       y: baseCoordinates.y,
-      z: 0
+      z: -1
     }
   }
 }

@@ -38,7 +38,7 @@ export class PlayerBoardDescription extends LocationDescription {
     return {
       x: baseCoordinates.x + (kingdomCardDescription.width +0.5) * ((location.x!-2.5)),
       y: baseCoordinates.y + (kingdomCardDescription.height+0.5) * ((location.y!-2.5)),
-      z: 0
+      z: 1
     }
   }
 

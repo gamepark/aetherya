@@ -61,7 +61,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </>
         ),
         position: { x:40, y:0 }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+        ],
+        margin: {
+          top: 20,
+          bottom: 20
+        }
+      })
     },
     {
       popup: {
@@ -77,7 +86,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </>
         ),
         position: { x:40, y:0 }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+        ],
+        margin: {
+          top: 20,
+          bottom: 20
+        }
+      })
     },
     {
       popup: {
@@ -94,34 +112,19 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           -&gt; Placez la carte face visible en haut de la carte Nain dans votre Royaume
           </>
         ),
-        position: { x:45, y:0 }
+        position: { x:45, y:-25 }
       },
-
-/*
-      move: {
-        player: me,
-        filter: (move, game) => {
-          // Get card from discard
-          return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+        ],
+        margin: {
+          top: 0,
+          bottom: 20
         }
-      }
-    },
-    {
-      popup: {
-        text: () => (
-          <>
-          Puis on place la carte dans son Royaume<br/>
-          On peut ainsi remplacer une carte de son Royaume qu'elle soit visible ou non.<br/>
-          &nbsp;<br/>
-          La carte remplacée est défaussée<br/>
-          &nbsp;<br/>
-          -&gt; Placez la carte en haut de la carte Nain
-          </>
-        ),
-        position: { x:14, y:0 }
-      },
-*/
+      }),
       move: {
         player: me,
         filter: (move, _game) => {
@@ -157,8 +160,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          Certaines tribus se détestent: c'est le cas des elfes et des nains.<br/>
-          Les gobelins, eux, détestent tout le monde et tout le monde les déteste.<br/>
+          Certaines tribus se détestent.<br/>
+          Par exemple, les elfes détestent les gobelins et les nains.<br/>
           &nbsp;<br/>
           Si des tribus se haïssant sont adjacentes, elles vous feront perdre des points.
           </>
@@ -196,8 +199,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine)
         ],
         margin: {
-          top: 20,
-          bottom: 20
+          top: 5,
+          bottom: 25
         }
       })
     },
@@ -205,30 +208,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          -&gt; Prenez la carte elfe de la défausse et Placez la à la droite de la carte Humain
+          -&gt; Prenez la carte elfe de la défausse et placez la à la droite de la carte Humain
           </>
         ),
         position: { x:45, y:0 }
       },
-/*
-      move: {
-        player: me,
-        filter: (move, game) => {
-          // Get card from discard
-          return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDiscard
-        }
-      }
-    },
-    {
-      popup: {
-        text: () => (
-          <>
-          -&gt; Placez la à la droite de la carte Humain
-          </>
-        )
-      },
-*/
       move: {
         player: me,
         filter: (move, _game) => {
@@ -302,8 +286,17 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </ul>
           </>
         ),
-        position: { x:40, y:0 }
-      }
+        position: { x:45, y:0 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
+        ],
+        margin: {
+          top: 0,
+          bottom: 0
+        }
+      })
     },
     {
       popup: {
@@ -313,7 +306,17 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </>
         ),
         position: { x:45, y:0 }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
+        ],
+        margin: {
+          top: 0,
+          bottom: 0
+        }
+      })
     },
     {
       move: {
@@ -323,7 +326,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
         }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
+        ],
+        margin: {
+          top: 0,
+          bottom: 0
+        }
+      })
     },
     {
       popup: {

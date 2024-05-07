@@ -62,14 +62,6 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
         deck.deal({ type: LocationType.PlayerHand, player: index + 1, x:i, rotation:true }, 1)
       }
 
-/*
-      for (let i=2; i<=3; i++){
-        for (let j=2; j<=3; j++){
-          deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:j, rotation:true }, 1)
-        }
-      }
-*/
-
       // Surrounding cards
       for (let i=1; i<=4; i++){
         deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:1 }, 1)

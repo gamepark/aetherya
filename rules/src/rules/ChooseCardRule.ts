@@ -167,7 +167,6 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
           ){
             // Reset turn state for next player
             return this.cleanMemoryAndStartNewPlayerTurn()
-//            return [this.rules().startPlayerTurn(RuleId.NextPlayer, this.player)]
           } else {
             this.remind(Memory.PlacedBoardCard)
             return []
@@ -181,7 +180,6 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
           let moves:MaterialMove[]=this.refillLegendLineActions()
           if (this.getPlayerMoves().length==0){
             moves.push(...this.cleanMemoryAndStartNewPlayerTurn())
-//            moves.push(this.rules().startPlayerTurn(RuleId.NextPlayer, this.player))
           }
           return moves
         }
@@ -189,12 +187,6 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
     }
     return []
   }
-
-/*
-  drawKingdomCard(){
-    return this.kingdomDeck().deal({ type: LocationType.EventArea }, 1)
-  }
-*/
 
   kingdomDeckCards() {
     return this.material(MaterialType.KingdomCard)

@@ -34,7 +34,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           Votre Royaume est composé de 16 cartes.<br/>
           Certaines sont, pour le moment, face cachée.<br/>
           &nbsp;<br/>
-          Dans le cadre de ce tutorial, les 4 cartes centrales sont déjà placées.<br/>
           Lors d'une vraie partie, vous pouvez agencer vos 4 cartes centrales comme bon vous semble.<br/>
           </>
         ),

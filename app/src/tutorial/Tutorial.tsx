@@ -85,13 +85,19 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           Chaque joueur joue à tour de rôle.<br/>
           &nbsp;<br/>
-          On commence par prendre une carte de la pioche ou de la défausse<br/>
+          On prend la carte face visible au milieu de la table et on la place dans son Royaume<br/>
+          - ou -<br/>
+          On retourne une nouvelle carte depuis la pioche et on la place dans son Royaume<br/>
           &nbsp;<br/>
-          -&gt; Déplacez la carte de la défausse sur la case vide située au-dessus
+          La carte remplacée est défaussée<br/>
+          &nbsp;<br/>
+          -&gt; Placez la carte face visible en haut de la carte Nain dans votre Royaume
           </>
         ),
-        position: { x:14, y:0 }
+        position: { x:45, y:0 }
       },
+
+/*
       move: {
         player: me,
         filter: (move, game) => {
@@ -115,6 +121,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         ),
         position: { x:14, y:0 }
       },
+*/
       move: {
         player: me,
         filter: (move, _game) => {
@@ -198,10 +205,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          -&gt; Prenez la carte elfe de la défausse
+          -&gt; Prenez la carte elfe de la défausse et Placez la à la droite de la carte Humain
           </>
-        )
+        ),
+        position: { x:40, y:0 }
       },
+/*
       move: {
         player: me,
         filter: (move, game) => {
@@ -219,6 +228,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </>
         )
       },
+*/
       move: {
         player: me,
         filter: (move, _game) => {
@@ -240,7 +250,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           &nbsp;<br/>
           -&gt; Réclamez la carte Légende Humain-Elfe
           </>
-        )
+        ),
+        position: { x:0, y:20 }
       },
       move: {
         player: me,
@@ -290,7 +301,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             <li>Une fois placés, les Dragons sont inamovibles</li>
           </ul>
           </>
-        )
+        ),
+        position: { x:40, y:0 }
       }
     },
     {
@@ -328,7 +340,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             <li>Une fois placés, les Portails sont inamovibles</li>
           </ul>
           </>
-        )
+        ),
+        position: { x:40, y:0 }
       }
     },
     {
@@ -337,7 +350,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           -&gt; Placez le portail à la place du Marais
           </>
-        )
+        ),
+        position: { x:40, y:0 }
       },
       move: {
         player: me,
@@ -357,7 +371,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           &nbsp;<br/>
           -&gt; Réclamez la Légende correspondante
           </>
-        )
+        ),
+        position: { x:40, y:0 }
       },
       move: {
         player: me,
@@ -373,7 +388,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           La partie s'arrête dès qu'un joueur a 16 cartes face visible dans son Royaume.<br/>
           &nbsp;<br/>
-          Les cartes cachées sont alors retournées, et on procède au compte des points.
+          Les cartes cachées sont alors retournées, et on procède au décompte des points.
           </>
         )
       }
@@ -384,7 +399,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           Pour rappel, il est possible de gagner des points:<br/>
           <ul>
-            <li>en plaçant à côté des Tribus les Terrains qu'ils apprécient</li>
+            <li>en plaçant des Tribus à côté des Terrains qu'elles apprécient</li>
             <li>en domestiquant des dragons</li>
             <li>en réalisant des Légendes</li>
           </ul>

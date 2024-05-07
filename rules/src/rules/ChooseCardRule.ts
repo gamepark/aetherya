@@ -6,6 +6,8 @@ import { Memory } from './Memory'
 import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
 import { RuleId } from './RuleId'
 
+const verbose=false
+
 export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
@@ -95,10 +97,12 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
     // Only legend => legend or pass
     // TODO
 
-    console.log("--------------------")
-    console.log("nb deck actions    = "+deckCardActions.length)
-    console.log("nb discard actions = "+discardCardActions.length)
-    console.log("nb legend actions  = "+availableLegendCardsActions.length)
+    if (verbose) {
+      console.log("--------------------")
+      console.log("nb deck actions    = "+deckCardActions.length)
+      console.log("nb discard actions = "+discardCardActions.length)
+      console.log("nb legend actions  = "+availableLegendCardsActions.length)
+    }
 
     return [
       ...deckCardActions,

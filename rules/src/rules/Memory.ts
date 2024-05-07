@@ -1,4 +1,5 @@
 export enum Memory {
   PickedLegend = 1,
-  HasXXX = 2
+  PickedCardFromDeck = 2,
+  PlacedBoardCard = 3
 }

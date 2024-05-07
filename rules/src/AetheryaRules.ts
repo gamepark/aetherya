@@ -10,6 +10,7 @@ import { PlayerColor } from './PlayerColor'
 import { ChooseCardRule } from './rules/ChooseCardRule'
 import { ChooseLegendRule } from './rules/ChooseLegendRule'
 import { ChooseBoardLocationRule } from './rules/ChooseBoardLocationRule'
+import { NextPlayerRule } from './rules/NextPlayerRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
 import { ScoreRule } from './rules/ScoreRule'
@@ -45,6 +46,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.Score]: ScoreRule,
     [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
     [RuleId.ChooseLegend]: ChooseLegendRule,
+    [RuleId.NextPlayer]: NextPlayerRule
   }
 
   locationsStrategies = {

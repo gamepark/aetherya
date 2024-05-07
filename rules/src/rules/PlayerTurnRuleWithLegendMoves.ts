@@ -81,4 +81,21 @@ export abstract class PlayerTurnRuleWithLegendMoves extends PlayerTurnRule {
     }
     return moves
   }
+
+  allKingdomCardsVisibleAfterMove(moveLocationX:number, moveLocationY:number){
+    // Returns true if 15th card were revealed, and the move is about the missing location
+    let nbVisibleCards = this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(this.getActivePlayer())
+      .filter(item => !!item.location.rotation)
+      .length
+
+    let moveRevealsACard = this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(this.getActivePlayer())
+      .filter(item => (item.location.x==moveLocationX && item.location.y==moveLocationY && !item.location.rotation))
+      .length > 0
+
+    return (moveRevealsACard && nbVisibleCards >= 15)
+  }
 }

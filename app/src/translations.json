@@ -3,12 +3,8 @@
     "translation": {
       "Name": "Aetherya",
 
-      "header.choose-board-location.you": "You must choose a board location",
-      "header.choose-board-location.player": "{player} must choose a board location",
-      "header.choose-card.you": "You must pick a kingdom card from the deck or the discard, or pick a legend card",
-      "header.choose-card.player": "{player} must pick a kingdom card from the deck or the discard, or pick a legend card",
-      "header.pick-legend-or-pass.you": "You must pick a legend card or <0>pass</0>",
-      "header.pick-legend-or-pass.player": "{player} must pick a legend card or pass",
+      "header.choose-card.you": "You must draw a card, move a card to your kingdom or pick a legend card",
+      "header.choose-card.player": "{player} must draw a card, move a card to your kingdom or pick a legend card",
       "header.refill-deck-and-discard": "Refilling deck and discard",
       "header.revealed-cards": "All cards are revealed",
       "header.scoring": "Scoring",

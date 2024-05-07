@@ -190,9 +190,11 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
     return []
   }
 
+/*
   drawKingdomCard(){
     return this.kingdomDeck().deal({ type: LocationType.EventArea }, 1)
   }
+*/
 
   kingdomDeckCards() {
     return this.material(MaterialType.KingdomCard)

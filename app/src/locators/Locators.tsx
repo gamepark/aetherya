@@ -9,7 +9,6 @@ import { legendLineLocator } from './LegendLineLocator'
 import { playerBoardLocator } from './PlayerBoardLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playerLegendLineLocator } from './PlayerLegendLineLocator'
-import { eventAreaLocator } from './EventAreaLocator'
 import { scoreSheetLocator } from './ScoreSheetLocator'
 import { scoreSheetBoxLocator } from './ScoreSheetBoxLocator'
 
@@ -20,7 +19,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.LegendLine]: legendLineLocator,
   [LocationType.PlayerBoard]: playerBoardLocator,
   [LocationType.PlayerLegendLine]: playerLegendLineLocator,
-  [LocationType.EventArea]: eventAreaLocator,
   [LocationType.ScoreSheet]: scoreSheetLocator,
   [LocationType.ScoreSheetBox]: scoreSheetBoxLocator,
   [LocationType.PlayerHand]: playerHandLocator

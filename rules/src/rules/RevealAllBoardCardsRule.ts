@@ -10,7 +10,6 @@ export class RevealAllBoardCardsRule extends MaterialRulesPart {
       this.material(MaterialType.KingdomCard)
         .location(LocationType.PlayerBoard)
         .filter(item => !item.location.rotation)
-//        .rotateItems(true),
         .moveItemsAtOnce({rotation:true}),
       this.rules().startRule(RuleId.Score)
     ]

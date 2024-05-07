@@ -60,7 +60,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           &nbsp;&nbsp;&nbsp;&nbsp;Plaine, Marais, Forêt et Montagne
           </>
         ),
-        position: { x:14, y:0 }
+        position: { x:40, y:0 }
       }
     },
     {
@@ -76,7 +76,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           Dans Aetherya, les cartes placées en diagonale les unes par rapport aux autres ne sont pas considérées comme étant limitrophes.
           </>
         ),
-        position: { x:14, y:0 }
+        position: { x:40, y:0 }
       }
     },
     {
@@ -208,7 +208,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           -&gt; Prenez la carte elfe de la défausse et Placez la à la droite de la carte Humain
           </>
         ),
-        position: { x:40, y:0 }
+        position: { x:45, y:0 }
       },
 /*
       move: {
@@ -311,7 +311,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           -&gt; Piochez une carte
           </>
-        )
+        ),
+        position: { x:45, y:0 }
       }
     },
     {
@@ -341,7 +342,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           </ul>
           </>
         ),
-        position: { x:40, y:0 }
+        position: { x:45, y:0 }
       }
     },
     {
@@ -351,7 +352,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           -&gt; Placez le portail à la place du Marais
           </>
         ),
-        position: { x:40, y:0 }
+        position: { x:45, y:0 }
       },
       move: {
         player: me,
@@ -372,7 +373,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           -&gt; Réclamez la Légende correspondante
           </>
         ),
-        position: { x:40, y:0 }
+        position: { x:45, y:0 }
       },
       move: {
         player: me,

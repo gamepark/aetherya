@@ -15,7 +15,7 @@ export class PlayerBoardLocator extends GridLocator {
     return {
       ...this.locationDescription.getCoordinates(item.location, context),
 //      z:0.05
-      z:1
+      z:0
     }
   }
 }

@@ -53,11 +53,6 @@ export class TutorialSetup extends AetheryaSetup {
     const dragonDeck = this.cardDeck(KingdomCard.Dragon)
     const portalDeck = this.cardDeck(KingdomCard.Portal)
 
-    console.log('foo')
-    console.log(me)
-    console.log(opponent)
-    console.log(KingdomCard.Dwarf)
-
     // In boards
     // Plain:3, Swamp:3, Forest:3, Mountain:3
     // Human:3, Elf:3, Dwarf:3, Goblin:3

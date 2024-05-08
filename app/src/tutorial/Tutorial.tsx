@@ -1,10 +1,27 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
 import { isMoveItemType } from '@gamepark/rules-api'
-import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
+import { MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
 import { TutorialSetup } from './TutorialSetup'
+
+import dwarfIcon from '../images/icon/dwarf3.png'
+import elfIcon from '../images/icon/elf3.png'
+import goblinIcon from '../images/icon/goblin3.png'
+import humanIcon from '../images/icon/human3.png'
+
+import forestIcon from '../images/icon/forest3.png'
+import mountainIcon from '../images/icon/mountain3.png'
+import plainIcon from '../images/icon/plain3.png'
+import swampIcon from '../images/icon/swamp3.png'
+
+import noGoblinIcon from '../images/icon/noGoblin3.png'
+import lockIcon from '../images/icon/lock3.png'
+import dragon3Icon from '../images/icon/dragon3_3.png'
+import dragon5Icon from '../images/icon/dragon5_3.png'
+import dragon6Icon from '../images/icon/dragon6_3.png'
 
 const me = 1
 const opponent = 2
@@ -21,8 +38,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () =>
           <>
-          Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus diverses.
-          Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes Légendes également génératrices de points d'Harmonie.
+          Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus diverses.<br/>
+          &nbsp;<br/>
+          Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes Légendes également génératrices de points d'Harmonie.<br/>
+          &nbsp;<br/>
           Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
           </>
       }
@@ -54,10 +73,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
           Le jeu comporte des cartes Tribus:<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;Nain, Humain, Elfe et Gobelin<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<Picture src={dwarfIcon}/> Nain,
+          <Picture src={humanIcon}/> Humain, <Picture src={elfIcon}/> Elfe et <Picture src={goblinIcon}/> Gobelin<br/>
           &nbsp;<br/>
           et des cartes Terrain:<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;Plaine, Marais, Forêt et Montagne
+          &nbsp;&nbsp;&nbsp;&nbsp;<Picture src={plainIcon}/> Plaine, <Picture src={swampIcon}/> Marais, <Picture src={forestIcon}/> Forêt et <Picture src={mountainIcon}/> Montagne
           </>
         ),
         position: { x:40, y:0 }
@@ -76,10 +96,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          Les Humains apprécient les Plaines, les Montagnes et les Forêts.<br/>
+          Les Humains apprécient les <Picture src={plainIcon}/> Plaines, les <Picture src={mountainIcon}/> Montagnes et les <Picture src={forestIcon}/> Forêts.<br/>
           S'ils sont placés à côté de ces terrains, ils rapporteront des points.<br/>
           &nbsp;<br/>
-          Les Humains détestent les Marais.<br/>
+          Les Humains détestent les <Picture src={swampIcon}/> Marais.<br/>
           S'ils sont placés à côté des Marais, ils feront perdre des points.<br/>
           &nbsp;<br/>
           Dans Aetherya, les cartes placées en diagonale les unes par rapport aux autres ne sont pas considérées comme étant limitrophes.
@@ -89,11 +109,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).filter(item => item.location.x==3 && item.location.y==3)
         ],
         margin: {
-          top: 20,
-          bottom: 20
+          top: 2,
+          bottom: 2
         }
       })
     },
@@ -109,7 +129,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           &nbsp;<br/>
           La carte remplacée est défaussée<br/>
           &nbsp;<br/>
-          -&gt; Placez la carte face visible en haut de la carte Nain dans votre Royaume
+          -&gt; Placez la carte face visible en haut<br/> de la carte <Picture src={dwarfIcon}/> Nain dans votre Royaume
           </>
         ),
         position: { x:45, y:-25 }
@@ -143,7 +163,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
         }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+        ],
+        margin: {
+          top: 0,
+          bottom: 20
+        }
+      }),
     },
     {
       move: {
@@ -161,7 +192,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
           Certaines tribus se détestent.<br/>
-          Par exemple, les elfes détestent les gobelins et les nains.<br/>
+          Par exemple, les <Picture src={elfIcon}/> elfes détestent les <Picture src={goblinIcon}/> gobelins et les <Picture src={dwarfIcon}/> nains.<br/>
           &nbsp;<br/>
           Si des tribus se haïssant sont adjacentes, elles vous feront perdre des points.
           </>
@@ -184,11 +215,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
           Les cartes Légendes permettent de gagner des points si vous arrivez à remplir certaines conditions en cours de partie comme:<br/>
           <ul>
-            <li>connecter une tribu Humaine à une tribu Naine</li>
-          	<li>connecter 3 forêts</li>
-            <li>connecter 2 tribus humaines</li>
-            <li>avoir les 4 tribus dans son Royaume</li>
-            <li>avoir 2 tribus gobelines connectées à une tribu naine OU 2 tribus naines connectées à une tribu gobeline</li>
+            <li>connecter une tribu <Picture src={humanIcon}/> Humaine à une tribu <Picture src={dwarfIcon}/> Naine</li>
+          	<li>connecter 3 <Picture src={forestIcon}/> forêts</li>
+            <li>connecter 2 tribus <Picture src={humanIcon}/> humaines</li>
+            <li>avoir les 4 tribus <Picture src={goblinIcon}/>+<Picture src={humanIcon}/>+<Picture src={elfIcon}/>+<Picture src={dwarfIcon}/> dans son Royaume</li>
+            <li>avoir 2 tribus <Picture src={goblinIcon}/> gobelines connectées à une tribu <Picture src={dwarfIcon}/> naine OU 2 tribus <Picture src={dwarfIcon}/> naines connectées à une tribu <Picture src={goblinIcon}/> gobeline</li>
           </ul>
           </>
         ),
@@ -208,7 +239,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          -&gt; Prenez la carte elfe de la défausse et placez la à la droite de la carte Humain
+          -&gt; Prenez la carte <Picture src={elfIcon}/> elfe de la défausse et placez la à la droite de la carte <Picture src={humanIcon}/> Humain
           </>
         ),
         position: { x:45, y:0 }
@@ -227,12 +258,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          La Légende Humain-Elfe est réalisée.<br/>
+          La Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe est réalisée.<br/>
+          &nbsp;<br/>
           Une fois récupérée, aucun autre joueur ne pourra réaliser cet objectif.<br/>
           &nbsp;<br/>
           Important: il n'est possible de prendre qu'une seule carte Légende par tour<br/>
           &nbsp;<br/>
-          -&gt; Réclamez la carte Légende Humain-Elfe
+          -&gt; Réclamez la carte Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe
           </>
         ),
         position: { x:0, y:20 }
@@ -275,14 +307,15 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           Pour cela, ils doivent être connectés à au-moins deux Tribus de même nature.
           Si ce n'est pas le cas, ils restent à l'état sauvage et leur valeur est alors soustraite au score du joueur.<br />
           &nbsp;<br/>
+          <Picture src={dragon3Icon}/>/<Picture src={dragon5Icon}/>/<Picture src={dragon6Icon}/><br/>
           La valeur de chaque Dragon augmente (de 3 à 6) en fonction de leur nombre dans votre Royaume (de 1 à 3 Dragons).
           Au-delà de 3 Dragons dans votre Royaume, il est impossible de les domestiquer.
           A partir du 4e Dragon, leur valeur (6) est déduite de votre score de Dragons.<br/>
           &nbsp;<br/>
           Attention:
           <ul>
-            <li>Les gobelins ne peuvent pas domestiquer les Dragons</li>
-            <li>Une fois placés, les Dragons sont inamovibles</li>
+            <li><Picture src={lockIcon}/> Une fois placés, les Dragons sont inamovibles</li>
+            <li><Picture src={noGoblinIcon}/> Les gobelins ne peuvent pas domestiquer les Dragons</li>
           </ul>
           </>
         ),
@@ -302,10 +335,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          -&gt; Piochez une carte
+          -&gt; Piochez une carte, en faisant glisser la carte de la pioche sur la défausse
           </>
         ),
-        position: { x:45, y:0 }
+        position: { x:0, y:-30 }
       },
       focus: (game) => ({
         materials: [
@@ -316,9 +349,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           top: 0,
           bottom: 0
         }
-      })
-    },
-    {
+      }),
       move: {
         player: me,
         filter: (move, game) => {
@@ -327,15 +358,6 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type == LocationType.KingdomDeck
         }
       },
-      focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
-        ],
-        margin: {
-          top: 0,
-          bottom: 0
-        }
-      })
     },
     {
       popup: {
@@ -349,19 +371,28 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           &nbsp;<br/>
           Attention:
           <ul>
-            <li>Les gobelins ne peuvent pas utiliser les Portails</li>
-            <li>Une fois placés, les Portails sont inamovibles</li>
+            <li><Picture src={lockIcon}/> Une fois placés, les Portails sont inamovibles</li>
+            <li><Picture src={noGoblinIcon}/> Les gobelins ne peuvent pas utiliser les Portails</li>
           </ul>
           </>
         ),
         position: { x:45, y:0 }
-      }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
+        ],
+        margin: {
+          top: 0,
+          bottom: 0
+        }
+      })
     },
     {
       popup: {
         text: () => (
           <>
-          -&gt; Placez le portail à la place du Marais
+          -&gt; Placez le portail à la place du Marais <Picture src={swampIcon}/>
           </>
         ),
         position: { x:45, y:0 }
@@ -380,7 +411,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          La tribu Humaine et la tribu Naine sont désormais adjacentes via le Portail.<br/>
+          La tribu <Picture src={humanIcon}/> Humaine et la tribu <Picture src={dwarfIcon}/> Naine sont désormais adjacentes via le Portail.<br/>
           &nbsp;<br/>
           -&gt; Réclamez la Légende correspondante
           </>
@@ -435,3 +466,15 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     }
   ]
 }
+
+export const alignIcon = css`
+  > * {
+    vertical-align: middle;
+  }
+
+  picture, img {
+    vertical-align: middle;
+    height: 1.5em;
+    margin-right: 0.1em;
+  }
+`

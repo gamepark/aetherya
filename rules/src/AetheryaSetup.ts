@@ -1,6 +1,7 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import { AetheryaOptions } from './AetheryaOptions'
 import { AetheryaRules } from './AetheryaRules'
+import { KingdomCard } from './material/KingdomCard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { RuleId } from './rules/RuleId'
@@ -55,21 +56,63 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   }
 
   setupPlayers(options: AetheryaOptions) {
-    const deck = this.material(MaterialType.KingdomCard).deck()
-    for (let index = 0; index < options.players; index++) {
-      // Player's hand
-      for (let i=1; i<=4; i++){
-        deck.deal({ type: LocationType.PlayerHand, player: index + 1, x:i, rotation:true }, 1)
-      }
+    let indexes:number[]=[]
+    this.material(MaterialType.KingdomCard).getIndexes().forEach(
+      i => indexes.push(i)
+    )
 
-      // Surrounding cards
-      for (let i=1; i<=4; i++){
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:1 }, 1)
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:i, y:4 }, 1)
+    // Player's hands
+    // Ensure that each player starts with 4 different cards
+    // No player's hand with 2 plains, 2 humans or 2 dragons for instance
+    let pos=0
+    let usedPos=[]
+    for (let player=1; player<=options.players; player++) {
+      let cardTypes:KingdomCard[]=[]
+      while (cardTypes.length<4){
+        let itemIndex=indexes[pos]
+        let item=this.material(MaterialType.KingdomCard).index(itemIndex).getItem()!
+        let itemType=item.id
+        if (!cardTypes.includes(itemType)){
+          cardTypes.push(itemType)
+          usedPos.push(pos)
+          this.material(MaterialType.KingdomCard).index(indexes[pos])
+            .moveItems({ type:LocationType.PlayerHand, player:player, x:cardTypes.length, rotation:true })
+        }
+
+        // Next available card
+        do {
+          pos++
+          if (pos>=indexes.length)
+            pos=0
+        } while (usedPos.includes(pos))
       }
-      for (let i=2; i<=3; i++){
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:1, y:i }, 1)
-        deck.deal({ type: LocationType.PlayerBoard, player: index + 1, x:4, y:i }, 1)
+    }
+
+    // Deal the other cards
+    let totalIterations=0
+    for (let player=1; player<=options.players; player++) {
+      for (let i=1; i<=4; i++){
+        for (let j=1; j<=4; j++){
+          // Skip central cards
+          if ((i==2 || i==3) && (j==2 || j==3))
+            continue
+
+          do {
+            pos++
+            totalIterations++
+            if (pos>=indexes.length)
+              pos=0
+            if (totalIterations>1000)
+              break
+          } while (usedPos.includes(pos))
+
+          if (totalIterations>1000)
+            break
+
+          usedPos.push(pos)
+          this.material(MaterialType.KingdomCard).index(indexes[pos])
+            .moveItems({ type:LocationType.PlayerBoard, player:player, x:i, y:j, rotation:false })
+        }
       }
     }
   }

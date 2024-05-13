@@ -24,7 +24,7 @@ export class PrepareGameRule extends SimultaneousRule {
     for (let i=2; i<=3; i++){
       for (let j=2; j<=3; j++){
         let item=boardCards.filter(item => item.location.x==i && item.location.y==j)
-        if (item.getItems().length == 0){
+        if (item.getItems().length === 0){
           // (i,j) is an empty square
           moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player:playerId, x:i, y:j, z:1, rotation:true}))
         }

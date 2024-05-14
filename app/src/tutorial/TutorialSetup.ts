@@ -1,4 +1,3 @@
-import { AetheryaOptions } from '@gamepark/aetherya/AetheryaOptions'
 import { AetheryaSetup } from '@gamepark/aetherya/AetheryaSetup'
 import { KingdomCard } from '@gamepark/aetherya/material/KingdomCard'
 import { LegendCard } from '@gamepark/aetherya/material/LegendCard'
@@ -41,7 +40,7 @@ export class TutorialSetup extends AetheryaSetup {
     deck.deal({ type: LocationType.PlayerBoard, player:player, x:x, y:y, rotation:visible }, 1)
   }
 
-  setupPlayers(_options: AetheryaOptions) {
+  setupPlayers() {
     const plainDeck = this.cardDeck(KingdomCard.Plain)
     const swampDeck = this.cardDeck(KingdomCard.Swamp)
     const forestDeck = this.cardDeck(KingdomCard.Forest)

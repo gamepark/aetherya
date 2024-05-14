@@ -14,16 +14,16 @@ import { legendCards } from './material/LegendCard'
 export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, LocationType, AetheryaOptions> {
   Rules = AetheryaRules
 
-  setupMaterial(options: AetheryaOptions) {
-    this.setupKingdomCards(options)
+  setupMaterial() {
+    this.setupKingdomCards()
     this.setupLegendCards()
     this.setupLegendLine()
-    this.setupPlayers(options)
+    this.setupPlayers()
   }
 
-  setupKingdomCards(options: AetheryaOptions) {
+  setupKingdomCards() {
     const cards = []
-    for (let i=0; i<2*options.players; i++){
+    for (let i=0; i<2*this.game.players.length; i++){
       cards.push(...kingdomCards.map((kingdomCard) => ({
         id: kingdomCard,
         location: {
@@ -55,7 +55,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     }
   }
 
-  setupPlayers(options: AetheryaOptions) {
+  setupPlayers() {
     let indexes:number[]=[]
     this.material(MaterialType.KingdomCard).getIndexes().forEach(
       i => indexes.push(i)
@@ -66,7 +66,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     // No player's hand with 2 plains, 2 humans or 2 dragons for instance
     let pos=0
     let usedPos=[]
-    for (let player=1; player<=options.players; player++) {
+    for (let player=1; player<=this.game.players.length; player++) {
       let cardTypes:KingdomCard[]=[]
       while (cardTypes.length<4){
         let itemIndex=indexes[pos]
@@ -90,7 +90,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
 
     // Deal the other cards
     let totalIterations=0
-    for (let player=1; player<=options.players; player++) {
+    for (let player=1; player<=this.game.players.length; player++) {
       for (let i=1; i<=4; i++){
         for (let j=1; j<=4; j++){
           // Skip central cards

@@ -48,7 +48,8 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
   locationsStrategies = {
     [MaterialType.KingdomCard]: {
       [LocationType.KingdomDeck]: new PositiveSequenceStrategy(),
-      [LocationType.KingdomDiscard]: new PositiveSequenceStrategy()
+      [LocationType.KingdomDiscard]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     }
   }
 

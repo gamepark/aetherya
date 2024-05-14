@@ -1,12 +1,11 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import { AetheryaOptions } from './AetheryaOptions'
 import { AetheryaRules } from './AetheryaRules'
-import { KingdomCard } from './material/KingdomCard'
+import { kingdomCards } from './material/KingdomCard'
+import { legendCards } from './material/LegendCard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { RuleId } from './rules/RuleId'
-import { kingdomCards } from './material/KingdomCard'
-import { legendCards } from './material/LegendCard'
 
 /**
  * This class creates a new Game based on the game options
@@ -56,62 +55,39 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   }
 
   setupPlayers() {
-    let indexes:number[]=[]
-    this.material(MaterialType.KingdomCard).getIndexes().forEach(
-      i => indexes.push(i)
-    )
-
-    // Player's hands
-    // Ensure that each player starts with 4 different cards
-    // No player's hand with 2 plains, 2 humans or 2 dragons for instance
-    let pos=0
-    let usedPos=[]
-    for (let player=1; player<=this.game.players.length; player++) {
-      let cardTypes:KingdomCard[]=[]
-      while (cardTypes.length<4){
-        let itemIndex=indexes[pos]
-        let item=this.material(MaterialType.KingdomCard).index(itemIndex).getItem()!
-        let itemType=item.id
-        if (!cardTypes.includes(itemType)){
-          cardTypes.push(itemType)
-          usedPos.push(pos)
-          this.material(MaterialType.KingdomCard).index(indexes[pos])
-            .moveItems({ type:LocationType.PlayerHand, player:player, x:cardTypes.length, rotation:true })
-        }
-
-        // Next available card
-        do {
-          pos++
-          if (pos>=indexes.length)
-            pos=0
-        } while (usedPos.includes(pos))
-      }
+    for (const player of this.game.players) {
+      this.draw4UniqueCards(player)
     }
+    this.material(MaterialType.KingdomCard).location(LocationType.KingdomDiscard).moveItems({type: LocationType.KingdomDeck})
+    this.material(MaterialType.KingdomCard).location(LocationType.KingdomDeck).shuffle()
+    for (const player of this.game.players) {
+      this.dealKingdomBorders(player)
+    }
+  }
 
-    // Deal the other cards
-    let totalIterations=0
-    for (let player=1; player<=this.game.players.length; player++) {
-      for (let i=1; i<=4; i++){
-        for (let j=1; j<=4; j++){
-          // Skip central cards
-          if ((i==2 || i==3) && (j==2 || j==3))
-            continue
+  draw4UniqueCards(player: number) {
+    const deck = this.material(MaterialType.KingdomCard).location(LocationType.KingdomDeck).deck()
+    let cardsToDeal = 4
+    do {
+      deck.deal({ type: LocationType.PlayerHand, player, rotation: true }, cardsToDeal)
+    } while (cardsToDeal = this.discardDuplicates(player))
+  }
 
-          do {
-            pos++
-            totalIterations++
-            if (pos>=indexes.length)
-              pos=0
-            if (totalIterations>1000)
-              break
-          } while (usedPos.includes(pos))
+  discardDuplicates(player: number) {
+    const hand = this.material(MaterialType.KingdomCard).location(LocationType.PlayerHand).player(player)
+    const duplicates = hand.filter((item, index) => hand.getIndexes().some(i => i < index && hand.getItem(i)?.id === item.id))
+    if (duplicates.length > 0) {
+      duplicates.moveItems({type: LocationType.KingdomDiscard})
+    }
+    return duplicates.length
+  }
 
-          if (totalIterations>1000)
-            break
-
-          usedPos.push(pos)
-          this.material(MaterialType.KingdomCard).index(indexes[pos])
-            .moveItems({ type:LocationType.PlayerBoard, player:player, x:i, y:j, rotation:false })
+  dealKingdomBorders(player: number) {
+    const deck = this.material(MaterialType.KingdomCard).deck()
+    for (let x = 1 ; x <= 4 ; x++ ) {
+      for (let y = 1 ; y <= 4 ; y++ ) {
+        if ((x !== 2 && x !== 3) || (y !== 2 && y !== 3)) {
+          deck.dealOne({type: LocationType.PlayerBoard, player, x, y, rotation: false})
         }
       }
     }

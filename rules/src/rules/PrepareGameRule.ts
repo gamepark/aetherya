@@ -2,13 +2,9 @@ import { isMoveItemType, ItemMove, MaterialMove, SimultaneousRule } from '@gamep
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
-import { unitTests } from '../logic/UnitTests'
 
 export class PrepareGameRule extends SimultaneousRule {
   getActivePlayerLegalMoves(playerId: number) {
-    // Unit tests - May be disabled in the file UnitTests.ts
-    unitTests.run()
-
     // Place hand cards into any empty central square
     const handCards =
       this.material(MaterialType.KingdomCard)

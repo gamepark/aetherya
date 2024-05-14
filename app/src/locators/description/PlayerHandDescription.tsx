@@ -11,9 +11,6 @@ export class PlayerHandDescription extends LocationDescription {
   width = legendCardDescription.width
   borderRadius = legendCardDescription.borderRadius
 
-//  alwaysVisible = true
-//  extraCss = css`border: 0.05em solid white`
-
   getLocations(context: MaterialContext) : Location[]  {
     const { rules } = context
     const locations : Location[] = []

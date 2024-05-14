@@ -26,7 +26,7 @@ export class PrepareGameRule extends SimultaneousRule {
         let item=boardCards.filter(item => item.location.x==i && item.location.y==j)
         if (item.getItems().length === 0){
           // (i,j) is an empty square
-          moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player:playerId, x:i, y:j, z:1, rotation:true}))
+          moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player:playerId, x:i, y:j, rotation:true}))
         }
       }
     }

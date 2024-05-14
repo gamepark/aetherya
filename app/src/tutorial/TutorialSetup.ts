@@ -38,7 +38,7 @@ export class TutorialSetup extends AetheryaSetup {
   }
 
   putCard(player:number, x:number, y:number, visible:boolean, deck:MaterialDeck){
-    deck.deal({ type: LocationType.PlayerBoard, player:player, x:x, y:y, z:1, rotation:visible }, 1)
+    deck.deal({ type: LocationType.PlayerBoard, player:player, x:x, y:y, rotation:visible }, 1)
   }
 
   setupPlayers(_options: AetheryaOptions) {
@@ -101,10 +101,10 @@ export class TutorialSetup extends AetheryaSetup {
     this.putCard(opponent, 4, 4, false, dwarfDeck)
 
     // Reorder the deck
-    portalDeck.deal({ type: LocationType.KingdomDeck, z:1, rotation:false }, 1)
-    swampDeck.deal({ type: LocationType.KingdomDeck, z:1, rotation:false }, 1)
-    goblinDeck.deal({ type: LocationType.KingdomDeck, z:1, rotation:false }, 1)
-    mountainDeck.deal({ type: LocationType.KingdomDeck, z:1, rotation:false }, 1)
+    portalDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
+    swampDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
+    goblinDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
+    mountainDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
   }
 
   start() {

@@ -4,25 +4,25 @@ import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
 
 export class PrepareGameRule extends SimultaneousRule {
-  getActivePlayerLegalMoves(playerId: number) {
+  getActivePlayerLegalMoves(player: number) {
     // Place hand cards into any empty central square
     const handCards =
       this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerHand)
-      .player(playerId)
+      .player(player)
 
     const boardCards =
       this.material(MaterialType.KingdomCard)
       .location(LocationType.PlayerBoard)
-      .player(playerId)
+      .player(player)
 
     let moves:MaterialMove[]=[]
-    for (let i=2; i<=3; i++){
-      for (let j=2; j<=3; j++){
-        let item=boardCards.filter(item => item.location.x==i && item.location.y==j)
-        if (item.getItems().length === 0){
-          // (i,j) is an empty square
-          moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player:playerId, x:i, y:j, rotation:true}))
+    for (let x=2; x<=3; x++){
+      for (let y=2; y<=3; y++){
+        let item=boardCards.filter(item => item.location.x==x && item.location.y==y)
+        if (item.length === 0){
+          // (x,y) is an empty square
+          moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player, x, y, rotation:true}))
         }
       }
     }
@@ -40,13 +40,13 @@ export class PrepareGameRule extends SimultaneousRule {
       .location(LocationType.PlayerHand)
       .player(playerId)
 
-    if (handCards.getItems().length==0)
+    if (handCards.length==0)
       return [this.rules().endPlayerTurn(playerId)]
 
     return []
   }
 
-  getMovesAfterPlayersDone(): MaterialMove<number, number, number>[] {
+  getMovesAfterPlayersDone() {
     return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.game.players[0]) ]
   }
 }

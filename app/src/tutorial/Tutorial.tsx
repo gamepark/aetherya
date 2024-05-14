@@ -45,7 +45,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             Légendes également génératrices de points d'Harmonie.<br/>
             &nbsp;<br/>
             Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
-          </>
+          </>,
+        size: { width: 120 }
       }
     },
     {
@@ -65,8 +66,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
         ],
         margin: {
-          top: 20,
-          bottom: 20
+          top: 2,
+          bottom: 2,
+          right: 35
         }
       })
     },
@@ -90,8 +92,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
         ],
         margin: {
-          top: 20,
-          bottom: 20
+          top: 2,
+          bottom: 2,
+          right: 35
         }
       })
     },
@@ -109,14 +112,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             Dans Aetherya, les cartes placées en diagonale les unes par rapport aux autres ne sont pas considérées comme étant limitrophes.
           </>
         ),
-        position: { x: 40, y: 0 }
+        size: { width: 95 },
+        position: { x: 35, y: 0 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).filter(item => item.location.x === 3 && item.location.y === 3)
         ],
         margin: {
-          top: 2,
+          right: 15,
+          top: 10,
           bottom: 2
         }
       })
@@ -131,12 +136,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             - ou -<br/>
             On retourne une nouvelle carte depuis la pioche et on la place dans son Royaume<br/>
             &nbsp;<br/>
-            La carte remplacée est défaussée<br/>
-            &nbsp;<br/>
-            -&gt; Placez la carte face visible en haut<br/> de la carte <Picture src={dwarfIcon}/> Nain dans votre Royaume
+            La carte remplacée est défaussée
           </>
         ),
-        position: { x: 45, y: -25 }
+        size: { width: 100 }
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <>Placez la carte face visible en haut<br/> de la carte <Picture src={dwarfIcon}/> Nain dans votre Royaume</>
+        ),
+        position: { x: 35, y: -20 }
       },
       focus: (game) => ({
         materials: [
@@ -145,8 +156,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
         ],
         margin: {
-          top: 0,
-          bottom: 20
+          top: 2,
+          bottom: 10,
+          left: 2,
+          right: 25
         }
       }),
       move: {
@@ -167,18 +180,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           return isMoveItemType(MaterialType.KingdomCard)(move)
             && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
         }
-      },
-      focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
-          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
-          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
-        ],
-        margin: {
-          top: 0,
-          bottom: 20
-        }
-      })
+      }
     },
     {
       move: {
@@ -201,7 +203,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             Si des tribus se haïssant sont adjacentes, elles vous feront perdre des points.
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 30, y: 0 }
       },
       focus: (game) => ({
         materials: [
@@ -209,7 +211,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         ],
         margin: {
           top: 2,
-          bottom: 2
+          bottom: 2,
+          right: 20
         }
       })
     },
@@ -230,7 +233,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             </ul>
           </>
         ),
-        position: { x: 0, y: 20 }
+        position: { x: 0, y: 20 },
+        size: { width: 130 }
       },
       focus: (game) => ({
         materials: [
@@ -238,7 +242,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         ],
         margin: {
           top: 5,
-          bottom: 25
+          bottom: 30
         }
       })
     },
@@ -246,11 +250,24 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            -&gt; Prenez la carte <Picture src={elfIcon}/> elfe de la défausse et placez la à la droite de la carte <Picture src={humanIcon}/> Humain
+            Prenez la carte <Picture src={elfIcon}/> elfe de la défausse et placez la à la droite de la carte <Picture src={humanIcon}/> Humain
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 35, y: -20 }
       },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+        ],
+        margin: {
+          top: 2,
+          bottom: 10,
+          left: 2,
+          right: 25
+        }
+      }),
       move: {
         player: me,
         filter: (move, _game) => {
@@ -269,13 +286,44 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             &nbsp;<br/>
             Une fois récupérée, aucun autre joueur ne pourra réaliser cet objectif.<br/>
             &nbsp;<br/>
-            Important: il n'est possible de prendre qu'une seule carte Légende par tour<br/>
-            &nbsp;<br/>
-            -&gt; Réclamez la carte Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe
+            Important: il n'est possible de prendre qu'une seule carte Légende par tour
+          </>
+        ),
+        position: { x: 0, y: 25 },
+        size: { width: 120 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 1)
+        ],
+        margin: {
+          top: 5,
+          bottom: 10
+        }
+      })
+    },
+    {
+      popup: {
+        text: () => (
+          <>
+            Réclamez la carte Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe
           </>
         ),
         position: { x: 0, y: 20 }
       },
+      focus: (game) =>
+        ({
+          materials: [
+            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 1)
+          ],
+          locations: [
+            this.location(LocationType.PlayerLegendLine).player(me).x(1).location
+          ],
+          margin: {
+            top: 5,
+            bottom: 5
+          }
+        }),
       move: {
         player: me,
         filter: (move, _game) => {
@@ -326,15 +374,15 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             </ul>
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 25, y: 0 },
+        size: { width: 110 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
         ],
         margin: {
-          top: 0,
-          bottom: 0
+          right: 26
         }
       })
     },
@@ -342,7 +390,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            -&gt; Piochez une carte, en faisant glisser la carte de la pioche sur la défausse
+            Piochez une carte, en faisant glisser la carte de la pioche sur la défausse
           </>
         ),
         position: { x: 0, y: -30 }
@@ -383,15 +431,14 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             </ul>
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 25, y: 0 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard)
         ],
         margin: {
-          top: 0,
-          bottom: 0
+          right: 20
         }
       })
     },
@@ -399,11 +446,22 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            -&gt; Placez le portail à la place du Marais <Picture src={swampIcon}/>
+            Placez le portail à la place du Marais <Picture src={swampIcon}/>
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 40, y: -10 }
       },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location((l) => l.x === 3 && l.y === 2)
+        ],
+        margin: {
+          top: 10,
+          bottom: 5,
+          left: 2
+        }
+      }),
       move: {
         player: me,
         filter: (move, _game) => {
@@ -423,8 +481,21 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             -&gt; Réclamez la Légende correspondante
           </>
         ),
-        position: { x: 45, y: 0 }
+        position: { x: 0, y: 20 }
       },
+      focus: (game) =>
+        ({
+          materials: [
+            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 7)
+          ],
+          locations: [
+            this.location(LocationType.PlayerLegendLine).player(me).x(2).location
+          ],
+          margin: {
+            left: 10,
+            right: 10
+          }
+        }),
       move: {
         player: me,
         filter: (move, _game) => {
@@ -441,8 +512,20 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             &nbsp;<br/>
             Les cartes cachées sont alors retournées, et on procède au décompte des points.
           </>
-        )
-      }
+        ),
+        position: { x: 35 }
+      },
+      focus: (game) =>
+        ({
+          materials: [
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+          ],
+          margin: {
+            right: 30,
+            top: 2,
+            bottom: 5,
+          }
+        })
     },
     {
       popup: {

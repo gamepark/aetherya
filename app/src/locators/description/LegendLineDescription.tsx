@@ -14,9 +14,9 @@ export class LegendLineDescription extends LocationDescription {
   alwaysVisible = true
   extraCss = css`border: 0.05em solid white`
 
-  getLocations(_context: MaterialContext) : Location[]  {
-    const locations : Location[] = []
-    for (let i=1; i<=8; i++){
+  getLocations(_context: MaterialContext): Location[] {
+    const locations: Location[] = []
+    for (let i = 1; i <= 8; i++) {
       locations.push({
         type: LocationType.LegendLine,
         x: i
@@ -26,16 +26,17 @@ export class LegendLineDescription extends LocationDescription {
   }
 
   getCoordinates(location: Location, context: LocationContext) {
-    const baseCoordinates = this.getRegionCoordinates(location, context)
-    const posX=(location.x!-1) % 4
-    const posY=(location.x!-1-posX) / 4
+    const baseCoordinates = this.getLegendLineCardCoordinates(location, context)
+    const posX = (location.x! - 1) % 4
+    const posY = (location.x! - 1 - posX) / 4
     return {
-      x: baseCoordinates.x + (legendCardDescription.width+0.5)*(posX-1.5),
-      y: baseCoordinates.y + (legendCardDescription.height+0.5)*(posY-0.5),
+      x: baseCoordinates.x + (legendCardDescription.width + 0.5) * (posX - 1.5),
+      y: baseCoordinates.y + (legendCardDescription.height + 0.5) * (posY - 0.5),
       z: 0
     }
   }
 
-  getRegionCoordinates(_location: Location, context: LocationContext) {
+  getLegendLineCardCoordinates(_location: Location, context: LocationContext) {
     return tableDesign.commonLegendLineCoordinates(context)
-  }}
+  }
+}

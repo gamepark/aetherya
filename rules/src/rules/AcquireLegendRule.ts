@@ -1,4 +1,4 @@
-import { /*Location,*/ Material, PlayerTurnRule } from '@gamepark/rules-api'
+import { /*Location,*/ Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -6,6 +6,14 @@ import { Memory } from './Memory'
 import { score } from '../logic/Score'
 
 export abstract class AcquireLegendRule extends PlayerTurnRule {
+  getPlayerMoves(): MaterialMove[] {
+    if (!this.remind(Memory.PickedLegend)){
+      // TODO: do we allow the player to pass when he could take a legend card?
+      return this.getPlayerLegendMoves()
+    }
+    return []
+  }
+
   getPlayerLegendMoves() {
     let kingdomCards=this.material(MaterialType.KingdomCard)
       .player(this.getActivePlayer())

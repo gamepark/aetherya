@@ -76,19 +76,10 @@ export class ChooseCardRule extends AcquireLegendRule {
           })
     }
 
-    // Legend card moves
-    let availableLegendCardsActions:MaterialMove[]=[]
-    if (!this.remind(Memory.PickedLegend)){
-      availableLegendCardsActions=this.getPlayerLegendMoves()
-    }
-
-    // Only legend => legend or pass
-    // TODO
-
     return [
       ...deckCardActions,
       ...discardCardActions,
-      ...availableLegendCardsActions
+      ...super.getPlayerMoves()
     ]
   }
 

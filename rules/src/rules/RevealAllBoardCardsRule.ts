@@ -14,8 +14,4 @@ export class RevealAllBoardCardsRule extends MaterialRulesPart {
       this.rules().startRule(RuleId.Score)
     ]
   }
-
-  getPlayerMoves() {
-    return []
-  }
 }

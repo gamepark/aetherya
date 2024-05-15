@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
-import { PlayerColor } from '@gamepark/aetherya/PlayerColor'
+import { PlayerId } from '@gamepark/aetherya/PlayerId'
 import { ItemLocator } from '@gamepark/react-game'
 import { kingdomDeckLocator } from './KingdomDeckLocator'
 import { kingdomDiscardLocator } from './KingdomDiscardLocator'
@@ -9,10 +9,10 @@ import { legendLineLocator } from './LegendLineLocator'
 import { playerBoardLocator } from './PlayerBoardLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playerLegendLineLocator } from './PlayerLegendLineLocator'
-import { scoreSheetLocator } from './ScoreSheetLocator'
 import { scoreSheetBoxLocator } from './ScoreSheetBoxLocator'
+import { scoreSheetLocator } from './ScoreSheetLocator'
 
-export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
+export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.KingdomDeck]: kingdomDeckLocator,
   [LocationType.KingdomDiscard]: kingdomDiscardLocator,
   [LocationType.LegendDeck]: legendDeckLocator,

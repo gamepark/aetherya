@@ -11,7 +11,6 @@ import {
 import { PlayerScore, score } from './logic/Score'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
-import { PlayerColor } from './PlayerColor'
 import { PlayerId } from './PlayerId'
 import { AcquireLegendRule } from './rules/AcquireLegendRule'
 import { DrawOrPlaceDiscardCardRule } from './rules/DrawOrPlaceDiscardCardRule'
@@ -39,8 +38,8 @@ export const alwaysShow: HidingStrategy = () => {
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType>
-  implements CompetitiveScore<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerId> {
+export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, LocationType>
+  implements CompetitiveScore<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId> {
 
   rules = {
     [RuleId.PrepareGame]: PrepareGameRule,
@@ -112,12 +111,6 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
       return res
     }
     return
-  }
-
-  playerBoard(player:number){
-    return this.material(MaterialType.KingdomCard)
-      .location(LocationType.PlayerBoard)
-      .player(player)
   }
 
   itemsCanMerge() {

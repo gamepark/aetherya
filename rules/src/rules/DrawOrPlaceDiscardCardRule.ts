@@ -23,4 +23,21 @@ export class DrawOrPlaceDiscardCardRule extends PlaceDiscardCardRule {
     }
     return consequences
   }
+
+  afterItemMove(move: ItemMove): MaterialMove[] {
+    const consequences = super.afterItemMove(move)
+    if (isMoveItemType(MaterialType.KingdomCard)(move) && this.kingdomDeckCards().length === 0) {
+      const discardCardsBeforeMove = this.discardDeckCards().index(index => index !== move.itemIndex)
+      return [
+        discardCardsBeforeMove.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
+        discardCardsBeforeMove.shuffle()
+      ]
+    }
+    return consequences
+  }
+
+  kingdomDeckCards() {
+    return this.material(MaterialType.KingdomCard)
+      .location(LocationType.KingdomDeck)
+  }
 }

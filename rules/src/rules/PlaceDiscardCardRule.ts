@@ -52,33 +52,8 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
     return []
   }
 
-  afterItemMove(move: ItemMove): MaterialMove[] {
-    const consequences = super.afterItemMove(move)
-    if (isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type === LocationType.KingdomDiscard && this.kingdomDeckCards().length === 0) {
-      const discardCardsBeforeMove = this.discardDeckCards().index(index => index !== move.itemIndex)
-      return [
-        discardCardsBeforeMove.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
-        discardCardsBeforeMove.shuffle()
-      ]
-    }
-    return consequences
-  }
-
-  kingdomDeckCards() {
-    return this.material(MaterialType.KingdomCard)
-      .location(LocationType.KingdomDeck)
-  }
-
-  kingdomDeck() {
-    return this.kingdomDeckCards().deck()
-  }
-
   discardDeckCards() {
     return this.material(MaterialType.KingdomCard)
       .location(LocationType.KingdomDiscard)
-  }
-
-  discardDeck() {
-    return this.discardDeckCards().deck()
   }
 }

@@ -5,7 +5,6 @@ import { PlaceDiscardCardRule } from './PlaceDiscardCardRule'
 import { RuleId } from './RuleId'
 
 export class DrawOrPlaceDiscardCardRule extends PlaceDiscardCardRule {
-
   getPlayerMoves(): MaterialMove[] {
     const moves = super.getPlayerMoves()
     moves.push(this.kingdomDeckCards()

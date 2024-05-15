@@ -294,7 +294,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 1)
+          this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 0)
         ],
         margin: {
           top: 5,

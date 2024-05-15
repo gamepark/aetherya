@@ -20,9 +20,9 @@ export class TutorialSetup extends AetheryaSetup {
       LegendCard.TwoVsOne_GoblinDwarf,
       LegendCard.LinkedHumanDwarf,
       LegendCard.TwoLinkedGoblins]
-    for (let i=1; i<=8; i++){
+    for (let i=0; i<8; i++){
       deck
-        .filter((item) => item.id===cards[i-1])
+        .filter((item) => item.id===cards[i])
         .deal({ type: LocationType.LegendLine, x:i }, 1)
     }
   }
@@ -107,6 +107,7 @@ export class TutorialSetup extends AetheryaSetup {
   }
 
   start() {
+    this.material(MaterialType.KingdomCard).location(LocationType.KingdomDeck).deck().dealOne({ type: LocationType.KingdomDiscard, rotation:true })
     this.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.game.players[0])
 //    this.startSimultaneousRule(RuleId.PrepareGame)
   }

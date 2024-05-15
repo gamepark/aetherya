@@ -7,7 +7,6 @@ import { RuleId } from './RuleId'
 
 export class PlaceDiscardCardRule extends AcquireLegendRule {
   getPlayerMoves(): MaterialMove[] {
-
     // Card from the discard
     const discardCardActions: MaterialMove[] = []
     const discardCards = this.discardDeckCards()

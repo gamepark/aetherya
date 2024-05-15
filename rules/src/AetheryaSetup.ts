@@ -48,10 +48,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   }
 
   setupLegendLine() {
-    const deck = this.material(MaterialType.LegendCard).deck()
-    for (let i=1; i<=8; i++){
-      deck.deal({ type: LocationType.LegendLine, x:i }, 1)
-    }
+    this.material(MaterialType.LegendCard).deck().deal({ type: LocationType.LegendLine }, 8)
   }
 
   setupPlayers() {

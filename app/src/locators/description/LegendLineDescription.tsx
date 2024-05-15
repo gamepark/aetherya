@@ -25,8 +25,8 @@ export class LegendLineDescription extends LocationDescription {
 
   getCoordinates(location: Location, context: LocationContext) {
     const baseCoordinates = this.getLegendLineCardCoordinates(location, context)
-    const posX = (location.x! - 1) % 4
-    const posY = (location.x! - 1 - posX) / 4
+    const posX = (location.x!) % 4
+    const posY = (location.x! - posX) / 4
     return {
       x: baseCoordinates.x + (legendCardDescription.width + 0.5) * (posX - 1.5),
       y: baseCoordinates.y + (legendCardDescription.height + 0.5) * (posY - 0.5),

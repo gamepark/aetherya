@@ -1,4 +1,13 @@
-import { CompetitiveScore, HiddenMaterialRules, HidingStrategy, MaterialGame, MaterialItem, MaterialMove, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import {
+  CompetitiveScore,
+  FillGapStrategy,
+  HiddenMaterialRules,
+  HidingStrategy,
+  MaterialGame,
+  MaterialItem,
+  MaterialMove,
+  PositiveSequenceStrategy
+} from '@gamepark/rules-api'
 import { PlayerScore, score } from './logic/Score'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -47,6 +56,9 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
       [LocationType.KingdomDeck]: new PositiveSequenceStrategy(),
       [LocationType.KingdomDiscard]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.LegendCard]: {
+      [LocationType.LegendLine]: new FillGapStrategy()
     }
   }
 

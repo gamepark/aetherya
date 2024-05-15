@@ -69,7 +69,7 @@ export class AcquireLegendRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItemType(MaterialType.LegendCard)(move) && move.location.type === LocationType.PlayerLegendLine) {
-      const consequences: MaterialMove[] = this.refillLegendLineActions()
+      const consequences: MaterialMove[] = [this.legendDeck().dealOne({ type: LocationType.LegendLine })]
       if (this.game.rule!.id === RuleId.AcquireLegend) {
         consequences.push(this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer))
       } else {
@@ -80,29 +80,9 @@ export class AcquireLegendRule extends PlayerTurnRule {
     return []
   }
 
-  legendLineCards(){
-    return this.material(MaterialType.LegendCard)
-      .location(LocationType.LegendLine)
-  }
-
   legendDeck() {
     return this.material(MaterialType.LegendCard)
       .location(LocationType.LegendDeck)
       .deck()
-  }
-
-  refillLegendLineActions(){
-    let moves=[]
-    const legDeck=this.legendDeck()
-    const nbLegendCardsInDeck=legDeck.getItems().length
-    if (nbLegendCardsInDeck > 0){
-      const allLegendLineCards=this.legendLineCards()
-      for (let i=1; i<=8; i++){
-        if (allLegendLineCards.filter(item => item.location.x==i).getItems().length==0){
-          moves.push(...legDeck.deal({ type:LocationType.LegendLine, x:i }, 1))
-        }
-      }
-    }
-    return moves
   }
 }

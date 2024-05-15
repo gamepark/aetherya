@@ -3,10 +3,10 @@ import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
-import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
+import { AcquireLegendRule } from './AcquireLegendRule'
 import { RuleId } from './RuleId'
 
-export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
+export class ChooseCardRule extends AcquireLegendRule {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
     let nbPlayers=this.game.players.length

@@ -5,7 +5,7 @@ import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
 import { score } from '../logic/Score'
 
-export abstract class PlayerTurnRuleWithLegendMoves extends PlayerTurnRule {
+export abstract class AcquireLegendRule extends PlayerTurnRule {
   getPlayerLegendMoves() {
     let kingdomCards=this.material(MaterialType.KingdomCard)
       .player(this.getActivePlayer())

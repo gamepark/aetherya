@@ -2,6 +2,7 @@ import {
   CompetitiveScore,
   FillGapStrategy,
   HiddenMaterialRules,
+  hideItemId,
   HidingStrategy,
   MaterialGame,
   MaterialItem,
@@ -24,14 +25,6 @@ export const hideCardWhenNotRotated: HidingStrategy = (
   item: MaterialItem
 ) => {
   return item.location.rotation ? [] : ['id']
-}
-
-export const alwaysHide: HidingStrategy = () => {
-  return ['id']
-}
-
-export const alwaysShow: HidingStrategy = () => {
-  return []
 }
 
 /**
@@ -64,12 +57,11 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, L
 
   hidingStrategies = {
     [MaterialType.KingdomCard]: {
-      [LocationType.KingdomDeck]: alwaysHide,
-      [LocationType.KingdomDiscard]: alwaysShow,
+      [LocationType.KingdomDeck]: hideItemId,
       [LocationType.PlayerBoard]: hideCardWhenNotRotated
     },
     [MaterialType.LegendCard]: {
-      [LocationType.LegendDeck]: alwaysHide
+      [LocationType.LegendDeck]: hideItemId
     }
   }
 

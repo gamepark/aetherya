@@ -76,13 +76,9 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
         this.memorize(Memory.PlacedBoardCard, true)
 
         // Move the card at the target location into the discard
-        let boardCard=this
-          .material(MaterialType.KingdomCard)
-          .location(LocationType.PlayerBoard)
-          .filter(item => {
-            return item.location.player==this.player && item.location.x==move.location.x && item.location.y==move.location.y
-          })
-        return boardCard.moveItems({ type: LocationType.KingdomDiscard, rotation:true })
+        const boardCard = this.material(MaterialType.KingdomCard)
+          .location(l => l.type === LocationType.PlayerBoard && l.player === this.player && l.x === move.location.x && l.y === move.location.y)
+        return [boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation:true })]
       }
     }
     return []

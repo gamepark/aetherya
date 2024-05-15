@@ -107,7 +107,7 @@ export class TutorialSetup extends AetheryaSetup {
   }
 
   start() {
-    this.startPlayerTurn(RuleId.ChooseCard, this.game.players[0])
+    this.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.game.players[0])
 //    this.startSimultaneousRule(RuleId.PrepareGame)
   }
 }

@@ -1,12 +1,12 @@
-import { /*isSelectItem, */ isMoveItem, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItem, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { Memory } from './Memory'
 import { AcquireLegendRule } from './AcquireLegendRule'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
-export class ChooseCardRule extends AcquireLegendRule {
+export class PlaceDiscardCardRule extends AcquireLegendRule {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
     let nbPlayers=this.game.players.length
@@ -36,15 +36,6 @@ export class ChooseCardRule extends AcquireLegendRule {
 
   getPlayerMoves(): MaterialMove[] {
 
-    let deckCardActions:MaterialMove[]=[]
-    if (!this.remind(Memory.PickedCardFromDeck)
-      && !this.remind(Memory.PlacedBoardCard)){
-      // Card from the deck
-      deckCardActions = this.kingdomDeckCards()
-        .maxBy(item => item.location.x!)
-        .moveItems({ type:LocationType.KingdomDiscard, rotation:true })
-    }
-
     // Card from the discard
     let discardCardActions:MaterialMove[]=[]
     if (!this.remind(Memory.PlacedBoardCard)){
@@ -73,7 +64,6 @@ export class ChooseCardRule extends AcquireLegendRule {
     }
 
     return [
-      ...deckCardActions,
       ...discardCardActions,
       ...super.getPlayerMoves()
     ]
@@ -93,18 +83,6 @@ export class ChooseCardRule extends AcquireLegendRule {
             return item.location.player==this.player && item.location.x==move.location.x && item.location.y==move.location.y
           })
         return boardCard.moveItems({ type: LocationType.KingdomDiscard, rotation:true })
-      } else if (move.location.type==LocationType.KingdomDiscard){
-        let movedCardLocationType=this
-          .material(MaterialType.KingdomCard)
-          .index(move.itemIndex)
-          .getItem()!.location.type
-        if (movedCardLocationType==LocationType.PlayerBoard){
-          // Do nothing
-        } else if (movedCardLocationType==LocationType.KingdomDeck){
-          // Deck -> Discard
-          this.memorize(Memory.PickedCardFromDeck, true)
-        }
-        return []
       }
     }
     return []
@@ -177,8 +155,7 @@ export class ChooseCardRule extends AcquireLegendRule {
 
   cleanMemoryAndStartNewPlayerTurn(){
     this.forget(Memory.PickedLegend)
-    this.forget(Memory.PickedCardFromDeck)
     this.forget(Memory.PlacedBoardCard)
-    return [this.rules().startPlayerTurn(RuleId.ChooseCard, this.nextPlayer)]
+    return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
   }
 }

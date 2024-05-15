@@ -6,24 +6,6 @@ import { AcquireLegendRule } from './AcquireLegendRule'
 import { RuleId } from './RuleId'
 
 export class PlaceDiscardCardRule extends AcquireLegendRule {
-  onRuleStart() {
-    // If a board is full of visible cards, then it's the end of the game
-    let nbPlayers=this.game.players.length
-    for (let i=0; i<nbPlayers; i++){
-      let player=this.game.players[i]
-      let nbVisibleCards = this.material(MaterialType.KingdomCard)
-        .location(LocationType.PlayerBoard)
-        .player(player)
-        .filter(item => !!item.location.rotation)
-        .length
-
-      if (nbVisibleCards >= 16)
-        return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
-    }
-
-    return []
-  }
-
   getPlayerMoves(): MaterialMove[] {
 
     // Card from the discard

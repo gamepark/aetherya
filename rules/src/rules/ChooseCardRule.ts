@@ -22,10 +22,6 @@ export class ChooseCardRule extends AcquireLegendRule {
         return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
     }
 
-    // If the deck or the discard is empty, then shuffle and refill
-    if (this.kingdomDeckCards().length==0 || this.discardDeckCards().length==0)
-      return [ this.rules().startPlayerTurn(RuleId.ShuffleKingdomDeck, this.getActivePlayer()) ]
-
     // No remaining action for the player => go to next player's turn
     let availableLegendCardsActions:MaterialMove[]=[]
     if (!this.remind(Memory.PickedLegend)){
@@ -120,10 +116,14 @@ export class ChooseCardRule extends AcquireLegendRule {
       if (move.itemType==MaterialType.KingdomCard){
 
         if (move.location.type==LocationType.KingdomDiscard){
-          // Deck -> Discard
-          // Case 1 - Card from board
-          // Case 2 - Card from deck
-            return []
+          if (this.kingdomDeckCards().length === 0) {
+            const discardCardsBeforeMove = this.discardDeckCards().index(index => index !== move.itemIndex)
+            return [
+              discardCardsBeforeMove.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
+              discardCardsBeforeMove.shuffle()
+            ]
+          }
+          return []
         } else if (move.location.type==LocationType.PlayerBoard){
           // Discard -> Board
           let movedCard=this

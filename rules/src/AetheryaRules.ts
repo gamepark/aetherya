@@ -1,22 +1,15 @@
-import {
-  CompetitiveScore,
-  HiddenMaterialRules,
-  HidingStrategy, MaterialGame,
-  MaterialItem, MaterialMove,
-  PositiveSequenceStrategy
-} from '@gamepark/rules-api'
+import { CompetitiveScore, HiddenMaterialRules, HidingStrategy, MaterialGame, MaterialItem, MaterialMove, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import { PlayerScore, score } from './logic/Score'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
+import { PlayerId } from './PlayerId'
 import { ChooseCardRule } from './rules/ChooseCardRule'
 import { NextPlayerRule } from './rules/NextPlayerRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
-import { ScoreRule } from './rules/ScoreRule'
-import { ShuffleKingdomDeckRule } from './rules/ShuffleKingdomDeckRule'
 import { RuleId } from './rules/RuleId'
-import { PlayerId } from './PlayerId'
-import { score, PlayerScore } from './logic/Score'
+import { ScoreRule } from './rules/ScoreRule'
 
 export const hideCardWhenNotRotated: HidingStrategy = (
   item: MaterialItem
@@ -44,7 +37,6 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.ChooseCard]: ChooseCardRule,
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
-    [RuleId.ShuffleKingdomDeck]: ShuffleKingdomDeckRule,
     [RuleId.NextPlayer]: NextPlayerRule
   }
 

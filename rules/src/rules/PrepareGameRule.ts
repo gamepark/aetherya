@@ -47,6 +47,9 @@ export class PrepareGameRule extends SimultaneousRule {
   }
 
   getMovesAfterPlayersDone() {
-    return [ this.rules().startPlayerTurn(RuleId.ChooseCard, this.game.players[0]) ]
+    return [
+      this.material(MaterialType.KingdomCard).location(LocationType.KingdomDeck).deck().dealOne({ type: LocationType.KingdomDiscard, rotation:true }),
+      this.rules().startPlayerTurn(RuleId.ChooseCard, this.game.players[0])
+    ]
   }
 }

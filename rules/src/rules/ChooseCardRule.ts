@@ -6,8 +6,6 @@ import { Memory } from './Memory'
 import { PlayerTurnRuleWithLegendMoves } from './PlayerTurnRuleWithLegendMoves'
 import { RuleId } from './RuleId'
 
-const verbose=false
-
 export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
   onRuleStart() {
     // If a board is full of visible cards, then it's the end of the game
@@ -41,11 +39,6 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
   }
 
   getPlayerMoves(): MaterialMove[] {
-/*
-    console.log("Picked legend: "+this.remind(Memory.PickedLegend))
-    console.log("Picked card from deck: "+this.remind(Memory.PickedCardFromDeck))
-    console.log("Placed board card: "+this.remind(Memory.PlacedBoardCard))
-*/
 
     let deckCardActions:MaterialMove[]=[]
     if (!this.remind(Memory.PickedCardFromDeck)
@@ -89,20 +82,8 @@ export class ChooseCardRule extends PlayerTurnRuleWithLegendMoves {
       availableLegendCardsActions=this.getPlayerLegendMoves()
     }
 
-    // No remaining action for the player => go to next player's turn
-    if (this.remind(Memory.PlacedBoardCard) && availableLegendCardsActions.length==0){
-      return []
-    }
-
     // Only legend => legend or pass
     // TODO
-
-    if (verbose) {
-      console.log("--------------------")
-      console.log("nb deck actions    = "+deckCardActions.length)
-      console.log("nb discard actions = "+discardCardActions.length)
-      console.log("nb legend actions  = "+availableLegendCardsActions.length)
-    }
 
     return [
       ...deckCardActions,

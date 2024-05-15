@@ -1,4 +1,4 @@
-import { /*Location,*/ Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, /*Location,*/ Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -48,6 +48,14 @@ export abstract class AcquireLegendRule extends PlayerTurnRule {
       moves.push(...availableLegendCardsActions)
     }
     return moves
+  }
+
+  afterItemMove(move: ItemMove): MaterialMove[] {
+    if (isMoveItemType(MaterialType.LegendCard)(move) && move.location.type === LocationType.PlayerLegendLine) {
+      this.memorize(Memory.PickedLegend, true)
+      return this.refillLegendLineActions()
+    }
+    return []
   }
 
   // To get the possible legend moves after a card is added to the board

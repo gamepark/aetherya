@@ -115,6 +115,7 @@ export class ChooseCardRule extends AcquireLegendRule {
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
+    const consequences = super.afterItemMove(move)
     if (isMoveItem(move)){
       if (move.itemType==MaterialType.KingdomCard){
 
@@ -146,14 +147,10 @@ export class ChooseCardRule extends AcquireLegendRule {
         }
       } else if (move.itemType==MaterialType.LegendCard){
         if (move.location.type==LocationType.PlayerLegendLine){
-          // Legend card from legend card line
-          this.memorize(Memory.PickedLegend, true)
-
-          let moves:MaterialMove[]=this.refillLegendLineActions()
           if (this.getPlayerMoves().length==0){
-            moves.push(...this.cleanMemoryAndStartNewPlayerTurn())
+            consequences.push(...this.cleanMemoryAndStartNewPlayerTurn())
           }
-          return moves
+          return consequences
         }
       }
     }

@@ -58,7 +58,8 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     },
     [MaterialType.LegendCard]: {
-      [LocationType.LegendLine]: new FillGapStrategy()
+      [LocationType.LegendLine]: new FillGapStrategy(),
+      [LocationType.PlayerLegendLine]: new PositiveSequenceStrategy(),
     }
   }
 

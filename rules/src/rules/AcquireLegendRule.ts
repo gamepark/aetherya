@@ -1,6 +1,6 @@
 import { isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
 import { score } from '../logic/Score'
-import { KingdomCard } from '../material/KingdomCard'
+import { LegendCard } from '../material/LegendCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
@@ -32,39 +32,23 @@ export class AcquireLegendRule extends PlayerTurnRule {
   }
 
   getPlayerLegendMoves() {
-    let kingdomCards=this.material(MaterialType.KingdomCard)
+    const kingdomCards = this.material(MaterialType.KingdomCard)
       .player(this.getActivePlayer())
       .rotation(true)
-    let grid=score.toGrid(this.getActivePlayer(), kingdomCards)
-    return this.getPlayerLegendMoves_inner(grid)
-  }
+    const grid = score.toGrid(this.getActivePlayer(), kingdomCards)
+    const legendCharacteristics = score.legendAnalysisFromGrid(grid)
 
-  getPlayerLegendMoves_inner(kingdomCardsAsGrid:KingdomCard[][]) {
-    // Available legend cards
-    // Only 1 legend card per turn
-    let moves=[]
-    if (!this.remind(Memory.PickedLegend)){
-      let legendCharac=score.legendAnalysisFromGrid(kingdomCardsAsGrid)
-
-      let availableLegendCards=
-        this.material(MaterialType.LegendCard)
+    const availableLegendCards =
+      this.material(MaterialType.LegendCard)
         .location(LocationType.LegendLine)
-        .filter(item => {
-          return legendCharac.match(item.id)
+        .id<LegendCard>(id => {
+          return legendCharacteristics.match(id)
         })
 
-      const nbLegendCards = this.material(MaterialType.LegendCard).player(this.getActivePlayer()).getItems().length
-      let availableLegendCardsActions =
-        availableLegendCards.moveItems(
-          {
-            type: LocationType.PlayerLegendLine,
-            player:this.getActivePlayer(),
-            x:nbLegendCards+1
-          })
-
-      moves.push(...availableLegendCardsActions)
-    }
-    return moves
+    return availableLegendCards.moveItems({
+      type: LocationType.PlayerLegendLine,
+      player: this.getActivePlayer()
+    })
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {

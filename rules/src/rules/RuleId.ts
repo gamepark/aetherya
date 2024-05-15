@@ -4,6 +4,5 @@ export enum RuleId {
   PlaceDiscardCard = 3,
   AcquireLegend = 4,
   RevealAllBoardCards = 5,
-  Score = 6,
-  NextPlayer = 7
+  Score = 6
 }

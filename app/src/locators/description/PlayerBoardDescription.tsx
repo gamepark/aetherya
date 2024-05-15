@@ -17,7 +17,7 @@ export class PlayerBoardDescription extends LocationDescription {
 
   getExtraCss(location: Location, context: LocationContext) {
     const { rules } = context
-    console.log(rules.material(MaterialType.KingdomCard).location((l) => equal(l, location)))
+//    console.log(rules.material(MaterialType.KingdomCard).location((l) => equal(l, location)))
     const cardOnLocation = rules.material(MaterialType.KingdomCard).location((l) => {
       const { rotation, ...rest } = l
       return equal(rest, location)

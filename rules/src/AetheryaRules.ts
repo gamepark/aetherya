@@ -74,35 +74,28 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, L
   }
 
   getTieBreaker(tieBreaker: number, player: PlayerId): number | undefined {
-    if (tieBreaker === 1) {
-      // The highest score among the 7 categories is used
-      // Otherwise the next highest score, etc.
-      let scoreDetails:PlayerScore = score.detailedPlayerScore(
-        player,
-        this.material(MaterialType.KingdomCard),
-        this.material(MaterialType.LegendCard)
-      )
-      let values=[
-        scoreDetails.elfPoints,
-        scoreDetails.dwarfPoints,
-        scoreDetails.humanPoints,
-        scoreDetails.goblinPoints,
-        scoreDetails.dragonPoints,
-        scoreDetails.legendPoints,
-        scoreDetails.conflictPoints
-      ]
-      // Order values - smallest to highest - Numeric sort
-      values.sort(function(a,b){return a-b})
+    // The highest score among the 7 categories is used
+    // Otherwise the next highest score, etc.
+    const scoreDetails: PlayerScore = score.detailedPlayerScore(
+      player,
+      this.material(MaterialType.KingdomCard),
+      this.material(MaterialType.LegendCard)
+    )
+    const values = [
+      scoreDetails.elfPoints,
+      scoreDetails.dwarfPoints,
+      scoreDetails.humanPoints,
+      scoreDetails.goblinPoints,
+      scoreDetails.dragonPoints,
+      scoreDetails.legendPoints,
+      scoreDetails.conflictPoints
+    ]
+    // Order values - smallest to highest - Numeric sort
+    values.sort(function (a, b) {
+      return a - b
+    })
 
-      // Values are aggregated
-      // Negative values are supported with (100+value)
-      let res=0
-      for (let i=0; i<7; i++){
-        res=(res*1000)+(100+values[6-i])
-      }
-      return res
-    }
-    return
+    return values[tieBreaker - 1]
   }
 
   itemsCanMerge() {

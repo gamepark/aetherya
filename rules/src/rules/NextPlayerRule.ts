@@ -8,7 +8,6 @@ export class NextPlayerRule extends PlayerTurnRule {
   onRuleStart() {
     console.log("Next player")
     this.forget(Memory.PickedLegend)
-    this.forget(Memory.PlacedBoardCard)
     return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
   }
 

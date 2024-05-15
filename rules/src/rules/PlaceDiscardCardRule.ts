@@ -22,46 +22,35 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
         return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
     }
 
-    // No remaining action for the player => go to next player's turn
-    let availableLegendCardsActions:MaterialMove[]=[]
-    if (!this.remind(Memory.PickedLegend)){
-      availableLegendCardsActions=this.getPlayerLegendMoves()
-    }
-    if (this.remind(Memory.PlacedBoardCard) && availableLegendCardsActions.length==0){
-      return this.cleanMemoryAndStartNewPlayerTurn()
-    }
-
     return []
   }
 
   getPlayerMoves(): MaterialMove[] {
 
     // Card from the discard
-    let discardCardActions:MaterialMove[]=[]
-    if (!this.remind(Memory.PlacedBoardCard)){
-      const discardCards = this.discardDeckCards()
-        .maxBy(item => item.location.x!)
-      const discardCardItems=discardCards.getItems()
-      if (discardCardItems.length==0) return []
-      let discardCard=discardCardItems[0]
-      let discardCardId=discardCard.id
+    const discardCardActions: MaterialMove[] = []
+    const discardCards = this.discardDeckCards()
+      .maxBy(item => item.location.x!)
+    const discardCardItems = discardCards.getItems()
+    if (discardCardItems.length == 0) return []
+    let discardCard = discardCardItems[0]
+    let discardCardId = discardCard.id
 
-      this.material(MaterialType.KingdomCard)
-        .location(LocationType.PlayerBoard)
-        .player(this.player)
-        .filter(item =>
-          item.id===undefined || !item.location.rotation ||
-          (item.id != KingdomCard.Portal && item.id != KingdomCard.Dragon && item.id != discardCardId )
-        )
-        .getItems()
-        .forEach(item => {
-          discardCardActions.push(...discardCards.moveItems(
-            {
-              type:LocationType.PlayerBoard,
-              player:this.player, x:item.location.x, y:item.location.y, rotation:true
-            }))
-          })
-    }
+    this.material(MaterialType.KingdomCard)
+      .location(LocationType.PlayerBoard)
+      .player(this.player)
+      .filter(item =>
+        item.id === undefined || !item.location.rotation ||
+        (item.id != KingdomCard.Portal && item.id != KingdomCard.Dragon && item.id != discardCardId)
+      )
+      .getItems()
+      .forEach(item => {
+        discardCardActions.push(...discardCards.moveItems(
+          {
+            type: LocationType.PlayerBoard,
+            player: this.player, x: item.location.x, y: item.location.y, rotation: true
+          }))
+      })
 
     return [
       ...discardCardActions,
@@ -70,15 +59,14 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
   }
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
-    if (isMoveItemType(MaterialType.KingdomCard)(move)){
-      if (move.location.type==LocationType.PlayerBoard){
-        // Discard -> Board
-        this.memorize(Memory.PlacedBoardCard, true)
-
-        // Move the card at the target location into the discard
+    if (isMoveItemType(MaterialType.KingdomCard)(move)) {
+      if (move.location.type === LocationType.PlayerBoard) {
         const boardCard = this.material(MaterialType.KingdomCard)
           .location(l => l.type === LocationType.PlayerBoard && l.player === this.player && l.x === move.location.x && l.y === move.location.y)
-        return [boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation:true })]
+        return [
+          boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation: true }),
+          this.rules().startRule(RuleId.AcquireLegend)
+        ]
       }
     }
     return []
@@ -115,7 +103,6 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
             // Reset turn state for next player
             return this.cleanMemoryAndStartNewPlayerTurn()
           } else {
-            this.remind(Memory.PlacedBoardCard)
             return []
           }
         }
@@ -147,11 +134,5 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
 
   discardDeck() {
     return this.discardDeckCards().deck()
-  }
-
-  cleanMemoryAndStartNewPlayerTurn(){
-    this.forget(Memory.PickedLegend)
-    this.forget(Memory.PlacedBoardCard)
-    return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
   }
 }

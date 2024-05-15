@@ -1,11 +1,19 @@
-import { isMoveItemType, ItemMove, /*Location,*/ Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, isStartRule, ItemMove, Material, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
+import { score } from '../logic/Score'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
-import { score } from '../logic/Score'
+import { RuleId } from './RuleId'
 
-export abstract class AcquireLegendRule extends PlayerTurnRule {
+export class AcquireLegendRule extends PlayerTurnRule {
+  onRuleStart(move: RuleMove): MaterialMove[] {
+    if (isStartRule(move) && move.id === RuleId.AcquireLegend && !this.getPlayerMoves()) {
+      return this.cleanMemoryAndStartNewPlayerTurn()
+    }
+    return []
+  }
+
   getPlayerMoves(): MaterialMove[] {
     if (!this.remind(Memory.PickedLegend)){
       // TODO: do we allow the player to pass when he could take a legend card?
@@ -52,8 +60,13 @@ export abstract class AcquireLegendRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItemType(MaterialType.LegendCard)(move) && move.location.type === LocationType.PlayerLegendLine) {
-      this.memorize(Memory.PickedLegend, true)
-      return this.refillLegendLineActions()
+      const consequences: MaterialMove[] = this.refillLegendLineActions()
+      if (this.game.rule!.id === RuleId.AcquireLegend) {
+        consequences.push(this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer))
+      } else {
+        this.memorize(Memory.PickedLegend, true)
+      }
+      return consequences
     }
     return []
   }
@@ -113,5 +126,10 @@ export abstract class AcquireLegendRule extends PlayerTurnRule {
       .length > 0
 
     return (moveRevealsACard && nbVisibleCards >= 15)
+  }
+
+  cleanMemoryAndStartNewPlayerTurn(){
+    this.forget(Memory.PickedLegend)
+    return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
   }
 }

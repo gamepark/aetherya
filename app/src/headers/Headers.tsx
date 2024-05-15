@@ -12,6 +12,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PrepareGame]: PrepareGameHeader,
   [RuleId.DrawOrPlaceDiscardCard]: ChooseCardHeader,
   [RuleId.PlaceDiscardCard]: ChooseCardHeader, // TODO: more specific header
+  [RuleId.AcquireLegend]: ChooseCardHeader, // TODO: more specific header
 //  [RuleId.ChooseBoardLocation]: ChooseBoardLocationHeader,
   [RuleId.RevealAllBoardCards]: RevealAllBoardCardsHeader,
   [RuleId.Score]: ScoreHeader,

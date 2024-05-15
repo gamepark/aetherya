@@ -4,6 +4,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { PlayerId } from './PlayerId'
+import { AcquireLegendRule } from './rules/AcquireLegendRule'
 import { DrawOrPlaceDiscardCardRule } from './rules/DrawOrPlaceDiscardCardRule'
 import { NextPlayerRule } from './rules/NextPlayerRule'
 import { PlaceDiscardCardRule } from './rules/PlaceDiscardCardRule'
@@ -37,6 +38,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerColor, MaterialType
     [RuleId.PrepareGame]: PrepareGameRule,
     [RuleId.DrawOrPlaceDiscardCard]: DrawOrPlaceDiscardCardRule,
     [RuleId.PlaceDiscardCard]: PlaceDiscardCardRule,
+    [RuleId.AcquireLegend]: AcquireLegendRule,
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
     [RuleId.Score]: ScoreRule,
     [RuleId.NextPlayer]: NextPlayerRule

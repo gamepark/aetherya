@@ -21,7 +21,7 @@ export class KingdomDiscardDescription extends LocationDescription {
     return {
       x: baseCoordinates.x,
       y: baseCoordinates.y,
-      z: 0
+      z: context.canDrop ? 5 : 0
     }
   }
 }

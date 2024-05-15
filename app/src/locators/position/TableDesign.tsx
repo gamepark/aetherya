@@ -263,7 +263,7 @@ export class TableDesign {
       console.log('*** Unsupported table configuration')
     }
 
-    return { x: deckCoord.x + deltaX, y: deckCoord.y + deltaY, z: 0 }
+    return { x: deckCoord.x + deltaX, y: deckCoord.y + deltaY, z: 0.1 }
   }
 
   scoreSheetCoordinates(context: LocationContext) {

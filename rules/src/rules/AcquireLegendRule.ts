@@ -1,4 +1,4 @@
-import { isMoveItemType, isStartRule, ItemMove, Material, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
+import { isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
 import { score } from '../logic/Score'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
@@ -8,10 +8,17 @@ import { RuleId } from './RuleId'
 
 export class AcquireLegendRule extends PlayerTurnRule {
   onRuleStart(move: RuleMove): MaterialMove[] {
-    if (isStartRule(move) && move.id === RuleId.AcquireLegend && !this.getPlayerMoves()) {
-      return this.cleanMemoryAndStartNewPlayerTurn()
+    if (isStartRule(move) && move.id === RuleId.AcquireLegend) {
+      if (this.isKingdomComplete || !this.getPlayerLegendMoves().length) {
+        this.forget(Memory.PickedLegend)
+        return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
+      }
     }
     return []
+  }
+
+  get isKingdomComplete() {
+    return this.material(MaterialType.KingdomCard).player(this.player).location(l => l.type === LocationType.PlayerBoard && !l.rotation).length === 0
   }
 
   getPlayerMoves(): MaterialMove[] {
@@ -71,20 +78,6 @@ export class AcquireLegendRule extends PlayerTurnRule {
     return []
   }
 
-  // To get the possible legend moves after a card is added to the board
-  getPlayerLegendMovesAfterMove(card:Material, locationX:number, locationY:number){
-    let kingdomCardId:KingdomCard=card.getItem()!.id
-    let kingdomCards=this.material(MaterialType.KingdomCard)
-      .player(this.getActivePlayer())
-      .rotation(true)
-
-    let grid=score.toGrid(this.getActivePlayer(), kingdomCards)
-    score.setGrid(grid, locationX, locationY, kingdomCardId)
-    let res=this.getPlayerLegendMoves_inner(grid)
-
-    return res
-  }
-
   legendLineCards(){
     return this.material(MaterialType.LegendCard)
       .location(LocationType.LegendLine)
@@ -109,27 +102,5 @@ export class AcquireLegendRule extends PlayerTurnRule {
       }
     }
     return moves
-  }
-
-  allKingdomCardsVisibleAfterMove(moveLocationX:number, moveLocationY:number){
-    // Returns true if 15th card were revealed, and the move is about the missing location
-    let nbVisibleCards = this.material(MaterialType.KingdomCard)
-      .location(LocationType.PlayerBoard)
-      .player(this.getActivePlayer())
-      .filter(item => !!item.location.rotation)
-      .length
-
-    let moveRevealsACard = this.material(MaterialType.KingdomCard)
-      .location(LocationType.PlayerBoard)
-      .player(this.getActivePlayer())
-      .filter(item => (item.location.x==moveLocationX && item.location.y==moveLocationY && !item.location.rotation))
-      .length > 0
-
-    return (moveRevealsACard && nbVisibleCards >= 15)
-  }
-
-  cleanMemoryAndStartNewPlayerTurn(){
-    this.forget(Memory.PickedLegend)
-    return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
   }
 }

@@ -1,9 +1,8 @@
-import { isMoveItem, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { KingdomCard } from '../material/KingdomCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { AcquireLegendRule } from './AcquireLegendRule'
-import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceDiscardCardRule extends AcquireLegendRule {
@@ -74,48 +73,14 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     const consequences = super.afterItemMove(move)
-    if (isMoveItem(move)){
-      if (move.itemType==MaterialType.KingdomCard){
-
-        if (move.location.type==LocationType.KingdomDiscard){
-          if (this.kingdomDeckCards().length === 0) {
-            const discardCardsBeforeMove = this.discardDeckCards().index(index => index !== move.itemIndex)
-            return [
-              discardCardsBeforeMove.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
-              discardCardsBeforeMove.shuffle()
-            ]
-          }
-          return []
-        } else if (move.location.type==LocationType.PlayerBoard){
-          // Discard -> Board
-          let movedCard=this
-            .material(MaterialType.KingdomCard)
-            .index(move.itemIndex)
-
-          // If the player already picked a legend card, it's the end of the turn
-          // otherwise the player may pick a legend card
-
-          // Note from François - It's forbidden to pick a legend card after revealing his 16th card
-          if (this.remind(Memory.PickedLegend)
-            || this.getPlayerLegendMovesAfterMove(movedCard, move.location.x!, move.location.y!).length==0
-            || this.allKingdomCardsVisibleAfterMove(move.location.x!, move.location.y!)
-          ){
-            // Reset turn state for next player
-            return this.cleanMemoryAndStartNewPlayerTurn()
-          } else {
-            return []
-          }
-        }
-      } else if (move.itemType==MaterialType.LegendCard){
-        if (move.location.type==LocationType.PlayerLegendLine){
-          if (this.getPlayerMoves().length==0){
-            consequences.push(...this.cleanMemoryAndStartNewPlayerTurn())
-          }
-          return consequences
-        }
-      }
+    if (isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type === LocationType.KingdomDiscard && this.kingdomDeckCards().length === 0) {
+      const discardCardsBeforeMove = this.discardDeckCards().index(index => index !== move.itemIndex)
+      return [
+        discardCardsBeforeMove.moveItemsAtOnce({ type: LocationType.KingdomDeck }),
+        discardCardsBeforeMove.shuffle()
+      ]
     }
-    return []
+    return consequences
   }
 
   kingdomDeckCards() {

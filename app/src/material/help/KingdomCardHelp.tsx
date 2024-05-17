@@ -97,6 +97,8 @@ export const KingdomCardHelp = (props: MaterialHelpProps) => {
       <h2>{t('help.portal')}</h2>
       <Picture src={lockIcon}/>Cannot be exchanged once placed<br/>
       <Picture src={noGoblinIcon}/>Cannot be used by goblins<br/>
+      &nbsp;<br/>
+      The 4 cards surrounding the portal are considered adjacent.
     </>
   } else if (item.id === KingdomCard.Dragon) {
     return <>

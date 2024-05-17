@@ -5,20 +5,20 @@ import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
 import { MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType } from '@gamepark/rules-api'
-import dragon3Icon from '../images/icon/dragon3_3.png'
-import dragon5Icon from '../images/icon/dragon5_3.png'
-import dragon6Icon from '../images/icon/dragon6_3.png'
+//import dragon3Icon from '../images/icon/dragon3_3.png'
+//import dragon5Icon from '../images/icon/dragon5_3.png'
+//import dragon6Icon from '../images/icon/dragon6_3.png'
 
 import dwarfIcon from '../images/icon/dwarf3.png'
-import elfIcon from '../images/icon/elf3.png'
+//import elfIcon from '../images/icon/elf3.png'
 
-import forestIcon from '../images/icon/forest3.png'
+//import forestIcon from '../images/icon/forest3.png'
 import goblinIcon from '../images/icon/goblin3.png'
-import humanIcon from '../images/icon/human3.png'
-import lockIcon from '../images/icon/lock3.png'
-import mountainIcon from '../images/icon/mountain3.png'
+//import humanIcon from '../images/icon/human3.png'
+//import lockIcon from '../images/icon/lock3.png'
+//import mountainIcon from '../images/icon/mountain3.png'
 
-import noGoblinIcon from '../images/icon/noGoblin3.png'
+//import noGoblinIcon from '../images/icon/noGoblin3.png'
 import plainIcon from '../images/icon/plain3.png'
 import swampIcon from '../images/icon/swamp3.png'
 import { TutorialSetup } from './TutorialSetup'
@@ -33,18 +33,24 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
 
   players = [{ id: me }, { id: opponent }]
 
+/*
+  A mettre sur le site, pas dans le tuto
+
+  Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus
+  diverses.<br/>
+  &nbsp;<br/>
+  Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes
+  Légendes également génératrices de points d'Harmonie.<br/>
+  &nbsp;<br/>
+  Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
+*/
+
   steps: TutorialStep[] = [
     {
       popup: {
         text: () =>
           <>
-            Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus
-            diverses.<br/>
-            &nbsp;<br/>
-            Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes
-            Légendes également génératrices de points d'Harmonie.<br/>
-            &nbsp;<br/>
-            Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
+          Dans Aetherya, vous allez agencer des cartes dans votre Royaume afin de gagner des points d'Harmonie.
           </>,
         size: { width: 120 }
       }
@@ -56,7 +62,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             Votre Royaume est composé de 16 cartes.<br/>
             Certaines sont, pour le moment, face cachée.<br/>
             &nbsp;<br/>
-            Lors d'une vraie partie, vous pouvez agencer vos 4 cartes centrales comme bon vous semble.<br/>
+            Lors d'une vraie partie, vous pouvez agencer vos 4 premières cartes centrales comme bon vous semble.<br/>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -76,13 +82,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Le jeu comporte des cartes Tribus:<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;<Picture src={dwarfIcon}/> Nain,
-            <Picture src={humanIcon}/> Humain, <Picture src={elfIcon}/> Elfe et <Picture src={goblinIcon}/> Gobelin<br/>
+            Le jeu comporte des cartes Tribu:<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;Nain, Humain, Elfe et Gobelin<br/>
             &nbsp;<br/>
             et des cartes Terrain:<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;<Picture src={plainIcon}/> Plaine, <Picture src={swampIcon}/> Marais, <Picture src={forestIcon}/> Forêt et <Picture
-            src={mountainIcon}/> Montagne
+            &nbsp;&nbsp;&nbsp;&nbsp;Plaine, Marais, Forêt et Montagne
           </>
         ),
         position: { x: 40, y: 0 }
@@ -102,14 +106,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Les Humains apprécient les <Picture src={plainIcon}/> Plaines, les <Picture src={mountainIcon}/> Montagnes et les <Picture
-            src={forestIcon}/> Forêts.<br/>
-            S'ils sont placés à côté de ces terrains, ils rapporteront des points.<br/>
+            En plaçant des tribus à côté de vos terrains, vous pouvez gagner ou perdre des points.<br/>
             &nbsp;<br/>
-            Les Humains détestent les <Picture src={swampIcon}/> Marais.<br/>
-            S'ils sont placés à côté des Marais, ils feront perdre des points.<br/>
+            Par exemple, les humains apprécient les plaines <Picture src={plainIcon}/> mais détestent les marais <Picture src={swampIcon}/>.<br/>
             &nbsp;<br/>
-            Dans Aetherya, les cartes placées en diagonale les unes par rapport aux autres ne sont pas considérées comme étant limitrophes.
+            Les cartes placées en diagonale ne sont pas considérées adjacentes.<br/>
+            &nbsp;<br/>
+            <b>Cliquez sur la carte Humain pour en savoir plus</b>
           </>
         ),
         size: { width: 95 },
@@ -130,13 +133,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Chaque joueur joue à tour de rôle.<br/>
+            A tour de rôle, chaque joueur:<br/>
             &nbsp;<br/>
-            On prend la carte face visible au milieu de la table et on la place dans son Royaume<br/>
-            - ou -<br/>
-            On retourne une nouvelle carte depuis la pioche et on la place dans son Royaume<br/>
-            &nbsp;<br/>
-            La carte remplacée est défaussée
+            <ul><li>prend la carte de la défausse et la place dans son Royaume</li></ul>
+            <p style={{textAlign: "center"}}>ou</p>
+            <ul><li>retourne une nouvelle carte depuis la pioche
+            et la place dans son Royaume</li></ul>
           </>
         ),
         size: { width: 100 }
@@ -145,7 +147,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => (
-          <>Placez la carte face visible en haut<br/> de la carte <Picture src={dwarfIcon}/> Nain dans votre Royaume</>
+          <><b>Placez la carte de la défausse<br/>dans votre Royaume à l'endroit indiqué</b></>
         ),
         position: { x: 35, y: -20 }
       },
@@ -198,9 +200,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
             Certaines tribus se détestent.<br/>
-            Par exemple, les <Picture src={elfIcon}/> elfes détestent les <Picture src={goblinIcon}/> gobelins et les <Picture src={dwarfIcon}/> nains.<br/>
             &nbsp;<br/>
-            Si des tribus se haïssant sont adjacentes, elles vous feront perdre des points.
+            Par exemple, les elfes détestent les <Picture src={goblinIcon}/> gobelins et les <Picture src={dwarfIcon}/> nains.<br/>
+            &nbsp;<br/>
+            Si elles sont placées de manière adjacente, elles vous feront perdre des points.<br/>
+            &nbsp;<br/>
+            <b>Cliquez sur la carte Elfe pour en savoir plus</b>
           </>
         ),
         position: { x: 30, y: 0 }
@@ -220,17 +225,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Les cartes Légendes permettent de gagner des points si vous arrivez à remplir certaines conditions en cours de partie comme:<br/>
-            <ul>
-              <li>connecter une tribu <Picture src={humanIcon}/> Humaine à une tribu <Picture src={dwarfIcon}/> Naine</li>
-              <li>connecter 3 <Picture src={forestIcon}/> forêts</li>
-              <li>connecter 2 tribus <Picture src={humanIcon}/> humaines</li>
-              <li>avoir les 4 tribus <Picture src={goblinIcon}/>+<Picture src={humanIcon}/>+<Picture src={elfIcon}/>+<Picture src={dwarfIcon}/> dans son Royaume
-              </li>
-              <li>avoir 2 tribus <Picture src={goblinIcon}/> gobelines connectées à une tribu <Picture src={dwarfIcon}/> naine OU 2 tribus <Picture
-                src={dwarfIcon}/> naines connectées à une tribu <Picture src={goblinIcon}/> gobeline
-              </li>
-            </ul>
+            Les cartes Légendes permettent de gagner des points si vous arrivez à remplir certaines conditions en cours de partie.<br/>
+            &nbsp;<br/>
+            <b>Cliquez sur une carte Légende pour en savoir plus</b>
           </>
         ),
         position: { x: 0, y: 20 },
@@ -250,7 +247,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Prenez la carte <Picture src={elfIcon}/> elfe de la défausse et placez la à la droite de la carte <Picture src={humanIcon}/> Humain
+            Prenez la carte Elfe de la défausse et placez la à la droite de la carte Humain
           </>
         ),
         position: { x: 35, y: -20 }
@@ -282,38 +279,21 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            La Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe est réalisée.<br/>
+            La Légende Humain-Elfe est réalisée.<br/>
+            &nbsp;<br/>
+            <b>Réclamez-la !</b><br/>
             &nbsp;<br/>
             Une fois récupérée, aucun autre joueur ne pourra réaliser cet objectif.<br/>
             &nbsp;<br/>
             Important: il n'est possible de prendre qu'une seule carte Légende par tour
           </>
         ),
-        position: { x: 0, y: 25 },
-        size: { width: 120 }
-      },
-      focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 0)
-        ],
-        margin: {
-          top: 5,
-          bottom: 10
-        }
-      })
-    },
-    {
-      popup: {
-        text: () => (
-          <>
-            Réclamez la carte Légende <Picture src={humanIcon}/>/<Picture src={elfIcon}/> Humain-Elfe
-          </>
-        ),
-        position: { x: 0, y: 20 }
+        position: { x: 30, y: 10 }
       },
       focus: (game) =>
         ({
           materials: [
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me),
             this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 1)
           ],
           locations: [
@@ -359,19 +339,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
             Les cartes Dragon offrent des points en fin de partie s'ils ont été domestiqués.<br/>
             &nbsp;<br/>
-            Pour cela, ils doivent être connectés à au-moins deux Tribus de même nature.
-            Si ce n'est pas le cas, ils restent à l'état sauvage et leur valeur est alors soustraite au score du joueur.<br/>
+            Pour cela, ils doivent être connectés à au-moins deux Tribus de même nature.<br/>
             &nbsp;<br/>
-            <Picture src={dragon3Icon}/>/<Picture src={dragon5Icon}/>/<Picture src={dragon6Icon}/><br/>
-            La valeur de chaque Dragon augmente (de 3 à 6) en fonction de leur nombre dans votre Royaume (de 1 à 3 Dragons).
-            Au-delà de 3 Dragons dans votre Royaume, il est impossible de les domestiquer.
-            A partir du 4e Dragon, leur valeur (6) est déduite de votre score de Dragons.<br/>
-            &nbsp;<br/>
-            Attention:
-            <ul>
-              <li><Picture src={lockIcon}/> Une fois placés, les Dragons sont inamovibles</li>
-              <li><Picture src={noGoblinIcon}/> Les gobelins ne peuvent pas domestiquer les Dragons</li>
-            </ul>
+            <b>Cliquez sur la carte Dragon pour en savoir plus</b>
           </>
         ),
         position: { x: 25, y: 0 },
@@ -419,16 +389,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
             Les Portails magiques mettent en contact les 4 cartes qui leurs sont adjacentes
-            orthogonalement et peuvent offrir de belles opportunités en rapprochant
+            et peuvent offrir de belles opportunités en rapprochant
             des Tribus de leur Terrain de prédilection.<br/>
             &nbsp;<br/>
             A l'inverse, mal utilisés, ils peuvent générer des conflits.<br/>
             &nbsp;<br/>
-            Attention:
-            <ul>
-              <li><Picture src={lockIcon}/> Une fois placés, les Portails sont inamovibles</li>
-              <li><Picture src={noGoblinIcon}/> Les gobelins ne peuvent pas utiliser les Portails</li>
-            </ul>
+            <b>Cliquez sur la carte Portail pour en savoir plus</b>
           </>
         ),
         position: { x: 25, y: 0 }
@@ -446,7 +412,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Placez le portail à la place du Marais <Picture src={swampIcon}/>
+            <b>Placez le portail à la place du Marais</b>
           </>
         ),
         position: { x: 40, y: -10 }
@@ -476,17 +442,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            La tribu <Picture src={humanIcon}/> Humaine et la tribu <Picture src={dwarfIcon}/> Naine sont désormais adjacentes via le Portail.<br/>
+            La tribu Humaine et la tribu Naine sont désormais adjacentes via le Portail.<br/>
             &nbsp;<br/>
-            -&gt; Réclamez la Légende correspondante
+            <b>Réclamez la Légende correspondante</b>
           </>
         ),
-        position: { x: 0, y: 20 }
+        position: { x: 35, y: 5 }
       },
       focus: (game) =>
         ({
           materials: [
-            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 7)
+            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 7),
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
           ],
           locations: [
             this.location(LocationType.PlayerLegendLine).player(me).x(2).location

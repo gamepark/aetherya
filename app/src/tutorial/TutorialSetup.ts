@@ -59,7 +59,7 @@ export class TutorialSetup extends AetheryaSetup {
 
     // My cards
     this.putCard(me, 1, 1, false, portalDeck)
-    this.putCard(me, 2, 1, false, elfDeck)
+    this.putCard(me, 2, 1, false, dwarfDeck)
     this.putCard(me, 3, 1, false, goblinDeck)
     this.putCard(me, 4, 1, false, goblinDeck)
 
@@ -97,7 +97,7 @@ export class TutorialSetup extends AetheryaSetup {
     this.putCard(opponent, 1, 4, false, swampDeck)
     this.putCard(opponent, 2, 4, false, forestDeck)
     this.putCard(opponent, 3, 4, false, goblinDeck)
-    this.putCard(opponent, 4, 4, false, dwarfDeck)
+    this.putCard(opponent, 4, 4, false, elfDeck)
 
     // Reorder the deck
     portalDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)

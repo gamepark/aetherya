@@ -53,7 +53,8 @@ export class AcquireLegendRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItemType(MaterialType.LegendCard)(move) && move.location.type === LocationType.PlayerLegendLine) {
-      const consequences: MaterialMove[] = [this.legendDeck().dealOne({ type: LocationType.LegendLine })]
+      // Note: deal(,1) rather than dealOne() to avoid errors in case of empty deck
+      const consequences: MaterialMove[] = this.legendDeck().deal({ type: LocationType.LegendLine }, 1)
       if (this.game.rule!.id === RuleId.AcquireLegend) {
         consequences.push(this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer))
       } else {

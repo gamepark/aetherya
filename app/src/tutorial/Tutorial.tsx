@@ -22,6 +22,7 @@ import goblinIcon from '../images/icon/goblin3.png'
 import plainIcon from '../images/icon/plain3.png'
 import swampIcon from '../images/icon/swamp3.png'
 import { TutorialSetup } from './TutorialSetup'
+import { Trans } from 'react-i18next'
 
 const me = 1
 const opponent = 2
@@ -36,9 +37,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
 /*
   A mettre sur le site, pas dans le tuto
 
-  Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus
-  diverses.<br/>
+  Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus diverses.<br/>
   &nbsp;<br/>
+  Votre objectif sera d'agencer au-mieux les cartes de votre Royaume afin de gagner des points d'Harmonie.
+
   Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes
   Légendes également génératrices de points d'Harmonie.<br/>
   &nbsp;<br/>
@@ -48,10 +50,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () =>
-          <>
-          Dans Aetherya, vous allez agencer des cartes dans votre Royaume afin de gagner des points d'Harmonie.
-          </>,
+        text: () => (
+          <Trans defaults="tuto.welcome"></Trans>
+        ),
         size: { width: 120 }
       }
     },
@@ -59,10 +60,24 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Votre Royaume est composé de 16 cartes.<br/>
-            Certaines sont, pour le moment, face cachée.<br/>
-            &nbsp;<br/>
-            Lors d'une vraie partie, vous pouvez agencer vos 4 premières cartes centrales comme bon vous semble.<br/>
+          <Trans defaults="tuto.goal.1"></Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.goal.2"></Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.goal.3"></Trans>
+          </>
+        ),
+        size: { width: 120 }
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <>
+          <Trans defaults="tuto.board.1"></Trans><br/>
+          <Trans defaults="tuto.board.2"></Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.board.3"></Trans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -82,11 +97,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Le jeu comporte des cartes Tribu:<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;Nain, Humain, Elfe et Gobelin<br/>
-            &nbsp;<br/>
-            et des cartes Terrain:<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;Plaine, Marais, Forêt et Montagne
+          <Trans defaults="tuto.card.1"></Trans>:<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<Trans defaults="tuto.card.2"></Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.card.3"></Trans>:<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<Trans defaults="tuto.card.4"></Trans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -106,13 +121,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            En plaçant des tribus à côté de vos terrains, vous pouvez gagner ou perdre des points.<br/>
-            &nbsp;<br/>
-            Par exemple, les humains apprécient les plaines <Picture src={plainIcon}/> mais détestent les marais <Picture src={swampIcon}/>.<br/>
-            &nbsp;<br/>
-            Les cartes placées en diagonale ne sont pas considérées adjacentes.<br/>
-            &nbsp;<br/>
-            <b>Cliquez sur la carte Humain pour en savoir plus</b>
+          <Trans defaults="tuto.land.1"></Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.land.2">
+            <Picture src={plainIcon}/>
+            <Picture src={swampIcon}/>
+          </Trans><br/>
+          &nbsp;<br/>
+          <Trans defaults="tuto.land.3"></Trans><br/>
+          &nbsp;<br/>
+          <b><Trans defaults="tuto.land.4"></Trans></b>
           </>
         ),
         size: { width: 95 },
@@ -133,15 +151,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            A tour de rôle, chaque joueur:<br/>
+            <Trans defaults="tuto.turn.1"></Trans>:<br/>
             &nbsp;<br/>
-            <ul><li>prend la carte de la défausse et la place dans son Royaume</li></ul>
-            <p style={{textAlign: "center"}}>ou</p>
-            <ul><li>retourne une nouvelle carte depuis la pioche
-            et la place dans son Royaume</li></ul>
-            <p style={{textAlign: "center"}}>ou</p>
-            <ul><li>retourne une nouvelle carte depuis la pioche
-            puis retourne une carte cachée de son Royaume</li></ul>
+            <ul><li><Trans defaults="tuto.turn.2"></Trans></li></ul>
+            <p style={{textAlign: "center"}}><Trans defaults="tuto.turn.or"></Trans></p>
+            <ul><li><Trans defaults="tuto.turn.3"></Trans></li></ul>
+            <p style={{textAlign: "center"}}><Trans defaults="tuto.turn.or"></Trans></p>
+            <ul><li><Trans defaults="tuto.turn.4"></Trans></li></ul>
           </>
         ),
         size: { width: 100 }
@@ -150,7 +166,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => (
-          <><b>Placez la carte de la défausse<br/>dans votre Royaume à l'endroit indiqué</b></>
+          <b>
+            <Trans defaults="tuto.round1.1"></Trans><br/>
+            <Trans defaults="tuto.round1.2"></Trans>
+          </b>
         ),
         position: { x: 35, y: -20 }
       },
@@ -202,13 +221,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Certaines tribus se détestent.<br/>
+            <Trans defaults="tuto.conflict.1"></Trans><br/>
             &nbsp;<br/>
-            Par exemple, les elfes détestent les <Picture src={goblinIcon}/> gobelins et les <Picture src={dwarfIcon}/> nains.<br/>
+            <Trans defaults="tuto.conflict.2">
+              <Picture src={goblinIcon}/>
+              <Picture src={dwarfIcon}/>
+            </Trans><br/>
             &nbsp;<br/>
-            Si elles sont placées de manière adjacente, elles vous feront perdre des points.<br/>
+            <Trans defaults="tuto.conflict.3"></Trans><br/>
             &nbsp;<br/>
-            <b>Cliquez sur la carte Elfe pour en savoir plus</b>
+            <b><Trans defaults="tuto.conflict.4"></Trans></b>
           </>
         ),
         position: { x: 30, y: 0 }
@@ -228,9 +250,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Les cartes Légendes permettent de gagner des points si vous arrivez à remplir certaines conditions en cours de partie.<br/>
+            <Trans defaults="tuto.legend.1"></Trans><br/>
             &nbsp;<br/>
-            <b>Cliquez sur une carte Légende pour en savoir plus</b>
+            <b><Trans defaults="tuto.legend.2"></Trans></b>
           </>
         ),
         position: { x: 0, y: 20 },
@@ -250,7 +272,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Prenez la carte Elfe de la défausse et placez la à la droite de la carte Humain
+            <b><Trans defaults="tuto.round2.1"></Trans></b>
           </>
         ),
         position: { x: 35, y: -20 }
@@ -282,13 +304,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            La Légende Humain-Elfe est réalisée.<br/>
+            <Trans defaults="tuto.round3.1"></Trans><br/>
             &nbsp;<br/>
-            <b>Réclamez-la !</b><br/>
+            <b><Trans defaults="tuto.round3.2"></Trans></b><br/>
             &nbsp;<br/>
-            Une fois récupérée, aucun autre joueur ne pourra réaliser cet objectif.<br/>
+            <Trans defaults="tuto.round3.3"></Trans><br/>
             &nbsp;<br/>
-            Important: il n'est possible de prendre qu'une seule carte Légende par tour
+            <Trans defaults="tuto.round3.4"></Trans>
           </>
         ),
         position: { x: 30, y: 10 }
@@ -340,11 +362,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Les cartes Dragon offrent des points en fin de partie s'ils ont été domestiqués.<br/>
+            <Trans defaults="tuto.dragon.1"></Trans><br/>
             &nbsp;<br/>
-            Pour cela, ils doivent être connectés à au-moins deux Tribus de même nature.<br/>
+            <Trans defaults="tuto.dragon.2"></Trans><br/>
             &nbsp;<br/>
-            <b>Cliquez sur la carte Dragon pour en savoir plus</b>
+            <b><Trans defaults="tuto.dragon.3"></Trans></b>
           </>
         ),
         position: { x: 25, y: 0 },
@@ -363,7 +385,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Piochez une carte, en faisant glisser la carte de la pioche sur la défausse
+            <b><Trans defaults="tuto.round4.1"></Trans></b>
           </>
         ),
         position: { x: 0, y: -30 }
@@ -391,13 +413,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Les Portails magiques mettent en contact les 4 cartes qui leurs sont adjacentes
-            et peuvent offrir de belles opportunités en rapprochant
-            des Tribus de leur Terrain de prédilection.<br/>
+            <Trans defaults="tuto.portal.1"></Trans><br/>
             &nbsp;<br/>
-            A l'inverse, mal utilisés, ils peuvent générer des conflits.<br/>
+            <Trans defaults="tuto.portal.2"></Trans><br/>
             &nbsp;<br/>
-            <b>Cliquez sur la carte Portail pour en savoir plus</b>
+            <b><Trans defaults="tuto.portal.3"></Trans></b>
           </>
         ),
         position: { x: 25, y: 0 }
@@ -415,7 +435,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b>Placez le portail à la place du Marais</b>
+            <b><Trans defaults="tuto.round5.1"></Trans></b>
           </>
         ),
         position: { x: 40, y: -10 }
@@ -445,9 +465,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            La tribu Humaine et la tribu Naine sont désormais adjacentes via le Portail.<br/>
+            <Trans defaults="tuto.round6.1"></Trans><br/>
             &nbsp;<br/>
-            <b>Réclamez la Légende correspondante</b>
+            <b><Trans defaults="tuto.round6.2"></Trans></b>
           </>
         ),
         position: { x: 35, y: 5 }
@@ -484,7 +504,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b>Piochez une carte</b>
+            <b><Trans defaults="tuto.round7.1"></Trans></b>
           </>
         ),
         position: { y: -20 }
@@ -502,9 +522,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Si la carte piochée ne vous convient pas, il est possible de la laisser dans la défausse et de retourner une carte de votre Royaume à la place.<br/>
+            <Trans defaults="tuto.round8.1"></Trans><br/>
             &nbsp;<br/>
-            <b>Retournez une carte de votre Royaume</b>
+            <b><Trans defaults="tuto.round8.2"></Trans></b>
           </>
         ),
         position: { y: -20 }
@@ -521,9 +541,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            La partie s'arrête dès qu'un joueur a 16 cartes face visible dans son Royaume.<br/>
+            <Trans defaults="tuto.game.over.1"></Trans><br/>
             &nbsp;<br/>
-            Les cartes cachées sont alors retournées, et on procède au décompte des points.
+            <Trans defaults="tuto.game.over.2"></Trans>
           </>
         ),
         position: { x: 35 }
@@ -544,14 +564,14 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            Pour rappel, il est possible de gagner des points:<br/>
+            <Trans defaults="tuto.reminder.1"></Trans>:<br/>
             <ul>
-              <li>en plaçant des Tribus à côté des Terrains qu'elles apprécient</li>
-              <li>en domestiquant des dragons</li>
-              <li>en réalisant des Légendes</li>
+              <li><Trans defaults="tuto.reminder.2"></Trans></li>
+              <li><Trans defaults="tuto.reminder.3"></Trans></li>
+              <li><Trans defaults="tuto.reminder.4"></Trans></li>
             </ul>
             &nbsp;<br/>
-            Faites attention à ne pas perdre trop de points à cause de conflits entre tribus.
+            <Trans defaults="tuto.reminder.5"></Trans>
           </>
         )
       }
@@ -561,10 +581,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
             <p style={{textAlign: "center"}}>
-              C'est désormais à vous de bâtir ce Royaume<br/>
-              et d'écrire ses Légendes.<br/>
+              <Trans defaults="tuto.closure.1"></Trans><br/>
+              <Trans defaults="tuto.closure.2"></Trans><br/>
               &nbsp;<br/>
-              Bonne chance !
+              <Trans defaults="tuto.closure.3"></Trans>
             </p>
           </>
         )

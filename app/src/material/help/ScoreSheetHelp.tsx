@@ -16,15 +16,15 @@ export const ScoreSheetHelp = (_props: MaterialHelpProps) => {
 
   return <>
     <h2>{t('help.scoresheet')}</h2>
-    <Picture src={elfIcon}/>Points for elves<br/>
-    <Picture src={dwarfIcon}/>Points for dwarfs<br/>
-    <Picture src={humanIcon}/>Points for humans<br/>
-    <Picture src={goblinIcon}/>Points for goblins<br/>
-    <Picture src={dragon3Icon}/>Points for dragons<br/>
-    <Picture src={legendIcon}/>Points for legends<br/>
-    <Picture src={conflictIcon}/>Points for conflicts<br/>
+    <Picture src={elfIcon}/>{t('help.elfPoints')}<br/>
+    <Picture src={dwarfIcon}/>{t('help.dwarfPoints')}<br/>
+    <Picture src={humanIcon}/>{t('help.humanPoints')}<br/>
+    <Picture src={goblinIcon}/>{t('help.goblinPoints')}<br/>
+    <Picture src={dragon3Icon}/>{t('help.dragonPoints')}<br/>
+    <Picture src={legendIcon}/>{t('help.legendPoints')}<br/>
+    <Picture src={conflictIcon}/>{t('help.conflictPoints')}<br/>
     &nbsp;<br/>
-    = Total
+    = {t('help.totalPoints')}
     </>
 }
 export const alignIcon = css`

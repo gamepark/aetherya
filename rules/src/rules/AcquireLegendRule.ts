@@ -1,5 +1,6 @@
-import { isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
 import { score } from '../logic/Score'
+import { CustomMoveType } from './CustomMoveType'
 import { LegendCard } from '../material/LegendCard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -11,8 +12,9 @@ export class AcquireLegendRule extends PlayerTurnRule {
     if (isStartRule(move) && move.id === RuleId.AcquireLegend) {
       if (this.isKingdomComplete) {
         return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
-      } else if (!this.getPlayerLegendMoves().length) {
+      } else if (this.remind(Memory.ForcePass) || !this.getPlayerLegendMoves().length) {
         this.forget(Memory.PickedLegend)
+        this.forget(Memory.ForcePass)
         return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
       }
     }
@@ -23,12 +25,28 @@ export class AcquireLegendRule extends PlayerTurnRule {
     return this.material(MaterialType.KingdomCard).player(this.player).location(l => l.type === LocationType.PlayerBoard && !l.rotation).length === 0
   }
 
+  get isCardDrawnFromDeck() {
+    return (this.game.rule!.id !== RuleId.DrawOrPlaceDiscardCard)
+  }
+
+  get isCardMovedToKingdom() {
+    return (this.game.rule!.id === RuleId.AcquireLegend)
+  }
+
   getPlayerMoves(): MaterialMove[] {
+    let moves:MaterialMove[]=[]
+
+    // The player may pass his/her turn if he/she drew a card from the deck
+    // or placed a card into his/her kingdom from the discard
+    if (this.isCardDrawnFromDeck) {
+      // A card was drawn from the deck
+      moves.push(this.rules().customMove(CustomMoveType.Pass))
+    }
     if (!this.remind(Memory.PickedLegend)){
       // TODO: do we allow the player to pass when he could take a legend card?
-      return this.getPlayerLegendMoves()
+      moves.push(...this.getPlayerLegendMoves())
     }
-    return []
+    return moves
   }
 
   getPlayerLegendMoves() {
@@ -69,5 +87,19 @@ export class AcquireLegendRule extends PlayerTurnRule {
     return this.material(MaterialType.LegendCard)
       .location(LocationType.LegendDeck)
       .deck()
+  }
+
+  onCustomMove(move: CustomMove): MaterialMove[] {
+    if (move.type === CustomMoveType.Pass) {
+      this.memorize(Memory.ForcePass, true)
+      if (this.isCardMovedToKingdom){
+        // A card was moved to the kingdom => Go to next player's turn if game is not over
+        // This is done through onRuleStart() replaying this rule
+      } else {
+        // No card was moved to the kingdom => A card from the kingdom must be revealed
+        return [this.rules().startRule(RuleId.RevealBoardCard)]
+      }
+    }
+    return []
   }
 }

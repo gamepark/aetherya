@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { AcquireLegendRule } from '@gamepark/aetherya/rules/AcquireLegendRule'
-import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { useTranslation } from 'react-i18next'
+import { CustomMoveType } from '@gamepark/aetherya/rules/CustomMoveType'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { isCustomMoveType } from '@gamepark/rules-api'
+import { Trans, useTranslation } from 'react-i18next'
 
 export const PlaceDiscardHeader = () => {
   const { t } = useTranslation()
@@ -10,6 +12,7 @@ export const PlaceDiscardHeader = () => {
   const rules=useRules<AetheryaRules>()
   const activePlayer = rules?.game.rule?.player
   const player = usePlayerName(activePlayer)
+  const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
 
   const currentRule:AcquireLegendRule=rules?.rulesStep as AcquireLegendRule
   const availableLegendCards=currentRule.getPlayerLegendMoves().length>0
@@ -17,7 +20,8 @@ export const PlaceDiscardHeader = () => {
   if (playerId !== undefined && activePlayer === playerId) {
     if (availableLegendCards)
       return <>{t('header.place-discard-withLegend.you')}</>
-    return <>{t('header.place-discard-withoutLegend.you')}</>
+    return <Trans defaults="header.place-discard-withoutLegend.you"><PlayMoveButton move={pass}/></Trans>
+//    return <>{t('header.place-discard-withoutLegend.you')}</>
   } else {
     if (availableLegendCards)
       return <>{t('header.place-discard-withLegend.player', { player })}</>

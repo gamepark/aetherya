@@ -29,7 +29,7 @@ export class PlayerHandDescription extends LocationDescription {
 
   getCoordinates(location: Location, context: LocationContext) {
     const baseCoordinates = this.getRegionCoordinates(location, context)
-    const posX=(location.x!-1)
+    const posX=location.x!
     return {
       x: baseCoordinates.x + (legendCardDescription.width+0.5)*(posX-1.5),
       y: baseCoordinates.y,

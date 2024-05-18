@@ -4,7 +4,7 @@ import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
 import { MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { isMoveItemType, isSelectItemType } from '@gamepark/rules-api'
 //import dragon3Icon from '../images/icon/dragon3_3.png'
 //import dragon5Icon from '../images/icon/dragon5_3.png'
 //import dragon6Icon from '../images/icon/dragon6_3.png'
@@ -139,6 +139,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             <p style={{textAlign: "center"}}>ou</p>
             <ul><li>retourne une nouvelle carte depuis la pioche
             et la place dans son Royaume</li></ul>
+            <p style={{textAlign: "center"}}>ou</p>
+            <ul><li>retourne une nouvelle carte depuis la pioche
+            puis retourne une carte cachée de son Royaume</li></ul>
           </>
         ),
         size: { width: 100 }
@@ -472,6 +475,49 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       }
     },
     {
+      move: {
+        player: opponent,
+        filter: (_move, _game) => true
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <>
+            <b>Piochez une carte</b>
+          </>
+        ),
+        position: { y: -20 }
+      },
+      move: {
+        player: me,
+        filter: (move, game) => {
+          // Get card from deck
+          return isMoveItemType(MaterialType.KingdomCard)(move)
+            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
+        }
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <>
+            Si la carte piochée ne vous convient pas, il est possible de la laisser dans la défausse et de retourner une carte de votre Royaume à la place.<br/>
+            &nbsp;<br/>
+            <b>Retournez une carte de votre Royaume</b>
+          </>
+        ),
+        position: { y: -20 }
+      },
+      move: {
+        player: me,
+        filter: (move, _game) => {
+          // Get card from deck
+          return isSelectItemType(MaterialType.KingdomCard)(move)
+        }
+      }
+    },
+    {
       popup: {
         text: () => (
           <>
@@ -514,9 +560,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            C'est désormais à vous de bâtir ce Royaume et d'écrire ses Légendes.<br/>
-            &nbsp;<br/>
-            Bonne chance !
+            <p style={{textAlign: "center"}}>
+              C'est désormais à vous de bâtir ce Royaume<br/>
+              et d'écrire ses Légendes.<br/>
+              &nbsp;<br/>
+              Bonne chance !
+            </p>
           </>
         )
       }

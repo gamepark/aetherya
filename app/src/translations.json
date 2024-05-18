@@ -12,7 +12,7 @@
       "header.place-central-cards.player": "{player} must place his/her 4 central cards",
       "header.place-discard-withLegend.you": "You must move the discarded card to your kingdom or pick a legend card",
       "header.place-discard-withLegend.player": "{player} must move the discarded card to his/her kingdom or pick a legend card",
-      "header.place-discard-withoutLegend.you": "You must move the discarded card to your kingdom or <0>pass</0>",
+      "header.place-discard-withoutLegend.you": "You must move the discarded card to your kingdom",
       "header.place-discard-withoutLegend.player": "{player} must move the discarded card to his/her kingdom",
       "header.revealed-cards": "All cards are revealed",
       "header.scoring": "Scoring",

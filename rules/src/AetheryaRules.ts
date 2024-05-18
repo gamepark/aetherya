@@ -18,7 +18,6 @@ import { DrawOrPlaceDiscardCardRule } from './rules/DrawOrPlaceDiscardCardRule'
 import { PlaceDiscardCardRule } from './rules/PlaceDiscardCardRule'
 import { PrepareGameRule } from './rules/PrepareGameRule'
 import { RevealAllBoardCardsRule } from './rules/RevealAllBoardCardsRule'
-import { RevealBoardCardRule } from './rules/RevealBoardCardRule'
 import { RuleId } from './rules/RuleId'
 import { ScoreRule } from './rules/ScoreRule'
 
@@ -41,8 +40,7 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, L
     [RuleId.PlaceDiscardCard]: PlaceDiscardCardRule,
     [RuleId.AcquireLegend]: AcquireLegendRule,
     [RuleId.RevealAllBoardCards]: RevealAllBoardCardsRule,
-    [RuleId.Score]: ScoreRule,
-    [RuleId.RevealBoardCard]: RevealBoardCardRule
+    [RuleId.Score]: ScoreRule
   }
 
   locationsStrategies = {

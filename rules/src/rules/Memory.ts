@@ -1,4 +1,3 @@
 export enum Memory {
-  PickedLegend = 1,
-  ForcePass    = 2
+  PickedLegend      = 1
 }

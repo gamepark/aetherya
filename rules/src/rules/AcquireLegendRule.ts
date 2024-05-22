@@ -12,7 +12,6 @@ export class AcquireLegendRule extends PlayerTurnRule {
       if (this.isKingdomComplete) {
         return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
       } else if (!this.getPlayerLegendMoves().length) {
-        this.forget(Memory.PickedLegend)
         return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
       }
     }

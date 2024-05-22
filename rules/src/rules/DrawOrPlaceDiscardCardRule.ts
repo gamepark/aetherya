@@ -1,10 +1,16 @@
-import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, RuleMove } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Memory } from './Memory'
 import { PlaceDiscardCardRule } from './PlaceDiscardCardRule'
 import { RuleId } from './RuleId'
 
 export class DrawOrPlaceDiscardCardRule extends PlaceDiscardCardRule {
+  onRuleStart(move: RuleMove): MaterialMove[] {
+    this.forget(Memory.PickedLegend)
+    return super.onRuleStart(move)
+  }
+
   getPlayerMoves(): MaterialMove[] {
     const moves = super.getPlayerMoves()
     moves.push(this.kingdomDeckCards()

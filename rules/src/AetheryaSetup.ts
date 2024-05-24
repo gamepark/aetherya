@@ -6,6 +6,11 @@ import { legendCards } from './material/LegendCard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { RuleId } from './rules/RuleId'
+import { tests } from './AetheryaTests'
+
+function isTest(options: AetheryaOptions) : boolean {
+  return (options.test !==undefined && options.test>0)
+}
 
 /**
  * This class creates a new Game based on the game options
@@ -13,9 +18,18 @@ import { RuleId } from './rules/RuleId'
 export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, LocationType, AetheryaOptions> {
   Rules = AetheryaRules
 
-  setupMaterial() {
+  setupMaterial(options: AetheryaOptions) {
     this.setupKingdomCards()
     this.setupLegendCards()
+
+    // Tests
+    if (isTest(options)){
+      console.log("Test mode")
+      tests.setupMaterial(this, options.test!)
+      return
+    }
+
+    // Regular game
     this.setupLegendLine()
     this.setupPlayers()
   }
@@ -90,7 +104,11 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     }
   }
 
-  start() {
+  start(options: AetheryaOptions) {
+    if (isTest(options)){
+      tests.start(this, options.test!)
+      return
+    }
     this.startSimultaneousRule(RuleId.PrepareGame)
   }
 }

@@ -1,10 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { LocationContext } from '@gamepark/react-game'
+import { getRelativePlayerIndex, LocationContext } from '@gamepark/react-game'
 import { Location, MaterialRules } from '@gamepark/rules-api'
 
 export class TableDesign {
   nbPlayers(rules: MaterialRules) {
     return rules.players.length
+  }
+
+  playerPosition(location: Location, context: LocationContext){
+    const player = location.player
+    return getRelativePlayerIndex(context, player)
   }
 
   getTableSize(players: number) {
@@ -29,10 +34,9 @@ export class TableDesign {
   }
 
   playerBoardCoordinates(location: Location, context: LocationContext) {
-//    const { player, rules } = context
-    const locationPlayer = location.player
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
+    const position=this.playerPosition(location, context)
 
     // Default value - If unsupported player number
     let x = 0
@@ -43,35 +47,35 @@ export class TableDesign {
       x = -25
       y = 0
     } else if (nbPlayers === 2) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         x = -25
         y = 0
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         x = 25
         y = 0
       }
     } else if (nbPlayers === 3) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         x = -25
         y = 20
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         x = -25
         y = -20
-      } else if (locationPlayer === 3) {
+      } else if (position === 2) {
         x = 25
         y = -20
       }
     } else if (nbPlayers === 4) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         x = -15
         y = 25
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         x = -15
         y = -25
-      } else if (locationPlayer === 3) {
+      } else if (position === 2) {
         x = 20
         y = -25
-      } else if (locationPlayer === 4) {
+      } else if (position === 3) {
         x = 20
         y = 25
       }
@@ -84,10 +88,8 @@ export class TableDesign {
 
   playerHandCoordinates(location: Location, context: LocationContext) {
     const boardCoords = this.playerBoardCoordinates(location, context)
-
-//    const locationPlayer = location.player
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
 
     let deltaX = 0
     let deltaY = 0
@@ -101,15 +103,6 @@ export class TableDesign {
     } else if (nbPlayers === 3) {
       deltaX = 2
       deltaY = 13
-      /*
-            if (locationPlayer==1){
-              deltaX=31
-              deltaY=11.5
-            } else {
-              deltaX=0
-              deltaY=20
-            }
-      */
     } else if (nbPlayers === 4) {
       deltaX = 2
       deltaY = 13
@@ -123,35 +116,35 @@ export class TableDesign {
 
   playerLegendLineCoordinates(location: Location, context: LocationContext) {
     const boardCoord = this.playerBoardCoordinates(location, context)
-    const locationPlayer = location.player
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
+    const position=this.playerPosition(location, context)
 
     let deltaX = 0
     if (nbPlayers === 1) {
       deltaX = -25
     } else if (nbPlayers === 2) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         deltaX = -25
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         deltaX = 20
       }
     } else if (nbPlayers === 3) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         deltaX = -25
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         deltaX = -25
-      } else if (locationPlayer === 3) {
+      } else if (position === 2) {
         deltaX = 20
       }
     } else if (nbPlayers === 4) {
-      if (locationPlayer === 1) {
+      if (position === 0) {
         deltaX = -25
-      } else if (locationPlayer === 2) {
+      } else if (position === 1) {
         deltaX = -25
-      } else if (locationPlayer === 3) {
+      } else if (position === 2) {
         deltaX = 20
-      } else if (locationPlayer === 4) {
+      } else if (position === 3) {
         deltaX = 20
       }
     } else {
@@ -163,7 +156,7 @@ export class TableDesign {
 
   commonLegendLineCoordinates(context: LocationContext) {
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
 
     let x = 0
     let y = 0
@@ -189,8 +182,8 @@ export class TableDesign {
 
   commonLegendDeckCoordinates(context: LocationContext) {
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
-    let lineCoord = this.commonLegendLineCoordinates(context)
+    const nbPlayers = this.nbPlayers(rules)
+    const lineCoord = this.commonLegendLineCoordinates(context)
 
     let deltaX = 0
     let deltaY = 0
@@ -215,7 +208,7 @@ export class TableDesign {
 
   kingdomDeckCoordinates(context: LocationContext) {
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
 
     let x = 0
     let y = 0
@@ -240,9 +233,9 @@ export class TableDesign {
   }
 
   kingdomDiscardCoordinates(context: LocationContext) {
-    let deckCoord = this.kingdomDeckCoordinates(context)
+    const deckCoord = this.kingdomDeckCoordinates(context)
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
 
     let deltaX = 0
     let deltaY = 0
@@ -268,7 +261,7 @@ export class TableDesign {
 
   scoreSheetCoordinates(context: LocationContext) {
     const { rules } = context
-    let nbPlayers = this.nbPlayers(rules)
+    const nbPlayers = this.nbPlayers(rules)
 
     let x = 0
     let y = 0

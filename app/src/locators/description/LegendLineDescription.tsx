@@ -14,7 +14,7 @@ export class LegendLineDescription extends LocationDescription {
 
   getLocations(_context: MaterialContext): Location[] {
     const locations: Location[] = []
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 0; i < 8; i++) {
       locations.push({
         type: LocationType.LegendLine,
         x: i

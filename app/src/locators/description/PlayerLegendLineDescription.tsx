@@ -8,8 +8,8 @@ import { legendCardDescription } from '../../material/LegendCardDescription'
 import { tableDesign } from '../position/TableDesign'
 
 export class PlayerLegendLineDescription extends LocationDescription {
-  height = legendCardDescription.height
-  width = legendCardDescription.width
+  height = legendCardDescription.height+2*12
+  width = legendCardDescription.width+0.5*12
   borderRadius = legendCardDescription.borderRadius
 
   //alwaysVisible = true
@@ -23,8 +23,11 @@ export class PlayerLegendLineDescription extends LocationDescription {
   }
 
   getCoordinates(location: Location, context: LocationContext) {
-    const x = location.x ?? context.rules.material(MaterialType.LegendCard).player(location.player).length
     const baseCoordinates = tableDesign.playerLegendLineCoordinates(location, context)
+    if (location.x===undefined){
+      return { x:baseCoordinates.x+2, y:baseCoordinates.y, z:0 }
+    }
+    const x = location.x ?? context.rules.material(MaterialType.LegendCard).player(location.player).length
     return {
       x: baseCoordinates.x + x * 0.5,
       y: baseCoordinates.y + (legendCardDescription.height * -1.5 - 0.5) + x * 2,

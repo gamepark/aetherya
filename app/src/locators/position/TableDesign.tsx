@@ -2,6 +2,15 @@
 import { getRelativePlayerIndex, LocationContext } from '@gamepark/react-game'
 import { Location, MaterialRules } from '@gamepark/rules-api'
 
+export enum Corner {
+  TopLeft        = 1,
+  TopRight       = 2,
+  MiddleTopLeft  = 3,
+  MiddleTopRight = 4,
+  BottomLeft     = 5,
+  BottomRight    = 6
+}
+
 export class TableDesign {
   nbPlayers(rules: MaterialRules) {
     return rules.players.length
@@ -10,6 +19,34 @@ export class TableDesign {
   playerPosition(location: Location, context: LocationContext){
     const player = location.player
     return getRelativePlayerIndex(context, player)
+  }
+
+  playerCorner(position:number, players:number) : Corner {
+    if (players==1)
+      return Corner.TopRight
+    if (players==2){
+      if (position==0)
+        return Corner.TopLeft
+      return Corner.TopRight
+    }
+    if (players==3){
+      if (position==0)
+        return Corner.BottomLeft
+      if (position==1)
+        return Corner.MiddleTopLeft
+      return Corner.MiddleTopRight
+    }
+    if (players==4){
+      if (position==0)
+        return Corner.BottomLeft
+      if (position==1)
+        return Corner.TopLeft
+      if (position==2)
+        return Corner.TopRight
+      return Corner.BottomRight
+    }
+    console.log("*** Unsupported nb players")
+    return Corner.TopLeft
   }
 
   getTableSize(players: number) {

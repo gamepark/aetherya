@@ -53,8 +53,8 @@ const vpText = (score = 0) => css`
 `
 
 export const playerColorCode: Record<PlayerId, string> = {
-  1: 'red',
-  2: 'blue',
-  3: 'green',
-  4: 'yellow'
+  1: 'blue',
+  2: 'green',
+  3: 'yellow',
+  4: 'red'
 }

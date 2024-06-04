@@ -8,7 +8,7 @@ export class ScoreSheetBoxLocator extends ItemLocator {
   parentItemType = MaterialType.ScoreSheet
 
   getPositionOnParent(location: Location) {
-    return { x: 12 + location.x! * 20, y: 8 + location.y! * 10 }
+    return { x: 29 + (location.x!-1) * 18, y: 10 + location.y! * 10 }
   }
 }
 

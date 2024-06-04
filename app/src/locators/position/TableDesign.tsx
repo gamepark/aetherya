@@ -22,26 +22,26 @@ export class TableDesign {
   }
 
   playerCorner(position:number, players:number) : Corner {
-    if (players==1)
+    if (players===1)
       return Corner.TopRight
-    if (players==2){
-      if (position==0)
+    if (players===2){
+      if (position===0)
         return Corner.TopLeft
       return Corner.TopRight
     }
-    if (players==3){
-      if (position==0)
+    if (players===3){
+      if (position===0)
         return Corner.BottomLeft
-      if (position==1)
+      if (position===1)
         return Corner.MiddleTopLeft
       return Corner.MiddleTopRight
     }
-    if (players==4){
-      if (position==0)
+    if (players===4){
+      if (position===0)
         return Corner.BottomLeft
-      if (position==1)
+      if (position===1)
         return Corner.TopLeft
-      if (position==2)
+      if (position===2)
         return Corner.TopRight
       return Corner.BottomRight
     }

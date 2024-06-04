@@ -40,7 +40,7 @@ const Score: FC<any> = (props) => {
 }
 
 const panelPosition = (corner: Corner) => {
-  if (corner==Corner.BottomLeft)
+  if (corner===Corner.BottomLeft)
     return css`
     position: absolute;
     left: 1em;
@@ -48,7 +48,7 @@ const panelPosition = (corner: Corner) => {
     width: 28em;
     height: 14em;
     `
-  if (corner==Corner.TopLeft)
+  if (corner===Corner.TopLeft)
     return css`
     position: absolute;
     left: 1em;
@@ -56,7 +56,7 @@ const panelPosition = (corner: Corner) => {
     width: 28em;
     height: 14em;
     `
-  if (corner==Corner.MiddleTopLeft)
+  if (corner===Corner.MiddleTopLeft)
     return css`
     position: absolute;
     left: 1em;
@@ -64,7 +64,7 @@ const panelPosition = (corner: Corner) => {
     width: 28em;
     height: 14em;
     `
-  if (corner==Corner.TopRight)
+  if (corner===Corner.TopRight)
     return css`
     position: absolute;
     right: 1em;
@@ -72,7 +72,7 @@ const panelPosition = (corner: Corner) => {
     width: 28em;
     height: 14em;
     `
-  if (corner==Corner.MiddleTopRight)
+  if (corner===Corner.MiddleTopRight)
     return css`
     position: absolute;
     right: 1em;

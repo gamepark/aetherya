@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerPanel, usePlayers } from '@gamepark/react-game'
+import { PlayerId } from '@gamepark/aetherya/PlayerId'
+import { PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
+import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -14,12 +16,25 @@ export const PlayerPanels: FC<any> = () => {
   return createPortal(
     <>
       {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index)}/>
+        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index)}>
+          <Score player={player.id}/>
+        </PlayerPanel>
       )}
     </>,
     root
   )
 }
+
+const Score: FC<any> = (props) => {
+  const { player } = props
+  const rules = useRules<AetheryaRules>()!
+
+  if (!rules?.isOver()) return <></>
+  const score=rules.getScore(player)
+
+  return <div><span css={vpText(score)}>{score}</span></div>
+}
+
 const panelPosition = (index: number) => css`
   position: absolute;
   right: 1em;
@@ -28,9 +43,18 @@ const panelPosition = (index: number) => css`
   height: 14em;
 `
 
-export const playerColorCode = {
-  1: 'red',
-  2: 'blue',
-  3: 'green',
-  4: 'yellow'
+const vpText = (score = 0) => css`
+  font-size: ${score < 100 ? 3 : 2.4}em;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+`
+
+export const playerColorCode: Record<PlayerId, string> = {
+  [1]: 'red',
+  [2]: 'blue',
+  [3]: 'green',
+  [4]: 'yellow'
 }

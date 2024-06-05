@@ -49,6 +49,20 @@ export class TableDesign {
     return Corner.TopLeft
   }
 
+  isBoardRotated(_location: Location, _context: LocationContext){
+    return false
+/*
+    const position=this.playerPosition(location, context)
+    const nbPlayers=context.rules.game.players.length
+    const corner=this.playerCorner(position, nbPlayers)
+    if (nbPlayers<3)
+      return false
+    if ((corner==Corner.BottomLeft) || (corner==Corner.BottomRight))
+      return false
+    return true
+*/
+  }
+
   getTableSize(players: number) {
     switch (players) {
       case 1:
@@ -127,6 +141,7 @@ export class TableDesign {
     const boardCoords = this.playerBoardCoordinates(location, context)
     const { rules } = context
     const nbPlayers = this.nbPlayers(rules)
+    const rotatedBoard=this.isBoardRotated(location, context)
 
     let deltaX = 0
     let deltaY = 0
@@ -146,6 +161,10 @@ export class TableDesign {
     } else {
       // Error
       console.log('*** Unsupported table configuration')
+    }
+
+    if (rotatedBoard){
+      deltaY=deltaY-26
     }
 
     return { x: boardCoords.x + deltaX, y: boardCoords.y + deltaY, z: boardCoords.z + 1 }

@@ -17,7 +17,6 @@ export class PlayerBoardDescription extends LocationDescription {
 
   getExtraCss(location: Location, context: LocationContext) {
     const { rules } = context
-//    console.log(rules.material(MaterialType.KingdomCard).location((l) => equal(l, location)))
     const cardOnLocation = rules.material(MaterialType.KingdomCard).location((l) => {
       const { rotation, ...rest } = l
       return equal(rest, location)
@@ -54,9 +53,15 @@ export class PlayerBoardDescription extends LocationDescription {
 
   getCoordinates(location: Location, context: LocationContext): Coordinates {
     const baseCoordinates = this.getPlayerBoardCoordinates(location, context)
+    let posX=location.x!
+    let posY=location.y!
+    if (tableDesign.isBoardRotated(location, context)){
+      posX=4-posX+1
+      posY=4-posY+1
+    }
     return {
-      x: baseCoordinates.x + (kingdomCardDescription.width + 0.5) * ((location.x! - 2.5)),
-      y: baseCoordinates.y + (kingdomCardDescription.height + 0.5) * ((location.y! - 2.5)),
+      x: baseCoordinates.x + (kingdomCardDescription.width + 0.5) * ((posX - 2.5)),
+      y: baseCoordinates.y + (kingdomCardDescription.height + 0.5) * ((posY - 2.5)),
       z: 1
     }
   }

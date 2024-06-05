@@ -6,6 +6,7 @@ import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 import { Corner, tableDesign } from '../locators/position/TableDesign'
+import { Memory } from '@gamepark/aetherya/rules/Memory'
 
 export const PlayerPanels: FC<any> = () => {
   const players = usePlayers({ sortFromMe: true })
@@ -33,10 +34,12 @@ const Score: FC<any> = (props) => {
   const { player } = props
   const rules = useRules<AetheryaRules>()!
 
-  if (!rules?.isOver()) return <></>
+  const realTimeScore:boolean=rules.remind(Memory.RealTimeScore)
+  const gameIsOver=rules?.isOver()
+  if (!realTimeScore && !gameIsOver) return <></>
   const score=rules.getScore(player)
 
-  return <div><span css={vpText(score)}>{score}</span></div>
+  return <div><span css={vpText(score, gameIsOver)}>{score}</span></div>
 }
 
 const panelPosition = (corner: Corner) => {
@@ -90,11 +93,11 @@ const panelPosition = (corner: Corner) => {
   `
 }
 
-const vpText = (score = 0) => css`
+const vpText = (score=0, gameIsOver=false) => css`
   font-size: ${score < 100 ? 3 : 2.4}em;
   position: absolute;
   left: 50%;
-  top: 60%;
+  top: ${gameIsOver ? 60 : 70}%;
   transform: translate(-50%, -50%);
   font-weight: bold;
 `

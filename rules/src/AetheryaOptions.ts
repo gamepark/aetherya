@@ -6,7 +6,8 @@ import { OptionsSpec } from '@gamepark/rules-api'
  */
 export type AetheryaOptions = {
   players: number,
-  test?: number
+  test?: number,
+  realTimeScore?: boolean
 }
 
 /**

@@ -4,6 +4,7 @@ import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { score } from '@gamepark/aetherya/logic/Score'
 import { FlatMaterialDescription, ItemContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
+import { Memory } from '@gamepark/aetherya/rules/Memory'
 import ScoreSheet from '../images/scoresheet.png'
 import { ScoreSheetHelp } from './help/ScoreSheetHelp'
 
@@ -22,7 +23,11 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
 
   getLocations(_item: MaterialItem, context: ItemContext) {
     const rules = context.rules as AetheryaRules
-    if (!rules.isOver()) return []
+
+    const realTimeScore:boolean=rules.remind(Memory.RealTimeScore)
+    const gameIsOver=rules?.isOver()
+
+    if (!realTimeScore && !gameIsOver) return []
     const locations: Location[] = []
 
     for (const player of rules.players) {

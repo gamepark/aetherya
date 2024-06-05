@@ -1,3 +1,4 @@
 export enum Memory {
-  PickedLegend      = 1
+  PickedLegend  = 1,
+  RealTimeScore = 2
 }

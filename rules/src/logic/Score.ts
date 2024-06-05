@@ -225,10 +225,8 @@ export class Score {
       for (let j=0; j<4; j++){
         let currentCard=boardCards[i][j]
         if (currentCard === undefined){
-          console.log("*** ERROR - Undefined card - "+i+" - "+j)
-        }
-
-        if (currentCard==KingdomCard.Plain ||
+          // Undefined card - No points
+        } else if (currentCard==KingdomCard.Plain ||
           currentCard==KingdomCard.Swamp ||
           currentCard==KingdomCard.Mountain ||
           currentCard==KingdomCard.Forest){
@@ -316,7 +314,9 @@ export class Score {
             nbDomesticatedDragons+=1
           }
         } else {
-          console.log("Unknown card type - "+currentCard+" - square "+i+"-"+j)
+          if (currentCard!==-1){
+            console.log("Unknown card type - "+currentCard+" - square "+i+"-"+j)
+          }
         }
       }
     }
@@ -342,14 +342,6 @@ export class Score {
     let legendPoints=0
 
     allLegendCardIds.forEach(id => legendPoints+=this.legendCardValue(id))
-
-/*
-    allLegendCards.location(LocationType.PlayerLegendLine)
-      .player(player)
-      .getItems().forEach(item => {
-        legendPoints+=this.legendCardValue(item.id)
-      })
-*/
 
     // Result
     return new PlayerScore(

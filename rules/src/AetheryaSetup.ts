@@ -5,6 +5,7 @@ import { kingdomCards } from './material/KingdomCard'
 import { legendCards } from './material/LegendCard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 import { tests } from './AetheryaTests'
 
@@ -19,6 +20,10 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
   Rules = AetheryaRules
 
   setupMaterial(options: AetheryaOptions) {
+    // Global parameters
+    this.memorize(Memory.RealTimeScore, options.realTimeScore ?? false)
+
+    // Build material
     this.setupKingdomCards()
     this.setupLegendCards()
 

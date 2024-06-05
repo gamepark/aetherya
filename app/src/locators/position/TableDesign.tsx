@@ -30,18 +30,18 @@ export class TableDesign {
       return Corner.TopRight
     }
     if (players===3){
-      if (position===0)
+      if (position===2)
         return Corner.BottomLeft
-      if (position===1)
+      if (position===0)
         return Corner.MiddleTopLeft
       return Corner.MiddleTopRight
     }
     if (players===4){
-      if (position===0)
+      if (position===3)
         return Corner.BottomLeft
-      if (position===1)
+      if (position===0)
         return Corner.TopLeft
-      if (position===2)
+      if (position===1)
         return Corner.TopRight
       return Corner.BottomRight
     }
@@ -106,27 +106,27 @@ export class TableDesign {
         y = 0
       }
     } else if (nbPlayers === 3) {
-      if (position === 0) {
+      if (position === 2) {
         x = -25
         y = 20
-      } else if (position === 1) {
+      } else if (position === 0) {
         x = -25
         y = -20
-      } else if (position === 2) {
+      } else if (position === 1) {
         x = 25
         y = -20
       }
     } else if (nbPlayers === 4) {
-      if (position === 0) {
+      if (position === 3) {
         x = -15
         y = 25
-      } else if (position === 1) {
+      } else if (position === 0) {
         x = -15
         y = -25
-      } else if (position === 2) {
+      } else if (position === 1) {
         x = 20
         y = -25
-      } else if (position === 3) {
+      } else if (position === 2) {
         x = 20
         y = 25
       }
@@ -186,21 +186,21 @@ export class TableDesign {
         deltaX = 20
       }
     } else if (nbPlayers === 3) {
-      if (position === 0) {
+      if (position === 2) {
+        deltaX = -25
+      } else if (position === 0) {
         deltaX = -25
       } else if (position === 1) {
-        deltaX = -25
-      } else if (position === 2) {
         deltaX = 20
       }
     } else if (nbPlayers === 4) {
-      if (position === 0) {
+      if (position === 3) {
+        deltaX = -25
+      } else if (position === 0) {
         deltaX = -25
       } else if (position === 1) {
-        deltaX = -25
-      } else if (position === 2) {
         deltaX = 20
-      } else if (position === 3) {
+      } else if (position === 2) {
         deltaX = 20
       }
     } else {

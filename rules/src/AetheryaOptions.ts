@@ -1,4 +1,5 @@
 import { OptionsSpec } from '@gamepark/rules-api'
+import { TFunction } from 'i18next'
 
 /**
  * This is the type of object that the game receives when a new game is started.
@@ -7,7 +8,7 @@ import { OptionsSpec } from '@gamepark/rules-api'
 export type AetheryaOptions = {
   players: number,
   test?: number,
-  realTimeScore?: boolean
+  realTimeScore: boolean
 }
 
 /**
@@ -15,4 +16,9 @@ export type AetheryaOptions = {
  * (forms for friendly games, or forms for matchmaking preferences, for instance).
  */
 export const AetheryaOptionsSpec: OptionsSpec<AetheryaOptions> = {
+  realTimeScore: {
+    label: (t: TFunction) => t('real-time-scores'),
+    help: (t: TFunction) => t('real-time-scores.help'),
+    competitiveDisabled: true
+  }
 }

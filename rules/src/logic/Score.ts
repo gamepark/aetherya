@@ -327,8 +327,9 @@ export class Score {
     // Dragons
     let dragonValue=0
     if (nbDragons>3){
-      nbDomesticatedDragons=0
       dragonValue=6
+      if (nbDomesticatedDragons>3)
+        nbDomesticatedDragons=3
     } else if (nbDragons==3){
       dragonValue=6
     } else if (nbDragons==2){

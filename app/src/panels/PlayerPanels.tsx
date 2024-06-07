@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
-import { PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
+import { getRelativePlayerIndex, PlayerPanel, /*usePlayers,*/ useMaterialContext, useRules } from '@gamepark/react-game'
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 import { Corner, tableDesign } from '../locators/position/TableDesign'
 import { Memory } from '@gamepark/aetherya/rules/Memory'
 
-export const PlayerPanels: FC<any> = () => {
-  const players = usePlayers({ sortFromMe: true })
+export const PlayerPanels: FC<{players:number[]}> = ({players}) => {
+//  const players = usePlayers({ sortFromMe: true })
+  const context=useMaterialContext()
   const nbPlayers=players.length
   const root = document.getElementById('root')
   if (!root) {
@@ -18,11 +19,17 @@ export const PlayerPanels: FC<any> = () => {
 
   return createPortal(
     <>
-      {players.map((player, index) => {
-        const corner=tableDesign.playerCorner(index, nbPlayers)
+      {players.map((player) => {
+        const relativeIndex = getRelativePlayerIndex(context, player)
+        const corner=tableDesign.playerCorner(relativeIndex, nbPlayers)
+        return <PlayerPanel key={player} playerId={player} color={playerColorCode[player]} css={panelPosition(corner)}>
+          <Score player={player}/>
+        </PlayerPanel>
+/*
         return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(corner)}>
           <Score player={player.id}/>
         </PlayerPanel>
+*/
       }
       )}
     </>,

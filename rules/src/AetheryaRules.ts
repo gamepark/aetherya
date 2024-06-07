@@ -7,7 +7,8 @@ import {
   MaterialGame,
   MaterialItem,
   MaterialMove,
-  PositiveSequenceStrategy
+  PositiveSequenceStrategy,
+  TimeLimit
 } from '@gamepark/rules-api'
 import { PlayerScore, score } from './logic/Score'
 import { LocationType } from './material/LocationType'
@@ -32,7 +33,8 @@ export const hideCardWhenNotRotated: HidingStrategy = (
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, LocationType>
-  implements CompetitiveScore<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId> {
+  implements CompetitiveScore<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId>,
+    TimeLimit<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId> {
 
   rules = {
     [RuleId.PrepareGame]: PrepareGameRule,
@@ -100,5 +102,9 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, L
 
   itemsCanMerge() {
     return false
+  }
+
+  giveTime() {
+    return 30
   }
 }

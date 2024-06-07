@@ -10,6 +10,8 @@ export class KingdomDiscardLocator extends DeckLocator {
   getCoordinates(_item: MaterialItem, context: ItemContext) {
     return tableDesign.kingdomDiscardCoordinates(context)
   }
+
+  navigationSorts=[]
 }
 
 export const kingdomDiscardLocator = new KingdomDiscardLocator()

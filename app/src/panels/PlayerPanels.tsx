@@ -25,11 +25,6 @@ export const PlayerPanels: FC<{players:number[]}> = ({players}) => {
         return <PlayerPanel key={player} playerId={player} color={playerColorCode[player]} css={panelPosition(corner)}>
           <Score player={player}/>
         </PlayerPanel>
-/*
-        return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(corner)}>
-          <Score player={player.id}/>
-        </PlayerPanel>
-*/
       }
       )}
     </>,
@@ -62,7 +57,7 @@ const panelPosition = (corner: Corner) => {
     return css`
     position: absolute;
     left: 1em;
-    top: 16em;
+    top: 9em;
     width: 28em;
     height: 14em;
     `
@@ -78,7 +73,7 @@ const panelPosition = (corner: Corner) => {
     return css`
     position: absolute;
     right: 1em;
-    top: 16em;
+    top: 9em;
     width: 28em;
     height: 14em;
     `

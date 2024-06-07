@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-//import { css } from '@emotion/react'
+import { css } from '@emotion/react'
 import { GameTable, GameTableNavigation /*, usePlayers*/ } from '@gamepark/react-game'
 import { FC } from 'react'
 import { tableDesign } from './locators/position/TableDesign'
@@ -16,9 +16,16 @@ export const GameDisplay: FC<GameDisplayProps> = ({players}) => {
     <GameTable { ...tableSize }
                verticalCenter
                //css={css`background-color: rgba(255, 255, 255, 0.4)`}
-               margin={{ top: 7, left: 0, right: 0, bottom: 0 }}>
-      <GameTableNavigation/>
+               margin={{ top: 7, left: 30, right: 30, bottom: 0 }}>
+      <GameTableNavigation css={navigation}/>
       <PlayerPanels players={players}/>
     </GameTable>
   </>
 }
+
+const navigation = css`
+  flex-direction: column;
+  top: 45em;
+  right: 2em;
+  left: initial;
+`

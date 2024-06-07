@@ -24,17 +24,22 @@ import plainIcon from '../../images/icon/plain2.png'
 import swampIcon from '../../images/icon/swamp2.png'
 
 export const KingdomCardHelp = (props: MaterialHelpProps) => {
+  console.log(props)
   const { item, closeDialog } = props
   return <>
-    <KingdomCardText card={ item.id }/>
-    <KingdomCardDeckButton closeDialog={closeDialog}/>
+    <KingdomCardText card={item.id}/>
+    <KingdomCardDeckButton closeDialog={closeDialog} location={item.location!.type}/>
   </>
 }
 
-const KingdomCardDeckButton = ({ closeDialog }: { closeDialog: () => void }) => {
+const KingdomCardDeckButton = ({ location, closeDialog }: { location:LocationType, closeDialog: () => void }) => {
   const { t } = useTranslation()
+
+  // Only for the card from the deck
   const move = useLegalMove<MoveItem>(move => isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type===LocationType.KingdomDiscard)
-  if (!move) return null
+  if (location !== LocationType.KingdomDeck
+    || !move )
+    return null
   return <p><PlayMoveButton move={move} onPlay={closeDialog}>{t('help.draw')}</PlayMoveButton></p>
 }
 

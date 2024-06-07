@@ -6,6 +6,7 @@ import { tableDesign } from './position/TableDesign'
 
 export class KingdomDeckLocator extends DeckLocator {
   locationDescription = new KingdomDeckDescription()
+  delta = { x: -0.04, y: -0.04, z: 0.1 }
 
   getCoordinates(_item: MaterialItem, context: ItemContext) {
     return tableDesign.kingdomDeckCoordinates(context)

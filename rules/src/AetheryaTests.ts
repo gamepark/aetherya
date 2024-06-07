@@ -38,8 +38,23 @@ const LG_FFF=LegendCard.ThreeLinkedForests
  * game.new({'test':1})
  */
 export class AetheryaTests {
-  setupMaterial(setup: AetheryaSetup, testId:number) {
+  checkNbPlayers(nbPlayers:number, testId:number){
+    let expectedNbPlayers=2
+    if (testId>=10 && testId<=12)
+      expectedNbPlayers=3
+    else if (testId>12)
+      expectedNbPlayers=4
+
+    if (nbPlayers!=expectedNbPlayers){
+      console.log("Invalid nb players")
+      console.log("Please retry with game.new({'test':"+testId+", 'players':"+expectedNbPlayers+"})")
+    }
+  }
+
+  setupMaterial(setup: AetheryaSetup, testId:number, nbPlayers:number){
     console.log("Test "+testId)
+    this.checkNbPlayers(nbPlayers, testId)
+
     switch (testId){
       case 1:
         this.setupMaterial1(setup)
@@ -61,6 +76,33 @@ export class AetheryaTests {
         break
       case 7:
         this.setupMaterial7(setup)
+        break
+      case 8:
+        this.setupMaterial8(setup)
+        break
+      case 9:
+        this.setupMaterial9(setup)
+        break
+      case 10:
+        this.setupMaterial10(setup)
+        break
+      case 11:
+        this.setupMaterial11(setup)
+        break
+      case 12:
+        this.setupMaterial12(setup)
+        break
+      case 13:
+        this.setupMaterial13(setup)
+        break
+      case 14:
+        this.setupMaterial14(setup)
+        break
+      case 15:
+        this.setupMaterial15(setup)
+        break
+      case 16:
+        this.setupMaterial16(setup)
         break
 
       default:
@@ -91,6 +133,33 @@ export class AetheryaTests {
       case 7:
         this.start7(setup)
         break
+      case 8:
+        this.start8(setup)
+        break
+      case 9:
+        this.start9(setup)
+        break
+      case 10:
+        this.start10(setup)
+        break
+      case 11:
+        this.start11(setup)
+        break
+      case 12:
+        this.start12(setup)
+        break
+      case 13:
+        this.start13(setup)
+        break
+      case 14:
+        this.start14(setup)
+        break
+      case 15:
+        this.start15(setup)
+        break
+      case 16:
+        this.start16(setup)
+        break
 
       default:
         console.log("*** Unknown test")
@@ -103,23 +172,92 @@ export class AetheryaTests {
     console.log("Expected: "+expected)
   }
 
-  prepareBoard(
+  getLegendCards() {
+    return [
+      LG_LHE, LG_LHD, LG_LGG, LG_LHH,
+      LG_LEE, LG_LDD, LG_DEGH, LG_GGH,
+      LG_GGE, LG_GGD, LG_DDE, LG_PPP,
+      LG_SSS, LG_MMM, LG_FFF
+    ]
+  }
+
+  preparePlayerLegendLine(
+      setup: AetheryaSetup,
+      legendLine:LegendCard[],
+      player: number
+    ){
+    // Get legend cards
+    const legendCards=this.getLegendCards()
+    let legendDecks={}
+    for (let i=0; i<legendCards.length; i++){
+      const card=legendCards[i]
+      legendDecks[card]=setup
+        .material(MaterialType.LegendCard)
+        .filter(item => item.id==card)
+        .deck()
+    }
+
+    // Dispatch legend cards
+    for (let i=0; i<legendLine.length; i++){
+      const legendCard=legendLine[i]
+      legendDecks[legendCard].deal({type:LocationType.PlayerLegendLine, player}, 1)
+    }
+  }
+
+  prepareBoard_2players(
       setup: AetheryaSetup,
       board1:KingdomCard[][],
       board2:KingdomCard[][],
       board1Visibility:boolean[][],
       board2Visibility:boolean[][],
       legendLine:LegendCard[],
-      discard:KingdomCard){
+      discard:KingdomCard
+    ){
+    this.prepareBoard(
+      setup,
+      board1, board2, undefined, undefined,
+      board1Visibility, board2Visibility, undefined, undefined,
+      legendLine,
+      discard
+    )
+  }
+
+  prepareBoard_3players(
+      setup: AetheryaSetup,
+      board1:KingdomCard[][],
+      board2:KingdomCard[][],
+      board3:KingdomCard[][],
+      board1Visibility:boolean[][],
+      board2Visibility:boolean[][],
+      board3Visibility:boolean[][],
+      legendLine:LegendCard[],
+      discard:KingdomCard
+    ){
+    this.prepareBoard(
+      setup,
+      board1, board2, board3, undefined,
+      board1Visibility, board2Visibility, board3Visibility, undefined,
+      legendLine,
+      discard
+    )
+  }
+
+  prepareBoard(
+      setup: AetheryaSetup,
+      board1:KingdomCard[][],
+      board2:KingdomCard[][],
+      board3:KingdomCard[][]|undefined,
+      board4:KingdomCard[][]|undefined,
+      board1Visibility:boolean[][],
+      board2Visibility:boolean[][],
+      board3Visibility:boolean[][]|undefined,
+      board4Visibility:boolean[][]|undefined,
+      legendLine:LegendCard[],
+      discard:KingdomCard
+    ){
     // Prepare decks of specific cards
     const kingdomCards=[P, F, M, S, H, E, N, G, D, L]
-
-    const legendCards=[
-      LG_LHE, LG_LHD, LG_LGG, LG_LHH,
-      LG_LEE, LG_LDD, LG_DEGH, LG_GGH,
-      LG_GGE, LG_GGD, LG_DDE, LG_PPP,
-      LG_SSS, LG_MMM, LG_FFF
-    ]
+    const legendCards=this.getLegendCards()
 
     let kingdomDecks={}
     for (let i=0; i<kingdomCards.length; i++){
@@ -161,6 +299,32 @@ export class AetheryaTests {
       }
     }
 
+    // Fill board 3
+    if (board3!==undefined){
+      for (let y=0; y<4; y++){
+        const row=board3[y]
+        const visibilityRow=board3Visibility![y]
+        for (let x=0; x<4; x++){
+          const card=row[x]
+          const visible=visibilityRow[x]
+          kingdomDecks[card].deal({type:LocationType.PlayerBoard, player:3, x:x+1, y:y+1, rotation:visible}, 1)
+        }
+      }
+    }
+
+    // Fill board 4
+    if (board4!==undefined){
+      for (let y=0; y<4; y++){
+        const row=board4[y]
+        const visibilityRow=board4Visibility![y]
+        for (let x=0; x<4; x++){
+          const card=row[x]
+          const visible=visibilityRow[x]
+          kingdomDecks[card].deal({type:LocationType.PlayerBoard, player:4, x:x+1, y:y+1, rotation:visible}, 1)
+        }
+      }
+    }
+
     // Fill legend line
     for (let i=0; i<legendLine.length; i++){
       const legendCard=legendLine[i]
@@ -199,7 +363,7 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, F)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, F)
   }
   setupMaterial1(setup: AetheryaSetup) {
     this.texts(
@@ -261,7 +425,7 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, F)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, F)
   }
   start3(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
@@ -301,7 +465,7 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
   }
   start4(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
@@ -341,7 +505,7 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, P)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, P)
   }
   start5(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.PlaceDiscardCard, 1)
@@ -381,7 +545,7 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, P)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, P)
   }
   start6(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.PlaceDiscardCard, 1)
@@ -421,9 +585,193 @@ export class AetheryaTests {
     ]
     const legendLine:LegendCard[]=[LG_LHE, LG_FFF, LG_LHH, LG_GGH, LG_LDD, LG_PPP, LG_GGD, LG_LHD]
 
-    this.prepareBoard(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
   }
   start7(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  basicBoard() {
+    return [
+      [G, S, E, F],
+      [S, L, M, D],
+      [H, M, N, H],
+      [P, F, D, P]
+    ]
+  }
+  basicVisibility() {
+    return [
+      [false, false, false, false],
+      [false, true,  true,  false],
+      [false, true,  true,  false],
+      [false, false, false, false],
+    ]
+  }
+
+  basicSetup2Players(setup: AetheryaSetup){
+    const board1=this.basicBoard()
+    const board2=this.basicBoard()
+    const board1Visibility=this.basicVisibility()
+    const board2Visibility=this.basicVisibility()
+    const legendLine:LegendCard[]=[]
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
+  }
+
+  basicSetup3Players(setup: AetheryaSetup){
+    const board1=this.basicBoard()
+    const board2=this.basicBoard()
+    const board3=this.basicBoard()
+    const board1Visibility=this.basicVisibility()
+    const board2Visibility=this.basicVisibility()
+    const board3Visibility=this.basicVisibility()
+    const legendLine:LegendCard[]=[]
+    this.prepareBoard_3players(setup, board1, board2, board3, board1Visibility, board2Visibility, board3Visibility, legendLine, H)
+  }
+
+  basicSetup4Players(setup: AetheryaSetup){
+    const board1=this.basicBoard()
+    const board2=this.basicBoard()
+    const board3=this.basicBoard()
+    const board4=this.basicBoard()
+    const board1Visibility=this.basicVisibility()
+    const board2Visibility=this.basicVisibility()
+    const board3Visibility=this.basicVisibility()
+    const board4Visibility=this.basicVisibility()
+    const legendLine:LegendCard[]=[]
+    this.prepareBoard(
+      setup,
+      board1, board2, board3, board4,
+      board1Visibility,
+      board2Visibility,
+      board3Visibility,
+      board4Visibility,
+      legendLine,
+      H)
+  }
+
+  // Test 8 - 2 players mode - All legend cards to player 1
+  setupMaterial8(setup: AetheryaSetup) {
+    this.texts(
+      "2 players mode - All legend cards to player 1",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup2Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 1)
+  }
+  start8(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 9 - 2 players mode - All legend cards to player 1
+  setupMaterial9(setup: AetheryaSetup) {
+    this.texts(
+      "2 players mode - All legend cards to player 2",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup2Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 2)
+  }
+  start9(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 10 - 3 players mode - All legend cards to player 1
+  setupMaterial10(setup: AetheryaSetup) {
+    this.texts(
+      "3 players mode - All legend cards to player 1",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup3Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 1)
+  }
+  start10(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 11 - 3 players mode - All legend cards to player 2
+  setupMaterial11(setup: AetheryaSetup) {
+    this.texts(
+      "3 players mode - All legend cards to player 2",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup3Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 2)
+  }
+  start11(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 12 - 3 players mode - All legend cards to player 3
+  setupMaterial12(setup: AetheryaSetup) {
+    this.texts(
+      "3 players mode - All legend cards to player 3",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup3Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 3)
+  }
+  start12(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 13 - 4 players mode - All legend cards to player 1
+  setupMaterial13(setup: AetheryaSetup) {
+    this.texts(
+      "4 players mode - All legend cards to player 1",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup4Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 1)
+  }
+  start13(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 14 - 4 players mode - All legend cards to player 2
+  setupMaterial14(setup: AetheryaSetup) {
+    this.texts(
+      "4 players mode - All legend cards to player 2",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup4Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 2)
+  }
+  start14(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 15 - 4 players mode - All legend cards to player 3
+  setupMaterial15(setup: AetheryaSetup) {
+    this.texts(
+      "4 players mode - All legend cards to player 3",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup4Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 3)
+  }
+  start15(setup: AetheryaSetup) {
+    setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 16 - 4 players mode - All legend cards to player 4
+  setupMaterial16(setup: AetheryaSetup) {
+    this.texts(
+      "4 players mode - All legend cards to player 4",
+      "Check no card overlap",
+      "No card overlap"
+    )
+    this.basicSetup4Players(setup)
+    this.preparePlayerLegendLine(setup, this.getLegendCards(), 4)
+  }
+  start16(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
   }
 }

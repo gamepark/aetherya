@@ -30,7 +30,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     // Tests
     if (isTest(options)){
       console.log("Test mode")
-      tests.setupMaterial(this, options.test!)
+      tests.setupMaterial(this, options.test!, options.players)
       return
     }
 

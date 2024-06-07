@@ -30,14 +30,14 @@ export class PlayerHandDescription extends LocationDescription {
   getCoordinates(location: Location, context: LocationContext) {
     const baseCoordinates = this.getRegionCoordinates(location, context)
     let posX=location.x!
-    let deltaX=1.5
+    let deltaX=1.6
     if (tableDesign.isBoardRotated(location, context)){
       posX=3-posX
       deltaX=2
     }
     return {
       x: baseCoordinates.x + (legendCardDescription.width+0.5)*(posX-deltaX),
-      y: baseCoordinates.y,
+      y: baseCoordinates.y - 0.5,
       z: 2
     }
   }

@@ -33,8 +33,10 @@ export class TableDesign {
       if (position===2)
         return Corner.BottomLeft
       if (position===0)
-        return Corner.MiddleTopLeft
-      return Corner.MiddleTopRight
+//        return Corner.MiddleTopLeft
+        return Corner.TopLeft
+//      return Corner.MiddleTopRight
+      return Corner.TopRight
     }
     if (players===4){
       if (position===3)
@@ -70,9 +72,9 @@ export class TableDesign {
       case 2:
         return { xMin: -55, xMax: 57, yMin: -35, yMax: 18 }
       case 3:
-        return { xMin: -55, xMax: 57, yMin: -37, yMax: 37 }
+        return { xMin: -77, xMax: 79, yMin: -37, yMax: 37 }
       case 4:
-        return { xMin: -49, xMax: 54, yMin: -42, yMax: 42 }
+        return { xMin: -66, xMax: 68, yMin: -42, yMax: 42 }
       case 5:
         return { xMin: -55, xMax: 57, yMin: -37, yMax: 37 }
       case 6:
@@ -170,6 +172,12 @@ export class TableDesign {
     return { x: boardCoords.x + deltaX, y: boardCoords.y + deltaY, z: boardCoords.z + 1 }
   }
 
+  isPlayerLegendLineHorizontal(context: LocationContext) : boolean {
+    const { rules } = context
+    const nbPlayers = this.nbPlayers(rules)
+    return (nbPlayers==3 || nbPlayers==4)
+  }
+
   playerLegendLineCoordinates(location: Location, context: LocationContext) {
     const boardCoord = this.playerBoardCoordinates(location, context)
     const { rules } = context
@@ -177,6 +185,7 @@ export class TableDesign {
     const position=this.playerPosition(location, context)
 
     let deltaX = 0
+    let deltaY = 0
     if (nbPlayers === 1) {
       deltaX = -25
     } else if (nbPlayers === 2) {
@@ -187,27 +196,33 @@ export class TableDesign {
       }
     } else if (nbPlayers === 3) {
       if (position === 2) {
-        deltaX = -25
+        deltaX = -35
       } else if (position === 0) {
-        deltaX = -25
+        deltaX = -35
+        deltaY = 5
       } else if (position === 1) {
-        deltaX = 20
+        deltaX = 30
+        deltaY = 5
       }
     } else if (nbPlayers === 4) {
       if (position === 3) {
-        deltaX = -25
+        deltaX = -35
+        deltaY = -5
       } else if (position === 0) {
-        deltaX = -25
+        deltaX = -35
+        deltaY = 7
       } else if (position === 1) {
-        deltaX = 20
+        deltaX = 30
+        deltaY = 7
       } else if (position === 2) {
-        deltaX = 20
+        deltaX = 30
+        deltaY = -5
       }
     } else {
       // Error
       console.log('*** Unsupported table configuration')
     }
-    return { x: boardCoord.x + deltaX, y: boardCoord.y, z: boardCoord.z }
+    return { x: boardCoord.x + deltaX, y: boardCoord.y + deltaY, z: boardCoord.z }
   }
 
   commonLegendLineCoordinates(context: LocationContext) {

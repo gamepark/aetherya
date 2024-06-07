@@ -33,9 +33,7 @@ export class TableDesign {
       if (position===2)
         return Corner.BottomLeft
       if (position===0)
-//        return Corner.MiddleTopLeft
         return Corner.TopLeft
-//      return Corner.MiddleTopRight
       return Corner.TopRight
     }
     if (players===4){
@@ -175,7 +173,7 @@ export class TableDesign {
   isPlayerLegendLineHorizontal(context: LocationContext) : boolean {
     const { rules } = context
     const nbPlayers = this.nbPlayers(rules)
-    return (nbPlayers==3 || nbPlayers==4)
+    return (nbPlayers===3 || nbPlayers===4)
   }
 
   playerLegendLineCoordinates(location: Location, context: LocationContext) {

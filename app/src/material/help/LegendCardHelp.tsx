@@ -2,19 +2,36 @@
 import { css } from '@emotion/react'
 
 import { LegendCard } from '@gamepark/aetherya/material/LegendCard'
-import { MaterialHelpProps, Picture } from '@gamepark/react-game'
+import { LocationType } from '@gamepark/aetherya/material/LocationType'
+import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
+import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
+import { isMoveItemType, MoveItem } from '@gamepark/rules-api'
 import { useTranslation } from 'react-i18next'
 import legendIcon from '../../images/icon/points2.png'
 
 export const LegendCardHelp = (props: MaterialHelpProps) => {
-  const { item } = props
+  const { item, closeDialog } = props
+  return <>
+    <LegendCardText card={ item.id }/>
+    <LegendCardButton closeDialog={closeDialog}/>
+  </>
+}
+
+const LegendCardButton = ({ closeDialog }: { closeDialog: () => void }) => {
+  const { t } = useTranslation()
+  const move = useLegalMove<MoveItem>(move => isMoveItemType(MaterialType.LegendCard)(move) && move.location.type===LocationType.PlayerLegendLine)
+  if (!move) return null
+  return <p><PlayMoveButton move={move} onPlay={closeDialog}>{t('help.pick')}</PlayMoveButton></p>
+}
+
+const LegendCardText = ({ card }: { card:LegendCard|undefined }) => {
   const { t } = useTranslation()
 
-  if (item.id === undefined) {
+  if (card === undefined) {
     return <>
       <h2>{t('help.legend-card')}</h2>
     </>
-  } else if (item.id === LegendCard.LinkedHumanElf) {
+  } else if (card === LegendCard.LinkedHumanElf) {
     return <>
       <h2>{t('help.linked-human-elf')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -24,7 +41,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.linkedHumanElfCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.LinkedHumanDwarf) {
+  } else if (card === LegendCard.LinkedHumanDwarf) {
     return <>
       <h2>{t('help.linked-human-dwarf')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -34,7 +51,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
       <li>{t('help.linkedHumanDwarfCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoLinkedGoblins) {
+  } else if (card === LegendCard.TwoLinkedGoblins) {
     return <>
       <h2>{t('help.linked-goblins')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -44,7 +61,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2linkedGoblinsCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoLinkedHumans) {
+  } else if (card === LegendCard.TwoLinkedHumans) {
     return <>
       <h2>{t('help.linked-humans')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -54,7 +71,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2linkedHumansCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoLinkedElves) {
+  } else if (card === LegendCard.TwoLinkedElves) {
     return <>
       <h2>{t('help.linked-elves')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -64,7 +81,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2linkedElvesCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoLinkedDwarfs) {
+  } else if (card === LegendCard.TwoLinkedDwarfs) {
     return <>
       <h2>{t('help.linked-dwarfs')}</h2>
       <Picture src={legendIcon}/>{t('help.2points')}<br/>
@@ -74,7 +91,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2linkedDwarfsCondition')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.FourTribes) {
+  } else if (card === LegendCard.FourTribes) {
     return <>
       <h2>{t('help.all-tribes')}</h2>
       <Picture src={legendIcon}/>{t('help.4points')}<br/>
@@ -85,7 +102,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.allTribes.2')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoVsOne_GoblinHuman) {
+  } else if (card === LegendCard.TwoVsOne_GoblinHuman) {
     return <>
       <h2>{t('help.2vs1.goblin-human')}</h2>
       <Picture src={legendIcon}/>{t('help.3points')}<br/>
@@ -96,7 +113,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2vs1.goblin-human.2')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoVsOne_GoblinElf) {
+  } else if (card === LegendCard.TwoVsOne_GoblinElf) {
     return <>
       <h2>{t('help.2vs1.goblin-elf')}</h2>
       <Picture src={legendIcon}/>{t('help.3points')}<br/>
@@ -107,7 +124,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2vs1.goblin-elf.2')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoVsOne_GoblinDwarf) {
+  } else if (card === LegendCard.TwoVsOne_GoblinDwarf) {
     return <>
       <h2>{t('help.2vs1.goblin-dwarf')}</h2>
       <Picture src={legendIcon}/>{t('help.3points')}<br/>
@@ -118,7 +135,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2vs1.goblin-dwarf.2')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.TwoVsOne_ElfDwarf) {
+  } else if (card === LegendCard.TwoVsOne_ElfDwarf) {
     return <>
       <h2>{t('help.2vs1.elf-dwarf')}</h2>
       <Picture src={legendIcon}/>{t('help.3points')}<br/>
@@ -129,7 +146,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.2vs1.elf-dwarf.2')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.ThreeLinkedPlains) {
+  } else if (card === LegendCard.ThreeLinkedPlains) {
     return <>
       <h2>{t('help.linked-plains')}</h2>
       <Picture src={legendIcon}/>{t('help.4points')}<br/>
@@ -139,7 +156,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.linked-plains.1')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.ThreeLinkedSwamps) {
+  } else if (card === LegendCard.ThreeLinkedSwamps) {
     return <>
       <h2>{t('help.linked-swamps')}</h2>
       <Picture src={legendIcon}/>{t('help.4points')}<br/>
@@ -149,7 +166,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>{t('help.linked-swamps.1')}</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.ThreeLinkedMountains) {
+  } else if (card === LegendCard.ThreeLinkedMountains) {
     return <>
       <h2>{t('help.linked-mountains')}</h2>
       <Picture src={legendIcon}/>{t('help.4points')}<br/>
@@ -160,7 +177,7 @@ export const LegendCardHelp = (props: MaterialHelpProps) => {
         <li>3 mountains are adjacent</li>
       </ul>
     </>
-  } else if (item.id === LegendCard.ThreeLinkedForests) {
+  } else if (card === LegendCard.ThreeLinkedForests) {
     return <>
       <h2>{t('help.linked-forests')}</h2>
       <Picture src={legendIcon}/>{t('help.4points')}<br/>

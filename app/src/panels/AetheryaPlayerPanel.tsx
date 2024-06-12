@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { useTranslation } from 'react-i18next'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
-import { Avatar, /* Picture, */ PlayerTimer, SpeechBubbleDirection, /* useFocusContext, usePlayerId, */ usePlayerName, useRules } from '@gamepark/react-game'
-import { FC, HTMLAttributes /*, useCallback, useEffect */ } from 'react'
+import { Avatar, PlayerTimer, SpeechBubbleDirection, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { FC, HTMLAttributes } from 'react'
 import Player1 from '../images/KingdomMountain.jpg'
 import Player2 from '../images/KingdomForest.jpg'
 import Player3 from '../images/KingdomPlain.jpg'
@@ -23,9 +24,18 @@ type AetheryaPlayerPanelProps = {
 
 export const AetheryaPlayerPanel: FC<AetheryaPlayerPanelProps> = (props) => {
   const { playerId, ...rest } = props
+  const { t } = useTranslation()
   const rules = useRules<AetheryaRules>()!
-  const playerName = usePlayerName(playerId)
+  let playerName = usePlayerName(playerId)
   const turnToPlay = rules.isTurnToPlay(playerId)
+
+  // Tweak names for the tutorial
+  const me = usePlayerId()
+  const itsMe = me && playerId === me
+  const isTutorial = !rules || rules.game.tutorialStep !== undefined
+  if (isTutorial && !itsMe){
+    playerName=t('tuto.opponent')
+  }
 
   return (
     <>

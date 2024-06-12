@@ -5,24 +5,12 @@ import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
 import { MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType, isSelectItemType } from '@gamepark/rules-api'
-//import dragon3Icon from '../images/icon/dragon3_3.png'
-//import dragon5Icon from '../images/icon/dragon5_3.png'
-//import dragon6Icon from '../images/icon/dragon6_3.png'
-
 import dwarfIcon from '../images/icon/dwarf3.png'
-//import elfIcon from '../images/icon/elf3.png'
-
-//import forestIcon from '../images/icon/forest3.png'
 import goblinIcon from '../images/icon/goblin3.png'
-//import humanIcon from '../images/icon/human3.png'
-//import lockIcon from '../images/icon/lock3.png'
-//import mountainIcon from '../images/icon/mountain3.png'
-
-//import noGoblinIcon from '../images/icon/noGoblin3.png'
 import plainIcon from '../images/icon/plain3.png'
 import swampIcon from '../images/icon/swamp3.png'
 import { TutorialSetup } from './TutorialSetup'
-import { Trans } from 'react-i18next'
+import { GPTrans } from '../Translator'
 
 const me = 1
 const opponent = 2
@@ -51,7 +39,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.welcome"></Trans>
+          <GPTrans defaults="tuto.welcome"></GPTrans>
         ),
         size: { width: 120 }
       }
@@ -60,11 +48,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <Trans defaults="tuto.goal.1"></Trans><br/>
+          <GPTrans defaults="tuto.goal.1"></GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.goal.2"></Trans><br/>
+          <GPTrans defaults="tuto.goal.2"></GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.goal.3"></Trans>
+          <GPTrans defaults="tuto.goal.3"></GPTrans>
           </>
         ),
         size: { width: 120 }
@@ -74,10 +62,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <Trans defaults="tuto.board.1"></Trans><br/>
-          <Trans defaults="tuto.board.2"></Trans><br/>
+          <GPTrans defaults="tuto.board.1"></GPTrans><br/>
+          <GPTrans defaults="tuto.board.2"></GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.board.3"></Trans>
+          <GPTrans defaults="tuto.board.3"></GPTrans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -97,11 +85,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <Trans defaults="tuto.card.1"></Trans>:<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;<Trans defaults="tuto.card.2"></Trans><br/>
+          <GPTrans defaults="tuto.card.1" suffix=":"></GPTrans><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.2"></GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.card.3"></Trans>:<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;<Trans defaults="tuto.card.4"></Trans>
+          <GPTrans defaults="tuto.card.3" suffix=":"></GPTrans><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.4"></GPTrans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -121,16 +109,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <Trans defaults="tuto.land.1"></Trans><br/>
+          <GPTrans defaults="tuto.land.1"></GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.land.2">
+          <GPTrans defaults="tuto.land.2">
             <Picture src={plainIcon}/>
             <Picture src={swampIcon}/>
-          </Trans><br/>
+          </GPTrans><br/>
           &nbsp;<br/>
-          <Trans defaults="tuto.land.3"></Trans><br/>
+          <GPTrans defaults="tuto.land.3"></GPTrans><br/>
           &nbsp;<br/>
-          <b><Trans defaults="tuto.land.4"></Trans></b>
+          <b><GPTrans defaults="tuto.land.4"></GPTrans></b>
           </>
         ),
         size: { width: 95 },
@@ -151,13 +139,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.turn.1"></Trans>:<br/>
+            <GPTrans defaults="tuto.turn.1" suffix=":"></GPTrans><br/>
             &nbsp;<br/>
-            <ul><li><Trans defaults="tuto.turn.2"></Trans></li></ul>
-            <p style={{textAlign: "center"}}><Trans defaults="tuto.turn.or"></Trans></p>
-            <ul><li><Trans defaults="tuto.turn.3"></Trans></li></ul>
-            <p style={{textAlign: "center"}}><Trans defaults="tuto.turn.or"></Trans></p>
-            <ul><li><Trans defaults="tuto.turn.4"></Trans></li></ul>
+            <ul><li><GPTrans defaults="tuto.turn.2"></GPTrans></li></ul>
+            <p style={{textAlign: "center"}}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
+            <ul><li><GPTrans defaults="tuto.turn.3"></GPTrans></li></ul>
+            <p style={{textAlign: "center"}}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
+            <ul><li><GPTrans defaults="tuto.turn.4"></GPTrans></li></ul>
           </>
         ),
         size: { width: 100 }
@@ -167,8 +155,8 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <b>
-            <Trans defaults="tuto.round1.1"></Trans><br/>
-            <Trans defaults="tuto.round1.2"></Trans>
+            <GPTrans defaults="tuto.round1.1"></GPTrans><br/>
+            <GPTrans defaults="tuto.round1.2"></GPTrans>
           </b>
         ),
         position: { x: 35, y: -20 }
@@ -221,16 +209,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.conflict.1"></Trans><br/>
+            <GPTrans defaults="tuto.conflict.1"></GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.conflict.2">
+            <GPTrans defaults="tuto.conflict.2">
               <Picture src={goblinIcon}/>
               <Picture src={dwarfIcon}/>
-            </Trans><br/>
+            </GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.conflict.3"></Trans><br/>
+            <GPTrans defaults="tuto.conflict.3"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.conflict.4"></Trans></b>
+            <b><GPTrans defaults="tuto.conflict.4"></GPTrans></b>
           </>
         ),
         position: { x: 30, y: 0 }
@@ -250,9 +238,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.legend.1"></Trans><br/>
+            <GPTrans defaults="tuto.legend.1"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.legend.2"></Trans></b>
+            <b><GPTrans defaults="tuto.legend.2"></GPTrans></b>
           </>
         ),
         position: { x: 0, y: 20 },
@@ -272,7 +260,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b><Trans defaults="tuto.round2.1"></Trans></b>
+            <b><GPTrans defaults="tuto.round2.1"></GPTrans></b>
           </>
         ),
         position: { x: 35, y: -20 }
@@ -304,13 +292,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.round3.1"></Trans><br/>
+            <GPTrans defaults="tuto.round3.1"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.round3.2"></Trans></b><br/>
+            <b><GPTrans defaults="tuto.round3.2"></GPTrans></b><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.round3.3"></Trans><br/>
+            <GPTrans defaults="tuto.round3.3"></GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.round3.4"></Trans>
+            <GPTrans defaults="tuto.round3.4"></GPTrans>
           </>
         ),
         position: { x: 30, y: 10 }
@@ -362,11 +350,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.dragon.1"></Trans><br/>
+            <GPTrans defaults="tuto.dragon.1"></GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.dragon.2"></Trans><br/>
+            <GPTrans defaults="tuto.dragon.2"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.dragon.3"></Trans></b>
+            <b><GPTrans defaults="tuto.dragon.3"></GPTrans></b>
           </>
         ),
         position: { x: 25, y: 0 },
@@ -385,7 +373,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b><Trans defaults="tuto.round4.1"></Trans></b>
+            <b><GPTrans defaults="tuto.round4.1"></GPTrans></b>
           </>
         ),
         position: { x: 0, y: -30 }
@@ -413,11 +401,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.portal.1"></Trans><br/>
+            <GPTrans defaults="tuto.portal.1"></GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.portal.2"></Trans><br/>
+            <GPTrans defaults="tuto.portal.2"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.portal.3"></Trans></b>
+            <b><GPTrans defaults="tuto.portal.3"></GPTrans></b>
           </>
         ),
         position: { x: 25, y: 0 }
@@ -435,7 +423,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b><Trans defaults="tuto.round5.1"></Trans></b>
+            <b><GPTrans defaults="tuto.round5.1"></GPTrans></b>
           </>
         ),
         position: { x: 40, y: -10 }
@@ -465,9 +453,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.round6.1"></Trans><br/>
+            <GPTrans defaults="tuto.round6.1"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.round6.2"></Trans></b>
+            <b><GPTrans defaults="tuto.round6.2"></GPTrans></b>
           </>
         ),
         position: { x: 35, y: 5 }
@@ -504,7 +492,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <b><Trans defaults="tuto.round7.1"></Trans></b>
+            <b><GPTrans defaults="tuto.round7.1"></GPTrans></b>
           </>
         ),
         position: { y: -20 }
@@ -522,9 +510,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.round8.1"></Trans><br/>
+            <GPTrans defaults="tuto.round8.1"></GPTrans><br/>
             &nbsp;<br/>
-            <b><Trans defaults="tuto.round8.2"></Trans></b>
+            <b><GPTrans defaults="tuto.round8.2"></GPTrans></b>
           </>
         ),
         position: { y: -20 }
@@ -541,9 +529,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.game.over.1"></Trans><br/>
+            <GPTrans defaults="tuto.game.over.1"></GPTrans><br/>
             &nbsp;<br/>
-            <Trans defaults="tuto.game.over.2"></Trans>
+            <GPTrans defaults="tuto.game.over.2"></GPTrans>
           </>
         ),
         position: { x: 35 }
@@ -564,14 +552,14 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <Trans defaults="tuto.reminder.1"></Trans>:<br/>
+            <GPTrans defaults="tuto.reminder.1" suffix=":"></GPTrans><br/>
             <ul>
-              <li><Trans defaults="tuto.reminder.2"></Trans></li>
-              <li><Trans defaults="tuto.reminder.3"></Trans></li>
-              <li><Trans defaults="tuto.reminder.4"></Trans></li>
+              <li><GPTrans defaults="tuto.reminder.2"></GPTrans></li>
+              <li><GPTrans defaults="tuto.reminder.3"></GPTrans></li>
+              <li><GPTrans defaults="tuto.reminder.4"></GPTrans></li>
             </ul>
             &nbsp;<br/>
-            <Trans defaults="tuto.reminder.5"></Trans>
+            <GPTrans defaults="tuto.reminder.5"></GPTrans>
           </>
         )
       }
@@ -581,10 +569,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         text: () => (
           <>
             <p style={{textAlign: "center"}}>
-              <Trans defaults="tuto.closure.1"></Trans><br/>
-              <Trans defaults="tuto.closure.2"></Trans><br/>
+              <GPTrans defaults="tuto.closure.1"></GPTrans><br/>
+              <GPTrans defaults="tuto.closure.2"></GPTrans><br/>
               &nbsp;<br/>
-              <Trans defaults="tuto.closure.3"></Trans>
+              <GPTrans defaults="tuto.closure.3"></GPTrans>
             </p>
           </>
         )

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { tr } from '../../Translator'
 import { MaterialHelpProps, Picture } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
@@ -12,19 +13,20 @@ import legendIcon from '../../images/icon/points2.png'
 import conflictIcon from '../../images/icon/conflicts2.png'
 
 export const ScoreSheetHelp = (_props: MaterialHelpProps) => {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const lang=i18n.language
 
   return <>
-    <h2>{t('help.scoresheet')}</h2>
-    <Picture src={elfIcon}/>{t('help.elfPoints')}<br/>
-    <Picture src={dwarfIcon}/>{t('help.dwarfPoints')}<br/>
-    <Picture src={humanIcon}/>{t('help.humanPoints')}<br/>
-    <Picture src={goblinIcon}/>{t('help.goblinPoints')}<br/>
-    <Picture src={dragon3Icon}/>{t('help.dragonPoints')}<br/>
-    <Picture src={legendIcon}/>{t('help.legendPoints')}<br/>
-    <Picture src={conflictIcon}/>{t('help.conflictPoints')}<br/>
+    <h2>{tr(t, lang, 'help.scoresheet')}</h2>
+    <Picture src={elfIcon}/>{tr(t, lang, 'help.elfPoints')}<br/>
+    <Picture src={dwarfIcon}/>{tr(t, lang, 'help.dwarfPoints')}<br/>
+    <Picture src={humanIcon}/>{tr(t, lang, 'help.humanPoints')}<br/>
+    <Picture src={goblinIcon}/>{tr(t, lang, 'help.goblinPoints')}<br/>
+    <Picture src={dragon3Icon}/>{tr(t, lang, 'help.dragonPoints')}<br/>
+    <Picture src={legendIcon}/>{tr(t, lang, 'help.legendPoints')}<br/>
+    <Picture src={conflictIcon}/>{tr(t, lang, 'help.conflictPoints')}<br/>
     &nbsp;<br/>
-    = {t('help.totalPoints')}
+    = {tr(t, lang, 'help.totalPoints')}
     </>
 }
 export const alignIcon = css`

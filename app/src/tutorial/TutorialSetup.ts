@@ -100,6 +100,7 @@ export class TutorialSetup extends AetheryaSetup {
     this.putCard(opponent, 4, 4, false, elfDeck)
 
     // Reorder the deck
+    dwarfDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
     portalDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
     swampDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)
     goblinDeck.deal({ type: LocationType.KingdomDeck, rotation:false }, 1)

@@ -195,6 +195,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       }
     },
     {
+      popup: {
+        text: () => (
+          <>
+            <GPTrans defaults="tuto.round1.3"></GPTrans>
+          </>
+        ),
+        position: { x: 35, y: -20 }
+      }
+    },
+    {
       move: {
         player: opponent,
         filter: (move, _game) => {
@@ -203,6 +213,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             && move.location.x === 3
             && move.location.y === 2
         }
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <>
+            <GPTrans defaults="tuto.round1.4"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.round1.5"></GPTrans>
+          </>
+        ),
+        position: { x: 35, y: -20 }
       }
     },
     {
@@ -485,7 +507,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
     {
       move: {
         player: opponent,
-        filter: (_move, _game) => true
+        filter: (move, _game) => {
+          // Put card to board location (3,2)
+          return isMoveItemType(MaterialType.KingdomCard)(move)
+            && move.location.x === 4
+            && move.location.y === 2
+        }
       }
     },
     {

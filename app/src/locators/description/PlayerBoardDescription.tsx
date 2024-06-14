@@ -24,7 +24,7 @@ export class PlayerBoardDescription extends LocationDescription {
 
     if (!cardOnLocation) {
       return css`
-        border: 0.05em solid white;
+        border: 0.1em solid white;
         pointer-events: none;
       `
     }

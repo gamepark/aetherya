@@ -13,7 +13,7 @@ export class KingdomDiscardDescription extends LocationDescription {
   borderRadius = kingdomCardDescription.borderRadius
 
   alwaysVisible = true
-  extraCss = css`border: 0.05em solid white`
+  extraCss = css`border: 0.1em solid white`
 
   location = { type: LocationType.KingdomDiscard }
   getCoordinates(_location: Location, context: LocationContext) {

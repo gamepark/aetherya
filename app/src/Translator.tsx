@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ReactChild } from 'react'
 
 export function typo(language:string, txt:string) : string {
-  if (language=='fr'){
+  if (language==='fr'){
     // non-break space before ':'
     return txt.replaceAll(':','\u00A0:')
   } else {
@@ -20,12 +20,12 @@ export function tr2(t:TFunction, language:string, tag:string, suffix:string) : s
   return typo(language, t(tag)+suffix)
 }
 
-export const GPTrans_inner = ({ txt, children }: { txt:string, children:ReactChild[] }) => {
+export const GPTransInner = ({ txt, children }: { txt:string, children:ReactChild[] }) => {
   const regexp=/<([0-9]+)\/>/
   const txts=txt.split(regexp)
   const res:string|ReactChild[]=[]
   for (let i=0; i<txts.length; i++){
-    if (i % 2 == 0){
+    if (i % 2 === 0){
       // Text
       res.push(txts[i])
     } else {
@@ -46,5 +46,5 @@ export const GPTrans = ({ children, defaults, suffix }: { children?:ReactChild[]
   let txt=tr2(t, lang, defaults, suffix===undefined ? "" : suffix)
   if (children===undefined)
     return <>{txt}</>
-  return <GPTrans_inner txt={txt} children={children}></GPTrans_inner>
+  return <GPTransInner txt={txt} children={children}></GPTransInner>
 }

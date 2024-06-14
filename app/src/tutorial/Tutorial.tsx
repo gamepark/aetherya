@@ -143,9 +143,13 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
             &nbsp;<br/>
             <ul><li><GPTrans defaults="tuto.turn.2"></GPTrans></li></ul>
             <p style={{textAlign: "center"}}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
-            <ul><li><GPTrans defaults="tuto.turn.3"></GPTrans></li></ul>
-            <p style={{textAlign: "center"}}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
-            <ul><li><GPTrans defaults="tuto.turn.4"></GPTrans></li></ul>
+            <ul><li>
+            <GPTrans defaults="tuto.turn.3"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.turn.4"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.turn.5"></GPTrans>
+            </li></ul>
           </>
         ),
         size: { width: 100 }

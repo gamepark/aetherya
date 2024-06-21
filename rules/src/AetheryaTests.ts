@@ -42,7 +42,7 @@ export class AetheryaTests {
     let expectedNbPlayers=2
     if (testId>=10 && testId<=12)
       expectedNbPlayers=3
-    else if (testId>12)
+    else if (testId>12 && testId<=16)
       expectedNbPlayers=4
 
     if (nbPlayers!=expectedNbPlayers){
@@ -104,6 +104,9 @@ export class AetheryaTests {
       case 16:
         this.setupMaterial16(setup)
         break
+      case 17:
+        this.setupMaterial17(setup)
+        break
 
       default:
         console.log("*** Unknown test")
@@ -159,6 +162,9 @@ export class AetheryaTests {
         break
       case 16:
         this.start16(setup)
+        break
+      case 17:
+        this.start17(setup)
         break
 
       default:
@@ -773,6 +779,38 @@ export class AetheryaTests {
   }
   start16(setup: AetheryaSetup) {
     setup.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, 1)
+  }
+
+  // Test 17 - Tie break
+  setupMaterial17(setup: AetheryaSetup) {
+    this.texts(
+      "Tie break",
+      "Nothing to do",
+      "First player must win thanks to the higher subtotal (18 points for dragons)"
+    )
+
+    const board1=[
+      [H, N, M, N],
+      [H, D, N, M],
+      [D, H, L, G],
+      [H, D, S, G]
+    ]
+    const board2=[
+      [M, D, E, F],
+      [M, E, F, G],
+      [P, F, G, S],
+      [P, P, S, L]
+    ]
+    const board1Visibility=this.basicVisibility()
+    const board2Visibility=this.basicVisibility()
+    const legendLine:LegendCard[]=[]
+    this.prepareBoard_2players(setup, board1, board2, board1Visibility, board2Visibility, legendLine, H)
+
+    this.preparePlayerLegendLine(setup, [LG_LHE, LG_LHD], 1)
+    this.preparePlayerLegendLine(setup, [LG_DDE, LG_GGD, LG_PPP], 2)
+  }
+  start17(setup: AetheryaSetup) {
+    setup.startRule(RuleId.RevealAllBoardCards)
   }
 }
 

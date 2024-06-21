@@ -602,6 +602,26 @@ export class Score {
     })
     return res
   }
+
+  getTieBreaker(tieBreaker: number, scoreDetails: PlayerScore): number | undefined {
+    // The highest score among the 7 categories is used
+    // Otherwise the next highest score, etc.
+    const values = [
+      scoreDetails.elfPoints,
+      scoreDetails.dwarfPoints,
+      scoreDetails.humanPoints,
+      scoreDetails.goblinPoints,
+      scoreDetails.dragonPoints,
+      scoreDetails.legendPoints,
+      scoreDetails.conflictPoints
+    ]
+    // Order values - highest to smallest - Numeric sort
+    values.sort(function (a, b) {
+      return b - a
+    })
+
+    return values[tieBreaker - 1]
+  }
 }
 
 export const score = new Score()

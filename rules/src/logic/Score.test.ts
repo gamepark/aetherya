@@ -1,4 +1,5 @@
 import { KingdomCard } from '../material/KingdomCard'
+import { LegendCard } from '../material/LegendCard'
 import { score } from './Score'
 
 const P = KingdomCard.Plain
@@ -10,6 +11,7 @@ const E = KingdomCard.Elf
 const N = KingdomCard.Dwarf
 const G = KingdomCard.Goblin
 const D = KingdomCard.Dragon
+const L = KingdomCard.Portal
 
 describe('Score tests', () => {
   test('No points', () => {
@@ -165,8 +167,29 @@ describe('Score tests', () => {
       [D, E, E, E]
     ]
     const playerScore = score.detailedPlayerScoreFromGrid(board, [])
-    expect(playerScore.dragonPoints).toBe(-24)
-    expect(playerScore.total).toBe(-24)
+    expect(playerScore.dragonPoints).toBe(12) // 3 domesticated dragons + 1 non-domesticated one
+    expect(playerScore.total).toBe(12)
+  })
+
+  test('tie break', () => {
+    const board = [
+      [H, N, M, N],
+      [H, D, N, M],
+      [D, H, L, G],
+      [H, D, S, G]
+    ]
+    const playerScore = score.detailedPlayerScoreFromGrid(board, [
+      LegendCard.LinkedHumanElf,
+      LegendCard.LinkedHumanDwarf
+    ])
+    expect(playerScore.total).toBe(30)
+    expect(score.getTieBreaker(1, playerScore)).toBe(18)
+    expect(score.getTieBreaker(2, playerScore)).toBe(10)
+    expect(score.getTieBreaker(3, playerScore)).toBe(4)
+    expect(score.getTieBreaker(4, playerScore)).toBe(3)
+    expect(score.getTieBreaker(5, playerScore)).toBe(0)
+    expect(score.getTieBreaker(6, playerScore)).toBe(-1)
+    expect(score.getTieBreaker(7, playerScore)).toBe(-4)
   })
 
   // TODO - Portal tests

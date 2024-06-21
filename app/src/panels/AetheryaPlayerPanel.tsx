@@ -13,9 +13,6 @@ import Player2 from '../images/KingdomForest.jpg'
 import Player3 from '../images/KingdomPlain.jpg'
 import Player4 from '../images/Volcan.png'
 
-import Day from '../images/time/day.png'
-import Night from '../images/time/night.png'
-
 import { Memory } from '@gamepark/aetherya/rules/Memory'
 
 type AetheryaPlayerPanelProps = {
@@ -27,7 +24,6 @@ export const AetheryaPlayerPanel: FC<AetheryaPlayerPanelProps> = (props) => {
   const { t } = useTranslation()
   const rules = useRules<AetheryaRules>()!
   let playerName = usePlayerName(playerId)
-  const turnToPlay = rules.isTurnToPlay(playerId)
 
   // Tweak names for the tutorial
   const me = usePlayerId()
@@ -40,7 +36,6 @@ export const AetheryaPlayerPanel: FC<AetheryaPlayerPanelProps> = (props) => {
   return (
     <>
       <div css={[panelPlayerStyle, panelStyle(playerId)]} {...rest}>
-        <div css={turnToPlay ? day : night}></div>
         <Avatar css={avatarStyle} playerId={playerId} speechBubbleProps={{ direction: SpeechBubbleDirection.BOTTOM_LEFT }}/>
         <h2 css={[nameStyle, data]}>{playerName}</h2>
         <Timer {...props} />
@@ -164,29 +159,6 @@ const data = css`
   padding: 0.1em 0.3em;
   border-radius: 0.4em;
   z-index: 2;
-`
-
-const day = css`
-  position: absolute;
-  top: -1em;
-  left: -0.85em;
-  height: 7.9em;
-  width: 8.4em;
-  background-size: contain;
-  background-image: url(${Day});
-  background-repeat: no-repeat;
-`
-
-const night = css`
-  position: absolute;
-  top: -1em;
-  left: -0.85em;
-  height: 7.9em;
-  width: 8.4em;
-  background-size: contain;
-  background-image: url(${Night});
-  background-repeat: no-repeat;
-}
 `
 
 const timerStyle = css`

@@ -21,6 +21,10 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
     }
   }
 
+  highlight(_: MaterialItem, { rules }: ItemContext) {
+    return rules.isOver()
+  }
+
   getLocations(_item: MaterialItem, context: ItemContext) {
     const rules = context.rules as AetheryaRules
 

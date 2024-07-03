@@ -7,7 +7,6 @@ import { TFunction } from 'i18next'
  */
 export type AetheryaOptions = {
   players: number,
-  test?: number,
   realTimeScore: boolean
 }
 

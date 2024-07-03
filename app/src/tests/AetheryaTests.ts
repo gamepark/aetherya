@@ -1,9 +1,9 @@
-import { AetheryaSetup } from './AetheryaSetup'
-import { KingdomCard } from './material/KingdomCard'
-import { LegendCard } from './material/LegendCard'
-import { LocationType } from './material/LocationType'
-import { MaterialType } from './material/MaterialType'
-import { RuleId } from './rules/RuleId'
+import { AetheryaSetup } from '@gamepark/aetherya/AetheryaSetup'
+import { KingdomCard } from '@gamepark/aetherya/material/KingdomCard'
+import { LegendCard } from '@gamepark/aetherya/material/LegendCard'
+import { LocationType } from '@gamepark/aetherya/material/LocationType'
+import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
+import { RuleId } from '@gamepark/aetherya/rules/RuleId'
 
 const P = KingdomCard.Plain
 const F = KingdomCard.Forest

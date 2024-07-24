@@ -14,4 +14,4 @@ aetheryaAnimations.when()
 
 aetheryaAnimations.when()
   .move(isMoveItemsAtOnce)
-  .duration(0.2)
+  .none()

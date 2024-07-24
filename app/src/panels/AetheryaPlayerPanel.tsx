@@ -28,7 +28,7 @@ export const AetheryaPlayerPanel: FC<AetheryaPlayerPanelProps> = (props) => {
   // Tweak names for the tutorial
   const me = usePlayerId()
   const itsMe = me && playerId === me
-  const isTutorial = !rules || rules.game.tutorialStep !== undefined
+  const isTutorial = !rules || rules.game.tutorial?.step !== undefined
   if (isTutorial && !itsMe){
     playerName=t('tuto.opponent')
   }

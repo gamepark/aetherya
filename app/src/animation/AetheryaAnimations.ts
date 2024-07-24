@@ -1,6 +1,6 @@
 import { MaterialGameAnimations } from '@gamepark/react-game'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { isMoveItemsAtOnce, isMoveItemType } from '@gamepark/rules-api'
 
 export const aetheryaAnimations = new MaterialGameAnimations()
 
@@ -11,3 +11,7 @@ aetheryaAnimations.when()
 aetheryaAnimations.when()
   .move((move) => isMoveItemType(MaterialType.LegendCard)(move))
   .duration(0.6)
+
+aetheryaAnimations.when()
+  .move(isMoveItemsAtOnce)
+  .duration(0.2)

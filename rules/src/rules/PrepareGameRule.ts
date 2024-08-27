@@ -30,7 +30,7 @@ export class PrepareGameRule extends SimultaneousRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.KingdomCard)(move)) return []
+    if (!isMoveItemType(MaterialType.KingdomCard)(move) || move.location.type !== LocationType.PlayerBoard) return []
 
     const item = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)!
     const playerId = item.location.player!

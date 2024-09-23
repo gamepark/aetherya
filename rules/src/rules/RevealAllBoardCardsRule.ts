@@ -11,7 +11,7 @@ export class RevealAllBoardCardsRule extends MaterialRulesPart {
         .location(LocationType.PlayerBoard)
         .filter(item => !item.location.rotation)
         .moveItemsAtOnce({rotation:true}),
-      this.rules().startRule(RuleId.Score)
+      this.startRule(RuleId.Score)
     ]
   }
 }

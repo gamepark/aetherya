@@ -194,7 +194,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, game) => {
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
+            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex).location.type === LocationType.KingdomDeck
         }
       }
     },
@@ -357,7 +357,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, game) => {
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
+            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex).location.type === LocationType.KingdomDeck
         }
       }
     },
@@ -419,7 +419,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, game) => {
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
+            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex).location.type === LocationType.KingdomDeck
         }
       }
     },
@@ -533,7 +533,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
         filter: (move, game) => {
           // Get card from deck
           return isMoveItemType(MaterialType.KingdomCard)(move)
-            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex)!.location.type === LocationType.KingdomDeck
+            && this.material(game, MaterialType.KingdomCard).getItem(move.itemIndex).location.type === LocationType.KingdomDeck
         }
       }
     },

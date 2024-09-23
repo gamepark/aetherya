@@ -13,6 +13,6 @@ export class ScoreRule extends MaterialRulesPart {
         this.material(MaterialType.LegendCard)
       )
     }
-    return [ this.rules().endGame() ]
+    return [ this.endGame() ]
   }
 }

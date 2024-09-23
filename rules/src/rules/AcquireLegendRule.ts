@@ -10,9 +10,9 @@ export class AcquireLegendRule extends PlayerTurnRule {
   onRuleStart(move: RuleMove): MaterialMove[] {
     if (isStartRule(move) && move.id === RuleId.AcquireLegend) {
       if (this.isKingdomComplete) {
-        return [ this.rules().startRule(RuleId.RevealAllBoardCards) ]
+        return [ this.startRule(RuleId.RevealAllBoardCards) ]
       } else if (this.remind(Memory.PickedLegend) || !this.getPlayerLegendMoves().length) {
-        return [this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
+        return [this.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer)]
       }
     }
     return []
@@ -64,7 +64,7 @@ export class AcquireLegendRule extends PlayerTurnRule {
       // Note: deal(,1) rather than dealOne() to avoid errors in case of empty deck
       const consequences: MaterialMove[] = this.legendDeck().deal({ type: LocationType.LegendLine }, 1)
       if (this.game.rule!.id === RuleId.AcquireLegend) {
-        consequences.push(this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer))
+        consequences.push(this.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.nextPlayer))
       } else {
         this.memorize(Memory.PickedLegend, true)
       }

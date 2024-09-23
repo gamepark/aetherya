@@ -32,7 +32,7 @@ export class PrepareGameRule extends SimultaneousRule {
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.KingdomCard)(move) || move.location.type !== LocationType.PlayerBoard) return []
 
-    const item = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)!
+    const item = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)
     const playerId = item.location.player!
 
     const handCards =
@@ -41,7 +41,7 @@ export class PrepareGameRule extends SimultaneousRule {
       .player(playerId)
 
     if (handCards.length==0)
-      return [this.rules().endPlayerTurn(playerId)]
+      return [this.endPlayerTurn(playerId)]
 
     return []
   }
@@ -49,7 +49,7 @@ export class PrepareGameRule extends SimultaneousRule {
   getMovesAfterPlayersDone() {
     return [
       this.material(MaterialType.KingdomCard).location(LocationType.KingdomDeck).deck().dealOne({ type: LocationType.KingdomDiscard, rotation:true }),
-      this.rules().startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.game.players[0])
+      this.startPlayerTurn(RuleId.DrawOrPlaceDiscardCard, this.game.players[0])
     ]
   }
 }

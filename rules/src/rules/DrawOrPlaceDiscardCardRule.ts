@@ -22,9 +22,9 @@ export class DrawOrPlaceDiscardCardRule extends PlaceDiscardCardRule {
   beforeItemMove(move: ItemMove): MaterialMove[] {
     const consequences = super.beforeItemMove(move)
     if (isMoveItemType(MaterialType.KingdomCard)(move) && move.location.type === LocationType.KingdomDiscard) {
-      const movedCard = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)!
+      const movedCard = this.material(MaterialType.KingdomCard).getItem(move.itemIndex)
       if (movedCard.location.type === LocationType.KingdomDeck) {
-        consequences.push(this.rules().startRule(RuleId.PlaceDiscardCard))
+        consequences.push(this.startRule(RuleId.PlaceDiscardCard))
       }
     }
     return consequences

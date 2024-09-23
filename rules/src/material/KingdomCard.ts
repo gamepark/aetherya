@@ -1,4 +1,4 @@
-import { isEnumValue } from '@gamepark/rules-api'
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum KingdomCard {
   Plain = 1,
@@ -13,4 +13,4 @@ export enum KingdomCard {
   Dragon = 10
 }
 
-export const kingdomCards = Object.values(KingdomCard).filter(isEnumValue)
+export const kingdomCards = getEnumValues(KingdomCard)

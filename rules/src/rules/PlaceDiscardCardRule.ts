@@ -52,7 +52,7 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
           .location(l => l.type === LocationType.PlayerBoard && l.player === this.player && l.x === move.location.x && l.y === move.location.y)
         return [
           boardCard.moveItem({ type: LocationType.KingdomDiscard, rotation: true }),
-          this.rules().startRule(RuleId.AcquireLegend)
+          this.startRule(RuleId.AcquireLegend)
         ]
       }
     }
@@ -68,7 +68,7 @@ export class PlaceDiscardCardRule extends AcquireLegendRule {
       // and move to next player's turn if needed
       return [
         ...cards.moveItems({ rotation:true }),
-        this.rules().startRule(RuleId.AcquireLegend)
+        this.startRule(RuleId.AcquireLegend)
       ]
     }
     return super.afterItemMove(move)

@@ -79,7 +79,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
 
   discardDuplicates(player: number) {
     const hand = this.material(MaterialType.KingdomCard).location(LocationType.PlayerHand).player(player)
-    const duplicates = hand.filter((item, index) => hand.getIndexes().some(i => i < index && hand.getItem(i)?.id === item.id))
+    const duplicates = hand.filter((item, index) => hand.getIndexes().some(i => i < index && hand.getItem(i).id === item.id))
     if (duplicates.length > 0) {
       duplicates.moveItems({type: LocationType.KingdomDiscard})
     }

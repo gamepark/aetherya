@@ -52,8 +52,9 @@ export class AetheryaRules extends HiddenMaterialRules<PlayerId, MaterialType, L
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     },
     [MaterialType.LegendCard]: {
+      [LocationType.LegendDeck]: new PositiveSequenceStrategy(),
       [LocationType.LegendLine]: new FillGapStrategy(),
-      [LocationType.PlayerLegendLine]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerLegendLine]: new PositiveSequenceStrategy()
     }
   }
 

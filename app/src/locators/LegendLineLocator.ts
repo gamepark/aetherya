@@ -1,17 +1,44 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import { LegendLineDescription } from './description/LegendLineDescription'
+import { LocationType } from '@gamepark/aetherya/material/LocationType'
+import { FlexLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
+import { legendCardDescription } from '../material/LegendCardDescription'
 
-export class LegendLineLocator extends ItemLocator {
-  locationDescription = new LegendLineDescription()
+export class LegendLineLocator extends FlexLocator {
 
-  getPosition(item: MaterialItem, context: ItemContext) {
-    return {
-      ...this.locationDescription.getCoordinates(item.location, context),
-      z:0.05
+  getLocations(_context: MaterialContext): Location[] {
+    const locations: Location[] = []
+    for (let i = 0; i < 8; i++) {
+      locations.push({
+        type: LocationType.LegendLine,
+        x: i
+      })
+    }
+    return locations
+  }
+
+  getAreaCoordinates(_: Location, { rules: { players } }: MaterialContext) {
+    switch (players.length) {
+      case 1:
+        return { x: -25, y: -25 }
+      case 2:
+        return { y: -25 }
+      case 3:
+        return { x: 25, y: -13 }
+      default:
+        return { x: 25 }
     }
   }
+
+  getCoordinates(location: Location, context: MaterialContext) {
+    const { x = 0, y = 0 } = this.getAreaCoordinates(location, context)
+    return { x: x - this.gap.x * 1.5, y: y - this.lineGap.y * 0.5 }
+  }
+
+  gap = { x: legendCardDescription.width + 0.5 }
+  lineGap = { y: legendCardDescription.height + 0.5 }
+  lineSize = 4
+  maxLines = 2
 }
 
 export const legendLineLocator = new LegendLineLocator()

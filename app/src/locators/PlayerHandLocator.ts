@@ -1,24 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import { PlayerHandDescription } from './description/PlayerHandDescription'
-import { tableDesign } from './position/TableDesign'
+import { ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
+import { legendCardDescription } from '../material/LegendCardDescription'
+import { playerBoardLocator } from './PlayerBoardLocator'
 
-export class PlayerHandLocator extends ItemLocator {
-  locationDescription = new PlayerHandDescription()
+class PlayerHandLocator extends ListLocator {
 
-  getPosition(item: MaterialItem, context: ItemContext) {
-    return {
-      ...this.locationDescription.getCoordinates(item.location, context),
-      z:2.05
-    }
+  getCoordinates(location: Location, context: MaterialContext) {
+    const { x = 0, y = 0 } = playerBoardLocator.getCoordinates(location, context)
+    return { x: x - 10, y: y + 12.5, z: 1 }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext): number {
-    if (tableDesign.isBoardRotated(item.location, context))
-      return 180
-    return 0
-  }
+  gap = { x: legendCardDescription.width + 0.5 }
 }
 
 export const playerHandLocator = new PlayerHandLocator()

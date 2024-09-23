@@ -1,16 +1,16 @@
 import { KingdomCard } from '@gamepark/aetherya/material/KingdomCard'
 import { CardDescription } from '@gamepark/react-game'
 import KingdomBack from '../images/KingdomBack.jpg'
-import Plain from '../images/KingdomPlain.jpg'
-import Swamp from '../images/KingdomSwamp.jpg'
-import Mountain from '../images/KingdomMountain.jpg'
+import Dragon from '../images/KingdomDragon.jpg'
+import Dwarf from '../images/KingdomDwarf.jpg'
+import Elf from '../images/KingdomElf.jpg'
 import Forest from '../images/KingdomForest.jpg'
 import Goblin from '../images/KingdomGoblin.jpg'
 import Human from '../images/KingdomHuman.jpg'
-import Elf from '../images/KingdomElf.jpg'
-import Dwarf from '../images/KingdomDwarf.jpg'
+import Mountain from '../images/KingdomMountain.jpg'
+import Plain from '../images/KingdomPlain.jpg'
 import Portal from '../images/KingdomPortal.jpg'
-import Dragon from '../images/KingdomDragon.jpg'
+import Swamp from '../images/KingdomSwamp.jpg'
 import { KingdomCardHelp } from './help/KingdomCardHelp'
 
 export class KingdomCardDescription extends CardDescription {
@@ -36,4 +36,3 @@ export class KingdomCardDescription extends CardDescription {
 }
 
 export const kingdomCardDescription = new KingdomCardDescription()
-export const spaceBetweenKingdomCards = 1

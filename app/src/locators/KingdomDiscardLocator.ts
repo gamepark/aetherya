@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { DeckLocator, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import { KingdomDiscardDescription } from './description/KingdomDiscardDescription'
-import { tableDesign } from './position/TableDesign'
+import { Location } from '@gamepark/rules-api'
+import { kingdomDeckLocator } from './KingdomDeckLocator'
 
-export class KingdomDiscardLocator extends DeckLocator {
-  locationDescription = new KingdomDiscardDescription()
+class KingdomDiscardLocator extends DeckLocator {
 
-  getCoordinates(_item: MaterialItem, context: ItemContext) {
-    return tableDesign.kingdomDiscardCoordinates(context)
+  getCoordinates(location: Location, context: ItemContext) {
+    const { x = 0 } = kingdomDeckLocator.getCoordinates(location, context)
+    return { x: x + 10 }
   }
 
-  navigationSorts=[]
+  navigationSorts = []
 }
 
 export const kingdomDiscardLocator = new KingdomDiscardLocator()

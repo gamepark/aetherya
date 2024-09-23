@@ -1,7 +1,7 @@
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
-import { ItemLocator } from '@gamepark/react-game'
+import { Locator } from '@gamepark/react-game'
 import { kingdomDeckLocator } from './KingdomDeckLocator'
 import { kingdomDiscardLocator } from './KingdomDiscardLocator'
 import { legendDeckLocator } from './LegendDeckLocator'
@@ -12,7 +12,7 @@ import { playerLegendLineLocator } from './PlayerLegendLineLocator'
 import { scoreSheetBoxLocator } from './ScoreSheetBoxLocator'
 import { scoreSheetLocator } from './ScoreSheetLocator'
 
-export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, MaterialType, LocationType>>> = {
+export const Locators: Partial<Record<LocationType, Locator<PlayerId, MaterialType, LocationType>>> = {
   [LocationType.KingdomDeck]: kingdomDeckLocator,
   [LocationType.KingdomDiscard]: kingdomDiscardLocator,
   [LocationType.LegendDeck]: legendDeckLocator,

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { LegendCard } from '@gamepark/aetherya/material/LegendCard'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { PlayerId } from '@gamepark/aetherya/PlayerId'
@@ -9,8 +10,8 @@ import dwarfIcon from '../images/icon/dwarf3.png'
 import goblinIcon from '../images/icon/goblin3.png'
 import plainIcon from '../images/icon/plain3.png'
 import swampIcon from '../images/icon/swamp3.png'
-import { TutorialSetup } from './TutorialSetup'
 import { GPTrans } from '../Translator'
+import { TutorialSetup } from './TutorialSetup'
 
 const me = 1
 const opponent = 2
@@ -22,18 +23,18 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
 
   players = [{ id: me }, { id: opponent }]
 
-/*
-  A mettre sur le site, pas dans le tuto
+  /*
+    A mettre sur le site, pas dans le tuto
 
-  Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus diverses.<br/>
-  &nbsp;<br/>
-  Votre objectif sera d'agencer au-mieux les cartes de votre Royaume afin de gagner des points d'Harmonie.
+    Dans Aetherya, chaque joueur va explorer des terres sauvages et bâtir un Royaume constitué de Terrains variés, peuplé de créatures et de Tribus diverses.<br/>
+    &nbsp;<br/>
+    Votre objectif sera d'agencer au-mieux les cartes de votre Royaume afin de gagner des points d'Harmonie.
 
-  Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes
-  Légendes également génératrices de points d'Harmonie.<br/>
-  &nbsp;<br/>
-  Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
-*/
+    Tous feront en sorte de totaliser un maximum de points d'Harmonie en agençant au mieux leurs cartes Royaume tout en faisant l'acquisition de cartes
+    Légendes également génératrices de points d'Harmonie.<br/>
+    &nbsp;<br/>
+    Le joueur qui, à la fin de la partie, totalisera le plus de points sera déclaré héros légendaire d'Aetherya.
+  */
 
   steps: TutorialStep[] = [
     {
@@ -48,11 +49,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <GPTrans defaults="tuto.goal.1"></GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.goal.2"></GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.goal.3"></GPTrans>
+            <GPTrans defaults="tuto.goal.1"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.goal.2"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.goal.3"></GPTrans>
           </>
         ),
         size: { width: 120 }
@@ -62,10 +63,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <GPTrans defaults="tuto.board.1"></GPTrans><br/>
-          <GPTrans defaults="tuto.board.2"></GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.board.3"></GPTrans>
+            <GPTrans defaults="tuto.board.1"></GPTrans><br/>
+            <GPTrans defaults="tuto.board.2"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.board.3"></GPTrans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -85,11 +86,11 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <GPTrans defaults="tuto.card.1" suffix=":"></GPTrans><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.2"></GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.card.3" suffix=":"></GPTrans><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.4"></GPTrans>
+            <GPTrans defaults="tuto.card.1" suffix=":"></GPTrans><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.2"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.card.3" suffix=":"></GPTrans><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<GPTrans defaults="tuto.card.4"></GPTrans>
           </>
         ),
         position: { x: 40, y: 0 }
@@ -109,16 +110,16 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-          <GPTrans defaults="tuto.land.1"></GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.land.2">
-            <Picture src={plainIcon}/>
-            <Picture src={swampIcon}/>
-          </GPTrans><br/>
-          &nbsp;<br/>
-          <GPTrans defaults="tuto.land.3"></GPTrans><br/>
-          &nbsp;<br/>
-          <b><GPTrans defaults="tuto.land.4"></GPTrans></b>
+            <GPTrans defaults="tuto.land.1"></GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.land.2">
+              <Picture src={plainIcon}/>
+              <Picture src={swampIcon}/>
+            </GPTrans><br/>
+            &nbsp;<br/>
+            <GPTrans defaults="tuto.land.3"></GPTrans><br/>
+            &nbsp;<br/>
+            <b><GPTrans defaults="tuto.land.4"></GPTrans></b>
           </>
         ),
         size: { width: 95 },
@@ -141,15 +142,19 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           <>
             <GPTrans defaults="tuto.turn.1" suffix=":"></GPTrans><br/>
             &nbsp;<br/>
-            <ul><li><GPTrans defaults="tuto.turn.2"></GPTrans></li></ul>
-            <p style={{textAlign: "center"}}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
-            <ul><li>
-            <GPTrans defaults="tuto.turn.3"></GPTrans><br/>
-            &nbsp;<br/>
-            <GPTrans defaults="tuto.turn.4"></GPTrans><br/>
-            &nbsp;<br/>
-            <GPTrans defaults="tuto.turn.5"></GPTrans>
-            </li></ul>
+            <ul>
+              <li><GPTrans defaults="tuto.turn.2"></GPTrans></li>
+            </ul>
+            <p style={{ textAlign: 'center' }}><GPTrans defaults="tuto.turn.or"></GPTrans></p>
+            <ul>
+              <li>
+                <GPTrans defaults="tuto.turn.3"></GPTrans><br/>
+                &nbsp;<br/>
+                <GPTrans defaults="tuto.turn.4"></GPTrans><br/>
+                &nbsp;<br/>
+                <GPTrans defaults="tuto.turn.5"></GPTrans>
+              </li>
+            </ul>
           </>
         ),
         size: { width: 100 }
@@ -167,10 +172,10 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
           this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
-          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 2 && l.y === 1)
         ],
+        scale: 0.5,
         margin: {
           top: 2,
           bottom: 10,
@@ -293,14 +298,14 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDeck),
           this.material(game, MaterialType.KingdomCard).location(LocationType.KingdomDiscard),
-          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+          this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 4 && l.y === 3)
         ],
+        scale: 0.5,
         margin: {
           top: 2,
           bottom: 10,
-          left: 2,
+          left: 20,
           right: 25
         }
       }),
@@ -332,11 +337,9 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       focus: (game) =>
         ({
           materials: [
-            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me),
-            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 1)
-          ],
-          locations: [
-            this.location(LocationType.PlayerLegendLine).player(me).x(1).location
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 3 && l.y === 3),
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 4 && l.y === 3),
+            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).id(LegendCard.LinkedHumanElf)
           ],
           margin: {
             top: 5,
@@ -489,12 +492,12 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       focus: (game) =>
         ({
           materials: [
-            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).location((l) => l.x === 7),
-            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me)
+            this.material(game, MaterialType.LegendCard).location(LocationType.LegendLine).id(LegendCard.LinkedHumanDwarf),
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 2 && l.y === 2),
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 3 && l.y === 2),
+            this.material(game, MaterialType.KingdomCard).location(LocationType.PlayerBoard).player(me).location(l => l.x === 3 && l.y === 3)
           ],
-          locations: [
-            this.location(LocationType.PlayerLegendLine).player(me).x(2).location
-          ],
+          scale: 0.5,
           margin: {
             left: 10,
             right: 10
@@ -575,7 +578,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
           margin: {
             right: 30,
             top: 2,
-            bottom: 5,
+            bottom: 5
           }
         })
     },
@@ -599,7 +602,7 @@ export class Tutorial extends MaterialTutorial<PlayerId, MaterialType, LocationT
       popup: {
         text: () => (
           <>
-            <p style={{textAlign: "center"}}>
+            <p style={{ textAlign: 'center' }}>
               <GPTrans defaults="tuto.closure.1"></GPTrans><br/>
               <GPTrans defaults="tuto.closure.2"></GPTrans><br/>
               &nbsp;<br/>

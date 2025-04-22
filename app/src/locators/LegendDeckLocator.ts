@@ -9,7 +9,7 @@ class LegendDeckLocator extends DeckLocator {
       case 2:
         return { x: -20, y: -25 }
       case 3:
-        return { x: 5, y: 0 }
+        return { x: 5, y: 10 }
       default:
         return { x: 5 }
     }

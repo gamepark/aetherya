@@ -24,7 +24,7 @@ export class LegendLineLocator extends FlexLocator {
       case 2:
         return { y: -25 }
       case 3:
-        return { x: 25, y: 3.7 }
+        return { x: 25, y: 13.7 }
       default:
         return { x: 25 }
     }

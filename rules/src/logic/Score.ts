@@ -152,9 +152,9 @@ export class GridCoordSet {
   }
 
   has(coord: GridCoord):boolean {
-    let nbItems=this.items.length
+    const nbItems=this.items.length
     for (let i=0; i<nbItems; i++){
-      let item=this.items[i]
+      const item=this.items[i]
       if (item.x==coord.x && item.y==coord.y)
         return true
     }
@@ -166,7 +166,7 @@ export class Score {
   playerScore(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>,
     allLegendCards:Material<number, MaterialType, LocationType>) : number {
-    let detailedScore=this.detailedPlayerScore(player, allKingdomCards, allLegendCards)
+    const detailedScore=this.detailedPlayerScore(player, allKingdomCards, allLegendCards)
     return detailedScore.total
   }
 
@@ -177,13 +177,13 @@ export class Score {
   toGrid(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>):KingdomCard[][]{
 
-    let board=allKingdomCards.location(LocationType.PlayerBoard)
+    const board=allKingdomCards.location(LocationType.PlayerBoard)
       .player(player)
 
-    let boardCards:number[][]=[[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1]]
-    let items=board.getItems()
+    const boardCards:number[][]=[[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1]]
+    const items=board.getItems()
     for (let i=0; i<items.length; i++){
-      let item=items[i]
+      const item=items[i]
       this.setGrid(boardCards, item.location.x!, item.location.y!, item.id)
     }
 
@@ -194,9 +194,9 @@ export class Score {
     allKingdomCards:Material<number, MaterialType, LocationType>,
     allLegendCards:Material<number, MaterialType, LocationType>) : PlayerScore {
     // Aggregate kingdom card ids into a 4x4 array
-    let boardCards=this.toGrid(player, allKingdomCards)
+    const boardCards=this.toGrid(player, allKingdomCards)
 
-    let allLegendCardIds:LegendCard[]=[]
+    const allLegendCardIds:LegendCard[]=[]
 
     allLegendCards.location(LocationType.PlayerLegendLine)
       .player(player)
@@ -223,7 +223,7 @@ export class Score {
 
     for (let i=0; i<4; i++){
       for (let j=0; j<4; j++){
-        let currentCard=boardCards[i][j]
+        const currentCard=boardCards[i][j]
         if (currentCard === undefined){
           // Undefined card - No points
         } else if (currentCard==KingdomCard.Plain ||
@@ -234,7 +234,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Goblin){
           // Conflicts
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Human ||
               adjacentCardType==KingdomCard.Elf ||
               adjacentCardType==KingdomCard.Dwarf){
@@ -244,14 +244,14 @@ export class Score {
 
           // Lands
           this.getDirectlyAdjacentCards(i, j).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Swamp){
               goblinPoints+=3
             }
           })
         } else if (currentCard==KingdomCard.Human){
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
 
             // Lands and conflicts
             if (adjacentCardType==KingdomCard.Plain){
@@ -269,7 +269,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Elf){
           // Lands and conflicts
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Forest){
               elfPoints+=2
             } else if (adjacentCardType==KingdomCard.Swamp){
@@ -282,7 +282,7 @@ export class Score {
         } else if (currentCard==KingdomCard.Dwarf){
           // Lands and conflicts
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Mountain){
               dwarfPoints+=2
             } else if (adjacentCardType==KingdomCard.Goblin ||
@@ -300,7 +300,7 @@ export class Score {
           let nbSurroundingDwarfs=0
           let nbSurroundingElves=0
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Human){
               nbSurroundingHumans+=1
             } else if (adjacentCardType==KingdomCard.Dwarf){
@@ -337,7 +337,7 @@ export class Score {
     } else if (nbDragons==1){
       dragonValue=3
     }
-    let dragonPoints=nbDomesticatedDragons*dragonValue-(nbDragons-nbDomesticatedDragons)*dragonValue
+    const dragonPoints=nbDomesticatedDragons*dragonValue-(nbDragons-nbDomesticatedDragons)*dragonValue
 
     // Legend cards
     let legendPoints=0
@@ -378,7 +378,7 @@ export class Score {
   legendAnalysis(player:number,
     allKingdomCards:Material<number, MaterialType, LocationType>) : LegendCharacteristics {
     // Aggregate card ids into a 4x4 array
-    let boardCards=this.toGrid(player, allKingdomCards)
+    const boardCards=this.toGrid(player, allKingdomCards)
     return this.legendAnalysisFromGrid(boardCards)
   }
 
@@ -391,7 +391,6 @@ export class Score {
     let has3connectedMountains=false //
     let has3connectedPlains=false //
     let has3connectedSwamps=false //
-    let hasAllTribes=false //
     let hasConnectedHumanDwarf=false //
     let hasConnectedHumanElf=false //
     let has2vs1_goblinElf=false //
@@ -406,7 +405,7 @@ export class Score {
     let hasGoblin=false
     for (let i=0; i<4; i++){
       for (let j=0; j<4; j++){
-        let currentCard=boardCards[i][j]
+        const currentCard=boardCards[i][j]
         if (currentCard === undefined)
           continue
 
@@ -415,7 +414,7 @@ export class Score {
           // 3 connected plains ?
           let nbConnectedPlains=0
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Plain){
               nbConnectedPlains+=1
             }
@@ -426,7 +425,7 @@ export class Score {
           // 3 connected swamps ?
           let nbConnectedSwamps=0
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Swamp){
               nbConnectedSwamps+=1
             }
@@ -437,7 +436,7 @@ export class Score {
           // 3 connected mountains ?
           let nbConnectedMountains=0
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Mountain){
               nbConnectedMountains+=1
             }
@@ -448,7 +447,7 @@ export class Score {
           // 3 connected forests ?
           let nbConnectedForests=0
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Forest){
               nbConnectedForests+=1
             }
@@ -464,7 +463,7 @@ export class Score {
           // 2 connected goblins ?
           // Goblins cannot use portals
           this.getDirectlyAdjacentCards(i, j).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Goblin){
               has2connectedGoblins=true
             } else if (adjacentCardType==KingdomCard.Elf){
@@ -488,7 +487,7 @@ export class Score {
 
           // 2 connected elves
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Elf){
               has2connectedElves=true
             } else if (adjacentCardType==KingdomCard.Goblin){
@@ -508,7 +507,7 @@ export class Score {
 
           // 2 connected dwarfs ?
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Dwarf){
               has2connectedDwarfs=true
             } else if (adjacentCardType==KingdomCard.Goblin){
@@ -527,7 +526,7 @@ export class Score {
 
           // 2 connected humans ? connected human-dwarf ? connected human-elf ?
           this.getAdjacentCardsIncludingPortals(i, j, boardCards).forEach(coord => {
-            let adjacentCardType=boardCards[coord.x][coord.y]
+            const adjacentCardType=boardCards[coord.x][coord.y]
             if (adjacentCardType==KingdomCard.Human){
               has2connectedHumans=true
             } else if (adjacentCardType==KingdomCard.Dwarf){
@@ -545,7 +544,7 @@ export class Score {
     }
 
     // All tribes ?
-    hasAllTribes=hasGoblin && hasElf && hasHuman && hasDwarf
+    const hasAllTribes=hasGoblin && hasElf && hasHuman && hasDwarf
 
     return new LegendCharacteristics(
       has2connectedElves,
@@ -566,7 +565,7 @@ export class Score {
   }
 
   getDirectlyAdjacentCards(i:number, j:number) : GridCoordSet {
-    let res = new GridCoordSet()
+    const res = new GridCoordSet()
     if (i>0)
       res.add(new GridCoord(i-1, j))
     if (i<3)
@@ -579,22 +578,22 @@ export class Score {
   }
 
   getAdjacentCardsIncludingPortals(i:number, j:number, board:KingdomCard[][]) : GridCoordSet {
-    let ignoredCoords = new GridCoordSet()
+    const ignoredCoords = new GridCoordSet()
     return this.getAdjacentCardsIncludingPortals_inner(i, j, board, ignoredCoords)
   }
 
   getAdjacentCardsIncludingPortals_inner(i:number, j:number, board:KingdomCard[][], ignoredCoords:GridCoordSet) : GridCoordSet {
     ignoredCoords.add(new GridCoord(i, j))
 
-    let directAdjacentCards=this.getDirectlyAdjacentCards(i,j)
-    let res = new GridCoordSet()
+    const directAdjacentCards=this.getDirectlyAdjacentCards(i,j)
+    const res = new GridCoordSet()
     directAdjacentCards.forEach(coord => {
       if (ignoredCoords.has(coord))
         return
       res.add(coord)
       ignoredCoords.add(coord)
       if (board[coord.x][coord.y]==KingdomCard.Portal){
-        let portalAdjacentCards=this.getAdjacentCardsIncludingPortals_inner(coord.x, coord.y, board, ignoredCoords)
+        const portalAdjacentCards=this.getAdjacentCardsIncludingPortals_inner(coord.x, coord.y, board, ignoredCoords)
         portalAdjacentCards.forEach(coord2 => {
           res.add(coord2)
         })

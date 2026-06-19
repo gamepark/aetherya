@@ -1,20 +1,16 @@
-/** @jsxImportSource @emotion/react */
 import { AetheryaOptionsSpec } from '@gamepark/aetherya/AetheryaOptions'
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
-import { GameProvider, setupTranslation } from '@gamepark/react-game'
+import { GameProvider } from '@gamepark/react-game'
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { aetheryaAnimations } from './animation/AetheryaAnimations'
 import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { AetheryaTestSetup } from './tests/AetheryaTestSetup'
-import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial'
 
-setupTranslation(translations, { debug: false })
-
-ReactDOM.render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GameProvider
       game="aetherya"
@@ -26,8 +22,7 @@ ReactDOM.render(
       animations={aetheryaAnimations}
       tutorial={new Tutorial()}
     >
-      <App/>
+      <App />
     </GameProvider>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 )

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { getRelativePlayerIndex, ListLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { playerBoardLocator } from './PlayerBoardLocator'

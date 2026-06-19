@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/aetherya/rules/RuleId'
 import { ComponentType } from 'react'
 import { AcquireLegendHeader } from './AcquireLegendHeader'

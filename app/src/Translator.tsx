@@ -1,7 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
-import { ReactChild } from 'react'
+import { ReactNode } from 'react'
 
 export function typo(language:string, txt:string) : string {
   if (language==='fr'){
@@ -20,10 +19,10 @@ export function tr2(t:TFunction, language:string, tag:string, suffix:string) : s
   return typo(language, t(tag)+suffix)
 }
 
-export const GPTransInner = ({ txt, children }: { txt:string, children:ReactChild[] }) => {
+export const GPTransInner = ({ txt, children }: { txt:string, children:ReactNode[] }) => {
   const regexp=/<([0-9]+)\/>/
   const txts=txt.split(regexp)
-  const res:string|ReactChild[]=[]
+  const res:ReactNode[]=[]
   for (let i=0; i<txts.length; i++){
     if (i % 2 === 0){
       // Text
@@ -39,11 +38,11 @@ export const GPTransInner = ({ txt, children }: { txt:string, children:ReactChil
   return <>{res}</>
 }
 
-export const GPTrans = ({ children, defaults, suffix }: { children?:ReactChild[], defaults:string, suffix?:string }) => {
+export const GPTrans = ({ children, defaults, suffix }: { children?:ReactNode[], defaults:string, suffix?:string }) => {
   const { i18n, t } = useTranslation()
   const lang=i18n.language
 
-  let txt=tr2(t, lang, defaults, suffix===undefined ? "" : suffix)
+  const txt=tr2(t, lang, defaults, suffix===undefined ? "" : suffix)
   if (children===undefined)
     return <>{txt}</>
   return <GPTransInner txt={txt} children={children}></GPTransInner>

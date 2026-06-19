@@ -5,6 +5,8 @@ import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { RuleId } from '@gamepark/aetherya/rules/RuleId'
 
+type CardDeck = ReturnType<ReturnType<AetheryaSetup['material']>['deck']>
+
 const P = KingdomCard.Plain
 const F = KingdomCard.Forest
 const M = KingdomCard.Mountain
@@ -194,7 +196,7 @@ export class AetheryaTests {
     ){
     // Get legend cards
     const legendCards=this.getLegendCards()
-    let legendDecks={}
+    const legendDecks: Record<number, CardDeck>={}
     for (let i=0; i<legendCards.length; i++){
       const card=legendCards[i]
       legendDecks[card]=setup
@@ -265,7 +267,7 @@ export class AetheryaTests {
     const kingdomCards=[P, F, M, S, H, E, N, G, D, L]
     const legendCards=this.getLegendCards()
 
-    let kingdomDecks={}
+    const kingdomDecks: Record<number, CardDeck>={}
     for (let i=0; i<kingdomCards.length; i++){
       const card=kingdomCards[i]
       kingdomDecks[card]=setup
@@ -274,7 +276,7 @@ export class AetheryaTests {
         .deck()
     }
 
-    let legendDecks={}
+    const legendDecks: Record<number, CardDeck>={}
     for (let i=0; i<legendCards.length; i++){
       const card=legendCards[i]
       legendDecks[card]=setup

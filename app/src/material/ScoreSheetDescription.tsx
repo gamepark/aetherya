@@ -13,6 +13,7 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
   height = 10.5
 
   image = ScoreSheet
+  transparency = true
   help = ScoreSheetHelp
 
   staticItem = {
@@ -35,7 +36,7 @@ export class ScoreSheetDescription extends FlatMaterialDescription {
     const locations: Location[] = []
 
     for (const player of rules.players) {
-      let detailedScore=score.detailedPlayerScore(
+      const detailedScore=score.detailedPlayerScore(
         player,
         rules.material(MaterialType.KingdomCard),
         rules.material(MaterialType.LegendCard)

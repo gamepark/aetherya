@@ -16,10 +16,10 @@ export class PrepareGameRule extends SimultaneousRule {
       .location(LocationType.PlayerBoard)
       .player(player)
 
-    let moves:MaterialMove[]=[]
+    const moves:MaterialMove[]=[]
     for (let x=2; x<=3; x++){
       for (let y=2; y<=3; y++){
-        let item=boardCards.filter(item => item.location.x==x && item.location.y==y)
+        const item=boardCards.filter(item => item.location.x==x && item.location.y==y)
         if (item.length === 0){
           // (x,y) is an empty square
           moves.push(...handCards.moveItems({type:LocationType.PlayerBoard, player, x, y, rotation:true}))

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'

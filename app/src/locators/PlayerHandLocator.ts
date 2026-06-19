@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { ListLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { legendCardDescription } from '../material/LegendCardDescription'

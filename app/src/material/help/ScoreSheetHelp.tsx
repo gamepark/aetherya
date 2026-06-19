@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { tr } from '../../Translator'
 import { MaterialHelpProps, Picture } from '@gamepark/react-game'

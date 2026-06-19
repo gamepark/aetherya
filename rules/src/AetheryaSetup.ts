@@ -74,7 +74,7 @@ export class AetheryaSetup extends MaterialGameSetup<number, MaterialType, Locat
     let cardsToDeal = 4
     do {
       deck.deal({ type: LocationType.PlayerHand, player, rotation: true }, cardsToDeal)
-    } while (cardsToDeal = this.discardDuplicates(player))
+    } while ((cardsToDeal = this.discardDuplicates(player)) > 0)
   }
 
   discardDuplicates(player: number) {

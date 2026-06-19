@@ -31,7 +31,7 @@ export class AcquireLegendRule extends PlayerTurnRule {
   }
 
   getPlayerMoves(): MaterialMove[] {
-    let moves:MaterialMove[]=[]
+    const moves:MaterialMove[]=[]
     if (!this.remind(Memory.PickedLegend)){
       // TODO: do we allow the player to pass when he could take a legend card?
       moves.push(...this.getPlayerLegendMoves())

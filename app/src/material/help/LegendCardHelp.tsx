@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { tr, tr2 } from '../../Translator'
 import { LegendCard } from '@gamepark/aetherya/material/LegendCard'

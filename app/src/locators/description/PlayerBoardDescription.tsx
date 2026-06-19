@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/aetherya/material/MaterialType'
 import { DropAreaDescription, LocationContext } from '@gamepark/react-game'

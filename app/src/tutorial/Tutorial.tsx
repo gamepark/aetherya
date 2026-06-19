@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LegendCard } from '@gamepark/aetherya/material/LegendCard'
 import { LocationType } from '@gamepark/aetherya/material/LocationType'

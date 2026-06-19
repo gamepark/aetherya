@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/aetherya/material/LocationType'
 import { FlexLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'

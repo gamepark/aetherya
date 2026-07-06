@@ -43,7 +43,7 @@ class PlayerBoardLocator extends Locator {
       default:
         return {
           x: index === 0 || index === 3 ? -15 : 20,
-          y: index < 2 ? -25 : -25
+          y: index < 2 ? -25 : 25
         }
     }
   }

@@ -1,3 +1,3 @@
 export { AetheryaRules } from './AetheryaRules'
-export { AetheryaOptionsSpec } from './AetheryaOptions'
+export { AetheryaOptionsSpecV2 } from './AetheryaOptions'
 export { AetheryaSetup } from './AetheryaSetup'

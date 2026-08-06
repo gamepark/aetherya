@@ -1,4 +1,4 @@
-import { AetheryaOptionsSpec } from '@gamepark/aetherya/AetheryaOptions'
+import { AetheryaOptionsSpecV2 } from '@gamepark/aetherya/AetheryaOptions'
 import { AetheryaRules } from '@gamepark/aetherya/AetheryaRules'
 import { GameProvider } from '@gamepark/react-game'
 import { StrictMode } from 'react'
@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
     <GameProvider
       game="aetherya"
       Rules={AetheryaRules}
-      optionsSpec={AetheryaOptionsSpec}
+      optionsSpec={AetheryaOptionsSpecV2}
       GameSetup={AetheryaTestSetup}
       material={Material}
       locators={Locators}

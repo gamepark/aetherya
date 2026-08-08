@@ -86,7 +86,6 @@ export class LegendCharacteristics {
     if (type==LegendCard.ThreeLinkedForests)
       return this.has3connectedForests
 
-    console.log("*** ERROR - Unsupported legend card")
     return false
   }
 
@@ -313,10 +312,6 @@ export class Score {
             // The dragon is domesticated
             nbDomesticatedDragons+=1
           }
-        } else {
-          if (currentCard!==-1){
-            console.log("Unknown card type - "+currentCard+" - square "+i+"-"+j)
-          }
         }
       }
     }
@@ -371,7 +366,6 @@ export class Score {
     if (card==LegendCard.ThreeLinkedSwamps) return 4
     if (card==LegendCard.ThreeLinkedMountains) return 4
     if (card==LegendCard.ThreeLinkedForests) return 4
-    console.log("*** ERROR - Unsupported legend card")
     return 0
   }
 

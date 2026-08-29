@@ -4,14 +4,14 @@ import { isMoveItemsAtOnce, isMoveItemType } from '@gamepark/rules-api'
 
 export const aetheryaAnimations = new MaterialGameAnimations()
 
-aetheryaAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.KingdomCard)(move))
-  .duration(0.6)
+aetheryaAnimations
+  .configure((move) => isMoveItemType(MaterialType.KingdomCard)(move))
+  .duration(600)
 
-aetheryaAnimations.when()
-  .move((move) => isMoveItemType(MaterialType.LegendCard)(move))
-  .duration(0.6)
+aetheryaAnimations
+  .configure((move) => isMoveItemType(MaterialType.LegendCard)(move))
+  .duration(600)
 
-aetheryaAnimations.when()
-  .move(isMoveItemsAtOnce)
-  .none()
+aetheryaAnimations
+  .configure(isMoveItemsAtOnce)
+  .skip()
